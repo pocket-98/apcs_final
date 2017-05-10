@@ -1,12 +1,10 @@
-// Pavan Dayal
-// Movable Mouse Adapter
-// Lab 13 - 100 Points
+// Adapter with listener to simplify mouse actions
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-public class MovableMouse extends MouseAdapter
+public class Mouse extends MouseAdapter
 {
 
 	private Listener l;
@@ -45,18 +43,26 @@ public class MovableMouse extends MouseAdapter
 	}
 
 	public void mouseReleased(MouseEvent e)
-	{
-		l.released();
+	{	
+		int x = e.getX();
+		int y = e.getY();
+		l.released(x, y);
 	}
 
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e)
+	{
+		l.entered();
+	}
 
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e)
+	{
+		l.exited();
+	}
 
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
-		int distance = -e.getWheelRotation();
-		l.wheeled(distance);
+		int dist = -e.getWheelRotation();
+		l.wheeled(dist);
 	}
 
 	public interface Listener
@@ -65,8 +71,10 @@ public class MovableMouse extends MouseAdapter
 		public void moved(int x, int y);
 		public void dragged(int x, int y);
 		public void pressed(int x, int y);
-		public void released();
-		public void wheeled(int distance);
+		public void released(int x, int y);
+		public void entered();
+		public void exited();
+		public void wheeled(int dist);
 	}
 
 }
