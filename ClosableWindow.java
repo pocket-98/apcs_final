@@ -1,6 +1,4 @@
-// Pavan Dayal
-// Closable Window Adapter
-// Lab 13 - 100 Points
+// Closable window adapter with listener
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

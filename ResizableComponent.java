@@ -1,6 +1,4 @@
-// Pavan Dayal
-// Resizable Component Adapter
-// Lab 13 - 100 Points
+// Resizable component adapter with listener
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

@@ -1,4 +1,4 @@
-// Adapter with listener to simplify mouse actions
+// Mouse adapter with listener to simplify all mouse actions
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
