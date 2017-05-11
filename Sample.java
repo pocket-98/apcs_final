@@ -10,7 +10,7 @@ public class Sample extends JFrame {
 
 	public Sample() {
 		super();
-		this.setTitle("Hellopp");
+		this.setTitle("HellISISopp");
 		this.getContentPane().setLayout(null);
 		this.setBounds(100, 100, 180, 140);
 		this.add(makeButton());
