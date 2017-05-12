@@ -1,5 +1,7 @@
 // Resizable component adapter with listener
 
+package src;
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
