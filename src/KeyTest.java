@@ -1,4 +1,4 @@
-//test keyboard input
+// Test keyboard input
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,19 +43,19 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 
 	public void keyPressed(Key k)
 	{
-		System.out.println("Key Pressed: " + k);
+		System.out.println("Key Pressed: " + k + " (" + k.getCode() + ")");
 		updateText();
 	}
 
 	public void keyReleased(Key k)
 	{
-		System.out.println("Key Released: " + k);
+		System.out.println("Key Released: " + k + " (" + k.getCode() + ")");
 		updateText();
 	}
 
 	public void keyTyped(Key k)
 	{
-		System.out.println("Key Typed: " + k);
+		System.out.println("Key Typed: " + k + " (" + k.getCode() + ")");
 	}
 
 	public void closed()
