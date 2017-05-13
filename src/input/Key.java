@@ -51,7 +51,7 @@ public class Key implements Comparable
 	public static final Key KEY_RIGHT = new Key(KeyEvent.VK_RIGHT);
 
 	public static final Key KEY_ALT = new Key(KeyEvent.VK_ALT);
-	public static final Key KEY_BACKSPACE = new Key(KeyEvent.VK_BACKSPACE);
+	public static final Key KEY_BACKSPACE = new Key(KeyEvent.VK_BACK_SPACE);
 	public static final Key KEY_CONTROL = new Key(KeyEvent.VK_CONTROL);
 	public static final Key KEY_ENTER = new Key(KeyEvent.VK_ENTER);
 	public static final Key KEY_ESCAPE = new Key(KeyEvent.VK_ESCAPE);
