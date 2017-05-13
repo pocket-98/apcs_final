@@ -1,6 +1,6 @@
 // Closable window adapter with listener
 
-package src;
+package stuff;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

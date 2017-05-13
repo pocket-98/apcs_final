@@ -1,7 +1,5 @@
 // Sample JFrame stuff
 
-package src;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;

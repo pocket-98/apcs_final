@@ -1,6 +1,6 @@
 // Used to hold and compare keyboard keys
 
-package src.input;
+package input;
 
 import java.awt.event.KeyEvent;
 

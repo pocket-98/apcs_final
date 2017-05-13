@@ -1,26 +1,37 @@
-package src.input;
+//test keyboard input
 
-import java.awt.Frame;
-import src.ClosableWindow;
-import src.input.Keyboard;
-import src.input.Key;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import input.Keyboard;
+import input.Key;
+import stuff.ClosableWindow;
 
-public class t extends Frame implements Keyboard.Listener, ClosableWindow.Listener
+public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow.Listener
 {
-	public t()
+
+	private JLabel label = new JLabel("Press A Key");
+
+	public KeyTest()
 	{
 		super();
 		Keyboard kb = new Keyboard(this);
 		ClosableWindow cw = new ClosableWindow(this);
 		addKeyListener(kb);
 		addWindowListener(cw);
+		this.add(label);
 		setSize(400, 300);
 		setVisible(true);
+	}
+
+	public void updateText(String s)
+	{
+		label.setText(s);
 	}
 
 	public void keyPressed(Key k)
 	{
 		System.out.println("Key Pressed: " + k);
+		updateText("Key Pressed: " + k);
 	}
 
 	public void keyReleased(Key k)
@@ -40,6 +51,6 @@ public class t extends Frame implements Keyboard.Listener, ClosableWindow.Listen
 
 	public static void main(String[] args)
 	{
-		Frame asdf = new t();
+		KeyTest t = new KeyTest();
 	}
 }

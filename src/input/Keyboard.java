@@ -1,10 +1,10 @@
 // Keyboard adapter with listener to simplify keyboard actions
 
-package src.input;
+package input;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import src.input.Key;
+import input.Key;
 
 public class Keyboard extends KeyAdapter
 {

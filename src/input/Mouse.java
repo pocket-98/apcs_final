@@ -1,5 +1,7 @@
 // Mouse adapter with listener to simplify all mouse actions
 
+package input;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
