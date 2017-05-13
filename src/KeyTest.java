@@ -10,15 +10,17 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 {
 
 	private JLabel label;
+	private Keyboard kb;
 
 	public KeyTest()
 	{
 		super();
 		setSize(400, 300);
 		
-		Keyboard kb = new Keyboard(this);
-		ClosableWindow cw = new ClosableWindow(this);
+		kb = new Keyboard(this);
 		addKeyListener(kb);
+
+		ClosableWindow cw = new ClosableWindow(this);
 		addWindowListener(cw);
 
 		label = new JLabel("Press A Key");
@@ -27,20 +29,28 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 		setVisible(true);
 	}
 
-	public void updateText(String s)
+	public void updateText()
 	{
+		String s = "Keys Pressed: ";
+		for (Key k : kb.getPressed())
+		{
+			s += k + ", ";
+		}
+
+		s = s.substring(0, s.length() - 2);
 		label.setText(s);
 	}
 
 	public void keyPressed(Key k)
 	{
 		System.out.println("Key Pressed: " + k);
-		updateText("Key Pressed: " + k);
+		updateText();
 	}
 
 	public void keyReleased(Key k)
 	{
 		System.out.println("Key Released: " + k);
+		updateText();
 	}
 
 	public void keyTyped(Key k)
