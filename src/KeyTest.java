@@ -2,24 +2,28 @@
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import stuff.ClosableWindow;
 import input.Keyboard;
 import input.Key;
-import stuff.ClosableWindow;
 
 public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow.Listener
 {
 
-	private JLabel label = new JLabel("Press A Key");
+	private JLabel label;
 
 	public KeyTest()
 	{
 		super();
+		setSize(400, 300);
+		
 		Keyboard kb = new Keyboard(this);
 		ClosableWindow cw = new ClosableWindow(this);
 		addKeyListener(kb);
 		addWindowListener(cw);
+
+		label = new JLabel("Press A Key");
 		this.add(label);
-		setSize(400, 300);
+		
 		setVisible(true);
 	}
 
