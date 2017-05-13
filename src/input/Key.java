@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 public class Key implements Comparable
 {
 
+	public static final Key KEY_NONE = new Key(0);
+
 	public static final Key KEY_0 = new Key(KeyEvent.VK_0);
 	public static final Key KEY_1 = new Key(KeyEvent.VK_1);
 	public static final Key KEY_2 = new Key(KeyEvent.VK_2);

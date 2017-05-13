@@ -1,4 +1,4 @@
-// Keyboard adapter with listener to simplify keyboard actions
+// Keyboard to track pressed keys
 
 package input;
 
@@ -21,47 +21,41 @@ public class Keyboard extends KeyAdapter
 		pressed = new TreeSet<Key>();
 	}
 
-	private void add(Key k)
-	{
-		pressed.add(k);
-	}
-
-	private void remove(Key k)
-	{
-		pressed.remove(k);
-	}
-
-	private boolean contains(Key k)
-	{
-		return pressed.contains(k);
-	}
-
 	public void keyPressed(KeyEvent e)
 	{
 		Key k = new Key(e);
-		add(k);
-		l.keyPressed(k);
+		if (!k.equals(Key.KEY_NONE))
+		{
+			pressed.add(k);
+			l.keyPressed(k);
+		}
 	}
 
 	public void keyReleased(KeyEvent e)
 	{
 		Key k = new Key(e);
-		remove(k);
-		l.keyReleased(k);
+		if (!k.equals(Key.KEY_NONE))
+		{
+			pressed.remove(k);
+			l.keyReleased(k);
+		}
 	}
 
 	public void keyTyped(KeyEvent e)
 	{
 		Key k = new Key(e);
-		l.keyTyped(k);
+		if (!k.equals(Key.KEY_NONE))
+		{
+			l.keyTyped(k);
+		}
 	}
 
 	public boolean isPressed(Key k)
 	{
-		return contains(k);
+		return pressed.contains(k);
 	}
 
-	public List<Key> getPressed()
+	public List<Key> getPressedKeys()
 	{
 		return new ArrayList<Key>(pressed);
 	}

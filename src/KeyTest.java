@@ -31,8 +31,8 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 
 	public void updateText()
 	{
-		String s = "Keys Pressed: ";
-		for (Key k : kb.getPressed())
+		String s = "Keys Pressed:  ";
+		for (Key k : kb.getPressedKeys())
 		{
 			s += k + ", ";
 		}
