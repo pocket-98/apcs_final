@@ -29,7 +29,7 @@ public class LANUtils
 		}
 	}
 
-	public static void printIP()
+	public static String IPAddresses()
 	{
 		try
 		{
@@ -38,31 +38,37 @@ public class LANUtils
 			Enumeration<InetAddress> addrs;
 			InetAddress a;
 
+			String s = "";
 			nets = NetworkInterface.getNetworkInterfaces();
 			while (nets.hasMoreElements())
 			{
 				n = nets.nextElement();
 				if (!n.isLoopback() && n.isUp())
 				{
-					System.out.println(n.getName());
+					s += n.getName() + "\n";
 					addrs = n.getInetAddresses();
 					while (addrs.hasMoreElements())
 					{
 						a = addrs.nextElement();
 						if (a instanceof Inet4Address)
-							System.out.println(" * " + a.getHostAddress());
+						{
+							s += " * " + a.getHostAddress() + "\n";
+						}
 					}
 				}
 			}
+
+			return s.trim();
 		}
 		catch (Exception e)
 		{
-			System.out.println(e);
+			return e.toString();
 		}
+
 	}
 
 	public static void main(String[] args)
 	{
-		printIP();
+		System.out.println(IPAddresses());
 	}
 }
