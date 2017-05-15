@@ -10,8 +10,10 @@ public class LANUtils
 	{
 		try
 		{
-			Socket s = new Socket(host, port);
+			Socket s //= new Socket();
 			s.setSoTimeout(400);
+			//set address host port
+			//connect
 			s.close();
 			return true;
 		}
