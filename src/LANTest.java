@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import window.ClosableWindow;
+import lan.LANUtils;
 
 public class LANTest extends JFrame implements ClosableWindow.Listener
 {
@@ -92,7 +93,16 @@ public class LANTest extends JFrame implements ClosableWindow.Listener
 
 	public boolean testConnection(String host, String port)
 	{
-		return (int) (Math.random() * 2) == 0;
+		int portInt;
+		try
+		{
+			portInt = Integer.parseInt(port);
+			return LANUtils.hostIsActive(host, portInt);
+		}
+		catch (Exception e)
+		{
+			return false;
+		}
 	}
 
 	public void close()
