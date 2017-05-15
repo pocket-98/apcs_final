@@ -29,7 +29,7 @@ public class LANUtils
 		}
 	}
 
-	public static String IPAddresses()
+	public static String getIPs()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class LANUtils
 			while (nets.hasMoreElements())
 			{
 				n = nets.nextElement();
-				if (!n.isLoopback() && n.isUp())
+				if (n.isUp())
 				{
 					s += n.getName() + "\n";
 					addrs = n.getInetAddresses();
@@ -69,6 +69,6 @@ public class LANUtils
 
 	public static void main(String[] args)
 	{
-		System.out.println(IPAddresses());
+		System.out.println(getIPs());
 	}
 }
