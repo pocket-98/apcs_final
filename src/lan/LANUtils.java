@@ -62,7 +62,8 @@ public class LANUtils
 		}
 		catch (Exception e)
 		{
-			return e.toString();
+			System.out.println(e);
+			return "";
 		}
 
 	}
