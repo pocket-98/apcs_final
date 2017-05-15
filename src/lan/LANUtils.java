@@ -13,7 +13,7 @@ import java.util.Enumeration;
 
 public class LANUtils
 {
-	public static boolean hostIsActive(String host, int port)
+	public static boolean testHost(String host, int port)
 	{
 		try
 		{
