@@ -1,10 +1,8 @@
-// does stuff
+// Utiilities for LAN
 
 package lan;
 
-import java.net.*;
-import java.io.*;
-
+import java.net.Socket;
 
 public class LANUtils
 {
@@ -12,13 +10,14 @@ public class LANUtils
 	{
 		try
 		{
-
-
+			Socket s = new Socket(host, port);
+			s.setSoTimeout(400);
+			s.close();
+			return true;
 		}
-		catch(Exception)
+		catch (Exception e)
 		{
-
+			return false;
 		}
-		return true;
 	}
 }
