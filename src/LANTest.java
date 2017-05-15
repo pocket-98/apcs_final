@@ -77,6 +77,7 @@ public class LANTest extends JFrame implements ClosableWindow.Listener
 			{
 				String host = hostField.getText();
 				String port = portField.getText();
+				connectLabel.setText("testing...");
 				boolean active = testConnection(host, port);
 				connectLabel.setText(active ? "host active" : "host not active");
 			}
@@ -97,10 +98,13 @@ public class LANTest extends JFrame implements ClosableWindow.Listener
 		try
 		{
 			portInt = Integer.parseInt(port);
-			return LANUtils.hostIsActive(host, portInt);
+			boolean active = LANUtils.hostIsActive(host, portInt);
+			System.out.println(host + ":" + port + (active ? "" : " not" ) + " active");
+			return active;
 		}
 		catch (Exception e)
 		{
+			System.out.println("port " + port + " invalid");
 			return false;
 		}
 	}

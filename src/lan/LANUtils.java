@@ -3,6 +3,7 @@
 package lan;
 
 import java.net.Socket;
+import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.NetworkInterface;
 import java.net.InterfaceAddress;
@@ -16,10 +17,9 @@ public class LANUtils
 	{
 		try
 		{
+			InetSocketAddress addr = new InetSocketAddress(host, port);
 			Socket s = new Socket();
-			s.setSoTimeout(400);
-			//set address host port
-			//connect
+			s.connect(addr, 200);
 			s.close();
 			return true;
 		}
@@ -65,7 +65,6 @@ public class LANUtils
 			System.out.println(e);
 			return "";
 		}
-
 	}
 
 	public static void main(String[] args)
