@@ -2,13 +2,23 @@
 
 package lan;
 
-//imports
+import java.net.*;
+import java.io.*;
+
 
 public class LANUtils
 {
 	public static boolean hostIsActive(String host, int port)
 	{
-		//do the stuff
+		try
+		{
+
+
+		}
+		catch(Exception)
+		{
+
+		}
 		return true;
 	}
 }
