@@ -13,13 +13,16 @@ import java.util.Enumeration;
 
 public class LANUtils
 {
+
+	public static final int TIMEOUT = 300;
+
 	public static boolean testHost(String host, int port)
 	{
 		try
 		{
 			InetSocketAddress addr = new InetSocketAddress(host, port);
 			Socket s = new Socket();
-			s.connect(addr, 200);
+			s.connect(addr, TIMEOUT);
 			s.close();
 			return true;
 		}
@@ -71,4 +74,5 @@ public class LANUtils
 	{
 		System.out.println(getIPs());
 	}
+
 }
