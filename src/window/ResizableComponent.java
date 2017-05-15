@@ -1,6 +1,6 @@
-// Resizable component adapter with listener
+// Alert component when resized
 
-package stuff;
+package window;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

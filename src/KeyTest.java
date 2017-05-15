@@ -2,7 +2,7 @@
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import stuff.ClosableWindow;
+import window.ClosableWindow;
 import input.Keyboard;
 import input.Key;
 
@@ -15,6 +15,7 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 	public KeyTest()
 	{
 		super();
+		setTitle("Keyboard Test");
 		setSize(400, 300);
 		
 		kb = new Keyboard(this);
@@ -58,9 +59,10 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 		System.out.println("Key Typed: " + k + " (" + k.getCode() + ")");
 	}
 
-	public void closed()
+	public void close()
 	{
-		System.out.println("Closed");
+		System.out.println("Closing");
+		System.exit(0);
 	}
 
 	public static void main(String[] args)
