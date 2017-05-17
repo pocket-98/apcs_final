@@ -24,24 +24,50 @@ public class TestClient
 	{
 		try
 		{
+			if (!LANUtils.testHost(host, PORT))
+			{
+				throw new SocketException();
+			}
+
 			client = new Socket(host, PORT);
+
 			InputStreamReader tmp =  new InputStreamReader(client.getInputStream());
 			in = new BufferedReader(tmp);
 			out = new PrintWriter(client.getOutputStream(), true);
 		}
 		catch (SocketException e)
 		{
+			client = new Socket();
 			System.out.println("Error: Host not up");
 		}
 		catch (IOException e)
 		{
-			System.out.println("Error: input output streams");
+			client = new Socket();
+			System.out.println("Error: Input and output streams not defined");
+		}
+	}
+
+	public void close()
+	{
+		try
+		{
+			client.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error: couldn't close connection");
 		}
 	}
 
 	public String getStuff()
 	{
 		return "asdf";
+	}
+
+	public static void main(String[] args)
+	{
+		TestClient c = new TestClient("localhost");
+		c.close();
 	}
 
 }
