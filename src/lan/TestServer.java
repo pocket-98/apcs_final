@@ -3,24 +3,33 @@
 package lan;
 
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class TestServer
 {
 
 	public static final int PORT = 2222;
 
-	private ServerSocket server;
 
 	public TestServer()
 	{
 		try
 		{
-			server = new ServerSocket(PORT);
+			ServerSocket server = new ServerSocket(PORT);
+			Socket socket = server.accept();
+
+			System.out.println("Connection Established");
+
 		}
 		catch (Exception e)
 		{
-			System.out.println("WRONG");
+			System.out.println("Error establishing connection." + e);
 		}
+	}
+
+	public static void main(String[] args)
+	{
+		TestServer Server = new TestServer();
 	}
 
 }
