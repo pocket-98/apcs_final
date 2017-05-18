@@ -15,8 +15,11 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.Image;
 import javax.imageio.ImageIO;
+import javax.imageio.IIOException;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 
 
 public class Menu extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
@@ -28,7 +31,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	// Images
 	private BufferedImage BackgroundImage;
-	private String youTubePath = "E:\\apcs_final\\res\\menu\\youtube.png";
+	private String youTubePath = "F:\\apcs_final\\res\\menu\\youtube.png";
 
 	// Messagebox
 	private String warningMessage = "An unexpected error has occured. Not all resources were loaded.";
@@ -81,15 +84,22 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 		try
 		{
-			image = ImageIO.read(new File(path)); 
-			//System.out.println(this.getClass().getCanonicalName());
+			File f = new File("res/menu/youtube.png");
+			System.out.println(getClass().getResource("res/menu/youtube.png"));
+			f = new File(getClass().getClassLoader().getResource("res/menu/youtube.png").getFile());
+			System.out.println(f);
+			image = ImageIO.read(f);
 			scaled = image.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
 			drawim = finalImage.getGraphics();
 			drawim.drawImage(scaled, 0, 0, this);
 		}
+		//catch(URISyntaxException e)
+		//{
+		//	warningMsgBox(warningMessage, "Error: Couldn't find file");
+		//}
 		catch(IOException e)
 		{
-			warningMsgBox(warningMessage, "Error");
+			warningMsgBox(warningMessage, "Error: Couldn't read file");
 		}
 
 		return finalImage;
