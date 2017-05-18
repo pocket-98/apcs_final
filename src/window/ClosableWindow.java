@@ -17,13 +17,13 @@ public class ClosableWindow extends WindowAdapter
 
 	public void windowClosing(WindowEvent e)
 	{
-		l.close();
+		l.closed();
 		System.exit(0);
 	}
 
 	public interface Listener
 	{
-		public void close();
+		public void closed();
 	}
 
 }

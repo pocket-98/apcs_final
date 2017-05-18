@@ -59,7 +59,7 @@ public class KeyTest extends JFrame implements Keyboard.Listener, ClosableWindow
 		System.out.println("Key Typed: " + k + " (" + k.getCode() + ")");
 	}
 
-	public void close()
+	public void closed()
 	{
 		System.out.println("Closing");
 		System.exit(0);

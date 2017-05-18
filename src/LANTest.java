@@ -109,7 +109,7 @@ public class LANTest extends JFrame implements ClosableWindow.Listener
 		}
 	}
 
-	public void close()
+	public void closed()
 	{
 		System.out.println("Closing");
 		System.exit(0);
