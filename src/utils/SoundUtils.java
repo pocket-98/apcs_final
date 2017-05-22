@@ -4,7 +4,6 @@ package utils;
 
 import javafx.scene.media.AudioClip;
 import java.io.File;
-import java.io.IOException;
 
 public class SoundUtils
 {
