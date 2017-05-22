@@ -4,8 +4,12 @@ package lan;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import utils.LANUtils;
+import utils.GameUtils;
 
 public class TestServer
 {
@@ -21,7 +25,9 @@ public class TestServer
 		try
 		{
 			server = new ServerSocket(PORT);
-			System.out.println("Server Listening");
+			System.out.println("Server Listening on following addresses:");
+			System.out.println(LANUtils.getIPs());
+			System.out.println();
 			listening = true;
 			listen();
 		}
@@ -37,9 +43,9 @@ public class TestServer
 		{
 			public void run()
 			{
-				try
+				while (listening)
 				{
-					while (listening)
+					try
 					{
 						System.out.println("Waiting for connection");
 						Socket client = server.accept();
@@ -47,11 +53,12 @@ public class TestServer
 						System.out.println("Connection established: " + clientIP);
 						client.close();
 						System.out.println("Connection closed");
+						System.out.println();
 					}
-				}
-				catch (IOException e)
-				{
-					System.out.println("Error: Client not accepted");
+					catch (IOException e)
+					{
+						System.out.println("Error: Client not accepted");
+					}
 				}
 			}
 		};
@@ -70,10 +77,10 @@ public class TestServer
 		}
 	}
 
-	public static void main(String[] args) throws InterruptedException
+	public static void main(String[] args)
 	{
 		TestServer server = new TestServer();
-		TimeUnit.SECONDS.sleep(100);
+		GameUtils.sleep(5000);
 		server.stop();
 	}
 

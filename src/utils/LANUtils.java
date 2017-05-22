@@ -65,7 +65,7 @@ public class LANUtils
 		}
 		catch (SocketException e)
 		{
-			System.out.println("Error: couldn't get ip addresses for network inerfaces");
+			System.out.println("Error: couldn't get ip addresses for network interfaces");
 			return "";
 		}
 	}

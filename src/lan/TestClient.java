@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
 import lan.TestServer;
-import lan.LANUtils;
+import utils.LANUtils;
+import utils.GameUtils;
 
 public class TestClient
 {
@@ -66,7 +67,8 @@ public class TestClient
 
 	public static void main(String[] args)
 	{
-		TestClient c = new TestClient("localhost");
+		TestClient c = new TestClient("10.86.10.115");
+		GameUtils.sleep(5000);
 		c.close();
 	}
 

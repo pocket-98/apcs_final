@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.util.concurrent.TimeUnit;
 import utils.ImageUtils;
 
 public class GameUtils
@@ -67,6 +68,18 @@ public class GameUtils
 		}
 
 		return techno;
+	}
+
+	public static void sleep(int ms)
+	{
+		try
+		{
+			TimeUnit.MILLISECONDS.sleep(ms);
+		}
+		catch (InterruptedException e)
+		{
+			System.out.println("Error: couldn't sleep");
+		}
 	}
 
 }
