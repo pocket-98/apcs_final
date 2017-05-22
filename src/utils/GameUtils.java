@@ -1,12 +1,14 @@
 // Utilities for game logic
 
-package game;
+package utils;
 
 import javax.swing.ImageIcon;
 import java.io.File;
+import java.io.IOException;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import image.ImageUtils;
+import utils.ImageUtils;
 
 public class GameUtils
 {
@@ -28,15 +30,20 @@ public class GameUtils
 	public static Font initFont()
 	{
 		Font techno = null;
+		String path = "res/font/techno.ttf";
 		try
 		{
-			techno = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/techno.ttf"));
+			techno = Font.createFont(Font.TRUETYPE_FONT, new File(path));
 			GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(techno);
 			initializedFont = true;
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
-			System.out.println(e);
+			System.out.println("Error: couldn't find file '" + path + "'");
+		}
+		catch (FontFormatException e)
+		{
+			System.out.println("Error: couldn't initialize techno font");
 		}
 
 		return techno;
@@ -56,7 +63,7 @@ public class GameUtils
 		}
 		catch (Exception e)
 		{
-			System.out.println(e);
+			System.out.println("Warning: couldn't load techno font, defaulting to Arial");
 		}
 
 		return techno;

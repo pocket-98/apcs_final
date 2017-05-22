@@ -1,6 +1,6 @@
-// Utilities for getting scaled images
+// Utilities for getting scaled images from paths and saving images
 
-package image;
+package utils;
 
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
@@ -32,7 +32,7 @@ public class ImageUtils
 		}
 		catch(IOException e)
 		{
-			System.out.println(e);
+			System.out.println("Error: couldn't find file '" + path + "'");
 		}
 
 		return finalImage;
@@ -54,7 +54,7 @@ public class ImageUtils
 		}
 		catch(IOException e)
 		{
-			System.out.println(e);
+			System.out.println("Error: couldn't find file '" + path + "'");
 		}
 
 		return finalImage;
@@ -68,9 +68,9 @@ public class ImageUtils
 			String format = pathArray[pathArray.length-1];
 			ImageIO.write(im, format, new File(path));
 		}
-		catch (Exception e)
+		catch (IOException e)
 		{
-			System.out.println(e);
+			System.out.println("Error: couldn't find file '" + path + "'");
 		}
 	}
 

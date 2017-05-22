@@ -7,6 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javafx.scene.media.AudioClip;
 import java.io.File;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,8 +17,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import window.ClosableWindow;
 import window.ResizableComponent;
-import image.ImageUtils;
-import game.GameUtils;
+import utils.ImageUtils;
+import utils.SoundUtils;
+import utils.GameUtils;
 
 public class Menu extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
 {
@@ -33,6 +35,9 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 	private JLabel subtitleLabel;
 	private JLabel backgroundLabel;
 
+	// Sound Items
+	private AudioClip music;
+
 	public Menu()
 	{
 		super();
@@ -47,10 +52,13 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		ResizableComponent rs = new ResizableComponent(this);
 		addComponentListener(rs);
 		
+		System.out.println("Opening Window");
 		add(makeTitleLabel());
 		add(makeSubtitleLabel());
 		add(makeYoutubeLabel());
 		add(makeBackgroundLabel());
+
+		playBackgroundMusic();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH); 
@@ -101,6 +109,13 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		backgroundLabel.setBounds(0, 0, width, height);
 		backgroundLabel.setIcon(GameUtils.getLevelBackgroundIcon(level, width, height));
 		return backgroundLabel;
+	}
+
+	private void playBackgroundMusic()
+	{
+		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
+		music.play();
+		System.out.println("Playing Background Music");
 	}
 
 	public static void warningMsgBox(String message)

@@ -1,6 +1,6 @@
-// Utiilities for LAN
+// Utiilities for LAN operations
 
-package lan;
+package utils;
 
 import java.net.Socket;
 import java.net.InetSocketAddress;
@@ -63,9 +63,9 @@ public class LANUtils
 
 			return s.trim();
 		}
-		catch (Exception e)
+		catch (SocketException e)
 		{
-			System.out.println(e);
+			System.out.println("Error: couldn't get ip addresses for network inerfaces");
 			return "";
 		}
 	}

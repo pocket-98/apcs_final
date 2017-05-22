@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import window.ClosableWindow;
-import lan.LANUtils;
+import utils.LANUtils;
 
 public class LANTest extends JFrame implements ClosableWindow.Listener
 {
