@@ -8,14 +8,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
-import lan.TestServer;
+import lan.Server;
 import utils.LANUtils;
 import utils.GameUtils;
 
 public class TestClient
 {
 
-	public static final int PORT = TestServer.PORT;
+	public static final int PORT = Server.PORT;
 
 	private Socket client;
 	private BufferedReader in;
@@ -64,6 +64,7 @@ public class TestClient
 	public void send(String msg)
 	{
 		out.write(msg);
+		out.flush();
 	}
 
 	public void receive()
@@ -81,8 +82,8 @@ public class TestClient
 	public static void main(String[] args)
 	{
 		TestClient c = new TestClient("localhost");
-		GameUtils.sleep(1000);
-		c.receive();
+		//GameUtils.sleep(1000);
+		//c.receive();
 		c.send("asd");
 		GameUtils.sleep(1000);
 		c.receive();

@@ -1,4 +1,3 @@
 #!/bin/bash
 
-javac -cp ../src ../src/lan/TestServer.java
-java lan.TestServer
+javac -Xlint -cp ../src ../src/lan/Server.java && java -cp . lan.Server

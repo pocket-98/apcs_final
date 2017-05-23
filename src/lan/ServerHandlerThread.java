@@ -29,7 +29,6 @@ public class ServerHandlerThread extends Thread
 		out = null;
 		try
 		{
-			System.out.println("-"+client+"-");
 			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			out = new PrintWriter(client.getOutputStream(), true);
 			running = true;
@@ -52,9 +51,11 @@ public class ServerHandlerThread extends Thread
 			{
 				msgOut = "serverserverserver";
 				out.write(msgOut);
+				out.flush();
 				msgIn = in.readLine();
-				System.out.println("Client: " + msgIn);
-				if (msgIn == null)
+				if (msgIn != null)
+					System.out.println("Client: " + msgIn);
+				if (msgIn == "bbb")
 				{
 					running = false;
 				}
@@ -66,10 +67,6 @@ public class ServerHandlerThread extends Thread
 		catch (IOException e)
 		{
 			System.out.println("Error: Couldn't communication with client");
-		}
-		catch (NullPointerException e)
-		{
-			System.out.println(e);
 		}
 
 		l.removeClient(id);
