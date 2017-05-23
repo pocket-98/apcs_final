@@ -23,6 +23,9 @@ public class TestClient
 
 	public TestClient(String host)
 	{
+		client = null;
+		in = null;
+		out = null;
 		try
 		{
 			if (!LANUtils.testHost(host, PORT))
@@ -38,12 +41,10 @@ public class TestClient
 		}
 		catch (SocketException e)
 		{
-			client = new Socket();
 			System.out.println("Error: Host not up");
 		}
 		catch (IOException e)
 		{
-			client = new Socket();
 			System.out.println("Error: Input and output streams not defined");
 		}
 	}
@@ -56,19 +57,37 @@ public class TestClient
 		}
 		catch (IOException e)
 		{
-			System.out.println("Error: couldn't close connection");
+			System.out.println("Error: Couldn't close connection");
 		}
 	}
 
-	public String getStuff()
+	public void send(String msg)
 	{
-		return "asdf";
+		out.write(msg);
+	}
+
+	public void receive()
+	{
+		try
+		{
+			System.out.println("Server: " + in.readLine());
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error: Couldn't communicate with server");
+		}
 	}
 
 	public static void main(String[] args)
 	{
-		TestClient c = new TestClient("10.86.10.115");
-		GameUtils.sleep(5000);
+		TestClient c = new TestClient("localhost");
+		GameUtils.sleep(1000);
+		c.receive();
+		c.send("asd");
+		GameUtils.sleep(1000);
+		c.receive();
+		c.send("bbb");
+		GameUtils.sleep(1000);
 		c.close();
 	}
 

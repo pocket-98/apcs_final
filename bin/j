@@ -1,0 +1,4 @@
+#!/bin/bash
+
+javac -cp ../src ../src/lan/TestServer.java
+java lan.TestServer
