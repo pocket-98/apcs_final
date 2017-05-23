@@ -82,14 +82,17 @@ public class TestClient
 	public static void main(String[] args)
 	{
 		TestClient c = new TestClient("localhost");
-		//GameUtils.sleep(1000);
-		//c.receive();
-		c.send("asd");
-		GameUtils.sleep(1000);
-		c.receive();
+		for (int i = 0; i < 20; i++)
+		{
+			GameUtils.sleep(100);
+			c.receive();
+		}
 		c.send("bbb");
-		GameUtils.sleep(1000);
-		c.close();
+		for (int i = 0; i < 20; i++)
+		{
+			GameUtils.sleep(100);
+			c.receive();
+		}
 	}
 
 }

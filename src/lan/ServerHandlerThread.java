@@ -37,7 +37,23 @@ public class ServerHandlerThread extends Thread
 		{
 			System.out.println("Error: Input and output streams not defined");
 		}
-			
+	}
+
+	public Socket getClient()
+	{
+		return client;
+	}
+
+	public void kill()
+	{
+		try
+		{
+			client.close();
+		}
+		catch (Exception e)
+		{
+
+		}
 	}
 
 	public void run()
@@ -49,27 +65,28 @@ public class ServerHandlerThread extends Thread
 			String msgOut;
 			while (running)
 			{
-				msgOut = "serverserverserver";
+				msgOut = "fuckboi";
 				out.write(msgOut);
 				out.flush();
 				msgIn = in.readLine();
-				if (msgIn != null)
-					System.out.println("Client: " + msgIn);
+				System.out.println("Client: " + msgIn);
 				if (msgIn == "bbb")
 				{
+					out.write("gtfo");
+					out.flush();
 					running = false;
 				}
 			}
 
-			System.out.println("Connection closed: " + clientIP);
-			client.close();
 		}
 		catch (IOException e)
 		{
 			System.out.println("Error: Couldn't communication with client");
 		}
-
-		l.removeClient(id);
+		finally
+		{
+			l.removeClient(id);
+		}
 	}
 
 	public interface Listener

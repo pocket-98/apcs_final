@@ -1,3 +1,5 @@
+// Server
+
 package lan;
 
 import java.net.ServerSocket;
@@ -21,7 +23,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 
 	private boolean listening;
 	private ServerThread serverThread;
-	private Thread[] clientThreads;
+	private ServerHandlerThread[] clientThreads;
 	private boolean[] clientsConnected;
 
 	public Server() throws IOException
@@ -35,7 +37,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		System.out.println("Server Listening on following addresses:");
 		System.out.println(LANUtils.getIPs());
 		System.out.println();
-		clientThreads = new Thread[MAX_CLIENTS];
+		clientThreads = new ServerHandlerThread[MAX_CLIENTS];
 		clientsConnected = new boolean[MAX_CLIENTS];
 		listen();
 	}
@@ -54,7 +56,18 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 
 	public void removeClient(int id)
 	{
-		clientsConnected[id] = false;
+		try
+		{
+			Socket client = clientThreads[id].getClient();
+			String clientIP = client.getInetAddress().getHostAddress();
+			clientThreads[id].kill();
+			clientsConnected[id] = false;
+			System.out.println("Connection closed: " + clientIP);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error: client can't be disconnected");
+		}
 	}
 
 	public void handle(Socket client, int id)
@@ -64,7 +77,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		clientThreads[id].start();
 	}
 
-	public void stop()
+	public void kill()
 	{
 		if (listening)
 		{
@@ -73,6 +86,13 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			try
 			{
 				close();
+				for (int i = 0; i < MAX_CLIENTS; i++)
+				{
+					if (clientsConnected[i])
+					{
+						removeClient(i);
+					}
+				}
 			}
 			catch (Exception e)
 			{
@@ -88,7 +108,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			Server server = new Server();
 			Scanner s = new Scanner(System.in);
 			s.nextLine();
-			server.stop();
+			server.kill();
 		}
 		catch (Exception e)
 		{
@@ -111,6 +131,10 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 				while (server.isListening())
 				{
 					Socket client = server.accept();
+					GameUtils.sleep(200);
+					System.out.println("lol" + client.isClosed());
+					System.out.println("why");
+					GameUtils.sleep(200);
 					for (int i = 0; i < MAX_CLIENTS; i++)
 					{
 						if (!server.clientsConnected[i])
@@ -125,7 +149,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			}
 			catch (IOException e)
 			{
-				System.out.println("Error: Client not accepted");
+
 			}
 		}
 	}
