@@ -22,7 +22,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 	public static final int MAX_CLIENTS = 5;
 
 	private boolean listening;
-	private ServerThread serverThread;
+	private Thread serverThread;
 	private ServerHandlerThread[] clientThreads;
 	private boolean[] clientsConnected;
 
@@ -42,15 +42,38 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		listen();
 	}
 
-	public boolean isListening()
-	{
-		return listening;
-	}
-
 	public void listen()
 	{
 		listening = true;
-		ServerThread serverThread = new ServerThread(this);
+		serverThread = new Thread()
+		{
+			public void run()
+			{
+				try
+				{
+					while (listening)
+					{
+						Socket client = accept();
+						for (int i = 0; i < MAX_CLIENTS; i++)
+						{
+							if (!clientsConnected[i])
+							{
+								String host = client.getInetAddress().getHostAddress();
+								int port = client.getPort();
+								System.out.println("Connection established: " + host + ":" + port);
+								handle(client, i);
+								break;
+							}
+						}
+					}
+				}
+				catch (IOException e)
+				{
+
+				}
+			}
+
+		};
 		serverThread.start();
 	}
 
@@ -81,7 +104,6 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 	{
 		if (listening)
 		{
-			System.out.println("Server Stopped");
 			listening = false;
 			try
 			{
@@ -98,6 +120,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			{
 
 			}
+			System.out.println("Server Stopped");
 		}
 	}
 
@@ -124,34 +147,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			super();
 			server = s;
 		}
-		public void run()
-		{
-			try
-			{
-				while (server.isListening())
-				{
-					Socket client = server.accept();
-					GameUtils.sleep(200);
-					System.out.println("lol" + client.isClosed());
-					System.out.println("why");
-					GameUtils.sleep(200);
-					for (int i = 0; i < MAX_CLIENTS; i++)
-					{
-						if (!server.clientsConnected[i])
-						{
-							String clientIP = client.getInetAddress().getHostAddress();
-							System.out.println("Connection established: " + clientIP);
-							server.handle(client, i);
-							break;
-						}
-					}
-				}
-			}
-			catch (IOException e)
-			{
-
-			}
-		}
+		
 	}
 
 }

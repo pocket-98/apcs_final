@@ -49,6 +49,21 @@ public class TestClient
 		}
 	}
 
+	public boolean isConnected()
+	{
+		return client.isConnected();
+	}
+
+	public String getLocalHost()
+	{
+		return client.getLocalAddress().getHostAddress();
+	}
+
+	public int getLocalPort()
+	{
+		return client.getLocalPort();
+	}
+
 	public void close()
 	{
 		try
@@ -71,7 +86,15 @@ public class TestClient
 	{
 		try
 		{
-			System.out.println("Server: " + in.readLine());
+			String msg = in.readLine();
+			if (msg != null)
+			{
+				System.out.println("Server: " + msg);
+				if (msg.equals("lol"))
+				{
+					send("bye");
+				}
+			}
 		}
 		catch (IOException e)
 		{
@@ -81,16 +104,12 @@ public class TestClient
 
 	public static void main(String[] args)
 	{
-		TestClient c = new TestClient("localhost");
-		for (int i = 0; i < 20; i++)
+		TestClient c = new TestClient("10.86.26.52");
+		String host = c.getLocalHost();
+		int port = c.getLocalPort();
+		System.out.println(host + ":" + port);
+		while (c.isConnected())
 		{
-			GameUtils.sleep(100);
-			c.receive();
-		}
-		c.send("bbb");
-		for (int i = 0; i < 20; i++)
-		{
-			GameUtils.sleep(100);
 			c.receive();
 		}
 	}

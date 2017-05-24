@@ -60,17 +60,17 @@ public class ServerHandlerThread extends Thread
 	{
 		try
 		{
-			String clientIP = client.getInetAddress().getHostAddress();
-			String msgIn;
-			String msgOut;
+			String msg;
 			while (running)
 			{
-				msgOut = "fuckboi";
-				out.write(msgOut);
+				out.write("lol");
 				out.flush();
-				msgIn = in.readLine();
-				System.out.println("Client: " + msgIn);
-				if (msgIn == "bbb")
+				msg = in.readLine();
+				if (msg != null)
+				{
+					System.out.println("Client: " + msg);
+				}
+				if (msg.equals("bbb"))
 				{
 					out.write("gtfo");
 					out.flush();
