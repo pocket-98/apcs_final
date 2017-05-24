@@ -104,7 +104,7 @@ public class TestClient
 
 	public static void main(String[] args)
 	{
-		TestClient c = new TestClient("10.86.26.52");
+		TestClient c = new TestClient("10.86.10.115");
 		String host = c.getLocalHost();
 		int port = c.getLocalPort();
 		System.out.println(host + ":" + port);
