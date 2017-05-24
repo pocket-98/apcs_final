@@ -23,6 +23,8 @@ import window.ResizableComponent;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
+import ui.TrannyButton;
+
 
 public class Menu extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
 {
@@ -73,7 +75,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		int h = width/4;
 		JPanel menu = new JPanel(new GridLayout(4, 1));
 		menu.setBounds((width - w) / 2, 3 * height / 5, w, h);
-		menu.setBackground(new Color(0, 0, 0, 255));
+		menu.setBackground(new Color(0, 0, 0, 0));
 		menu.add(makeNewGameButton(w, h));
 		menu.add(makeContinueButton(w, h));
 		menu.add(makeHelpButton(w, h));
@@ -85,13 +87,8 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JButton makeNewGameButton(int w, int h)
 	{
-		JButton newGamebtn = new JButton("NEW GAME");
-		newGamebtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
-
-		newGamebtn.setBorderPainted(false);
-		newGamebtn.setFocusPainted(false);
-		newGamebtn.setContentAreaFilled(false);
-
+		JButton newGamebtn = new TrannyButton("NEW GAME");
+		//newGamebtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
 		newGamebtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -104,12 +101,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JButton makeContinueButton(int w, int h)
 	{
-		JButton continuebtn = new JButton("CONTINUE");
-		//continuebtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
-		
-		continuebtn.setBorderPainted(false);
-		continuebtn.setFocusPainted(false);
-		continuebtn.setContentAreaFilled(false);
+		JButton continuebtn = new TrannyButton("CONTINUE");
 
 		continuebtn.addActionListener(new ActionListener()
 		{
@@ -123,13 +115,9 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JButton makeHelpButton(int w, int h)
 	{
-		JButton helpbtn = new JButton("HELP");
+		JButton helpbtn = new TrannyButton("HELP");
 		//helpbtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
 		
-		helpbtn.setBorderPainted(false);
-		helpbtn.setFocusPainted(false);
-		helpbtn.setContentAreaFilled(false);
-
 		helpbtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -142,13 +130,9 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JButton makeExitButton(int w, int h)
 	{
-		JButton exitbtn = new JButton("EXIT");
+		JButton exitbtn = new TrannyButton("EXIT");
 		//exitbtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
 		
-		exitbtn.setBorderPainted(false);
-		exitbtn.setFocusPainted(false);
-		exitbtn.setContentAreaFilled(false);
-
 		exitbtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

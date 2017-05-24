@@ -12,7 +12,8 @@ public class TrannyButton extends JButton
 	{
 		super(text);
 		this.setBorderPainted(false);
-		this.setOpaque(false);
+		//this.setOpaque(false);
+		this.setFocusPainted(true);
 		this.setContentAreaFilled(false);
 		this.setForeground(Color.WHITE);
 	}
