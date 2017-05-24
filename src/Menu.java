@@ -108,16 +108,16 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JPanel makeMenuPanel()
 	{
-		int h = height/2-5;
+		int h = height/3;
 		int w = 3*h/2;
 		
 		menuPanel = new JPanel(new GridLayout(4, 1));
-		menuPanel.setBounds((width - w) / 2, 3 * height / 5, w, h);
-		menuPanel.setBackground(new Color(0, 0, 0, 0));
+		menuPanel.setBounds((width-w)/2, 5*height/9, w, h);
+		menuPanel.setOpaque(false);
 		
 		// New Game Button
-		ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
-		JButton newGame = new TrannyButton("NEW GAME", yt);
+		//ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
+		JButton newGame = new TrannyButton("NEW GAME");
 		newGame.setSize(w, h/4);
 		newGame.addActionListener(new ActionListener()
 		{

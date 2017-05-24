@@ -24,10 +24,10 @@ public class TrannyButton extends JButton
 	public void setTranny()
 	{
 		this.setBorderPainted(false);
-		this.setOpaque(false);
-		//this.setFocusPainted(false);
-		//this.setContentAreaFilled(true);
-		this.setBackground(new Color(0, 0, 0, 0));
+		this.setFocusPainted(false);
+		this.setContentAreaFilled(false);
+		//this.setOpaque(false);
+		this.setBackground(new Color(0, 0, 0, 120));
 		this.setForeground(Color.WHITE);
 	}
 
