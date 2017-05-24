@@ -10,14 +10,14 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.Icon;
 import javafx.scene.media.AudioClip;
-import java.io.File;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+
 import window.ClosableWindow;
 import window.ResizableComponent;
 import utils.ImageUtils;
@@ -35,8 +35,9 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 	private int height;
 
 	// GUI Items
-
-	private JLabel backgroundLabel;
+	private JPanel titlePanel;
+	private JPanel menuPanel;
+	private JLabel background;
 
 	// Sound Items
 	private AudioClip music;
@@ -44,7 +45,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 	public Menu()
 	{
 		super();
-		getContentPane().setLayout(null); //set to grid layout
+		getContentPane().setLayout(null);
 		setSize(width, height);
 		setTitle(title);
 		resized();
@@ -58,9 +59,8 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		System.out.println("Opening Window");
 		add(makeTitlePanel());
 		add(makeMenuPanel());
+		add(makeBackground());
 
-
-		add(makeBackgroundLabel());
 		playBackgroundMusic();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,71 +69,86 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		setVisible(true);
 	}
 
+	private JPanel makeTitlePanel()
+	{
+		int w = width/2;
+		int h = width/4;
+		Font techno = GameUtils.getFont(Font.BOLD, 30);
+		Color white = Color.WHITE;
+
+		titlePanel = new JPanel(null);
+		titlePanel.setBounds((width - w) / 2, 15, w, h);
+		titlePanel.setBackground(new Color(0, 0, 0, 0));
+
+		// Title Label
+		JLabel titleLabel = new JLabel(title);
+		titleLabel.setBounds(0, 30, w, 30);
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setForeground(white);
+		titleLabel.setFont(techno);
+
+		// Subtitle Label
+		JLabel subtitleLabel = new JLabel(subtitle);
+		subtitleLabel.setBounds(0, 90, w, 30);
+		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		subtitleLabel.setForeground(white);
+		subtitleLabel.setFont(techno);
+
+		// Youtube Image
+		JLabel youtubeLabel = new JLabel();
+		youtubeLabel.setBounds(0, 0, w, h);
+		youtubeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		youtubeLabel.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h));
+
+		titlePanel.add(titleLabel);
+		titlePanel.add(subtitleLabel);
+		titlePanel.add(youtubeLabel);
+		return titlePanel;
+	}
+
 	private JPanel makeMenuPanel()
 	{
-		int w = width / 2;
+		int w = width/2;
 		int h = width/4;
-		JPanel menu = new JPanel(new GridLayout(4, 1));
-		menu.setBounds((width - w) / 2, 3 * height / 5, w, h);
-		menu.setBackground(new Color(0, 0, 0, 0));
-		menu.add(makeNewGameButton(w, h));
-		menu.add(makeContinueButton(w, h));
-		menu.add(makeHelpButton(w, h));
-		menu.add(makeExitButton(w, h));
-		menu.setVisible(true);
-		return menu;
-	}
-	
-
-	private JButton makeNewGameButton(int w, int h)
-	{
-		JButton newGamebtn = new TrannyButton("NEW GAME");
+		
+		menuPanel = new JPanel(new GridLayout(4, 1));
+		menuPanel.setBounds((width - w) / 2, 3 * height / 5, w, h);
+		menuPanel.setBackground(new Color(0, 0, 0, 0));
+		
+		// New Game Button
+		JButton newGame = new TrannyButton("NEW GAME");
 		//newGamebtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
-		newGamebtn.addActionListener(new ActionListener()
+		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("NEW GAME CLICKED");
 			}
 		});
-		return newGamebtn;
-	}
 
-	private JButton makeContinueButton(int w, int h)
-	{
-		JButton continuebtn = new TrannyButton("CONTINUE");
-
-		continuebtn.addActionListener(new ActionListener()
+		// Continue Game Button
+		JButton cont = new TrannyButton("CONTINUE");
+		cont.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("CONTINUE CLICKED");
 			}
 		});
-		return continuebtn;
-	}
 
-	private JButton makeHelpButton(int w, int h)
-	{
-		JButton helpbtn = new TrannyButton("HELP");
-		//helpbtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
-		
-		helpbtn.addActionListener(new ActionListener()
+		// Help Button
+		JButton help = new TrannyButton("HELP");
+		help.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("HELP CLICKED");
 			}
 		});
-		return helpbtn;
-	}
 
-	private JButton makeExitButton(int w, int h)
-	{
-		JButton exitbtn = new TrannyButton("EXIT");
-		//exitbtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
-		
-		exitbtn.addActionListener(new ActionListener()
+		// Exit Button
+		JButton exit = new TrannyButton("EXIT");		
+		exit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
@@ -141,61 +156,23 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 				System.exit(0);
 			}
 		});
-		return exitbtn;
+
+		menuPanel.add(newGame);
+		menuPanel.add(cont);
+		menuPanel.add(help);
+		menuPanel.add(exit);
+
+		menuPanel.setVisible(true);
+		return menuPanel;
 	}
 
-	private JPanel makeTitlePanel()
-	{
-		int w = 682, h = 480;
-		JPanel title = new JPanel(null);
-		title.setBounds((width - w) / 2, 15, w, h);
-		title.setBackground(new Color(0, 0, 0, 0));
-		title.add(makeTitleLabel(w, h));
-		title.add(makeSubtitleLabel(w, h));
-		title.add(makeYoutubeLabel(w, h));
-		return title;
-	}
-
-	private JLabel makeTitleLabel(int w, int h)
-	{
-		Font techno = GameUtils.getFont(Font.BOLD, 30);
-		Color white = Color.WHITE;
-		JLabel titleLabel = new JLabel(title);
-		titleLabel.setBounds(0, 30, w, 30);
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setForeground(white);
-		titleLabel.setFont(techno);
-		return titleLabel;
-	}
-
-	private JLabel makeSubtitleLabel(int w, int h)
-	{
-		Font techno = GameUtils.getFont(Font.BOLD, 24);
-		Color white = Color.WHITE;
-		JLabel subtitleLabel = new JLabel(subtitle);
-		subtitleLabel.setBounds(0, 90, w, 30);
-		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		subtitleLabel.setForeground(white);
-		subtitleLabel.setFont(techno);
-		return subtitleLabel;
-	}
-
-	private JLabel makeYoutubeLabel(int w, int h) 
-	{
-		JLabel youtubeLabel = new JLabel();
-		youtubeLabel.setBounds(0, 0, w, h);
-		youtubeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		youtubeLabel.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h));
-		return youtubeLabel;
-	}
-
-	private JLabel makeBackgroundLabel() 
+	private JLabel makeBackground() 
 	{
 		int level = 1;
-		backgroundLabel = new JLabel();
-		backgroundLabel.setBounds(0, 0, width, height);
-		backgroundLabel.setIcon(GameUtils.getLevelBackgroundIcon(level, width, height));
-		return backgroundLabel;
+		background = new JLabel();
+		background.setBounds(0, 0, width, height);
+		background.setIcon(GameUtils.getLevelBackgroundIcon(level, width, height));
+		return background;
 	}
 
 	private void playBackgroundMusic()
