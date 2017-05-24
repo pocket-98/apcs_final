@@ -71,8 +71,8 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JPanel makeTitlePanel()
 	{
-		int w = width/2;
-		int h = width/4;
+		int h = height/2-5;
+		int w = 91*h/64;
 		Font techno = GameUtils.getFont(Font.BOLD, 30);
 		Color white = Color.WHITE;
 
@@ -89,7 +89,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 		// Subtitle Label
 		JLabel subtitleLabel = new JLabel(subtitle);
-		subtitleLabel.setBounds(0, 90, w, 30);
+		subtitleLabel.setBounds(0, 80, w, 30);
 		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		subtitleLabel.setForeground(white);
 		subtitleLabel.setFont(techno);
@@ -108,16 +108,17 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 	private JPanel makeMenuPanel()
 	{
-		int w = width/2;
-		int h = width/4;
+		int h = height/2-5;
+		int w = 3*h/2;
 		
 		menuPanel = new JPanel(new GridLayout(4, 1));
 		menuPanel.setBounds((width - w) / 2, 3 * height / 5, w, h);
 		menuPanel.setBackground(new Color(0, 0, 0, 0));
 		
 		// New Game Button
-		JButton newGame = new TrannyButton("NEW GAME");
-		//newGamebtn.setIcon(ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4));
+		ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
+		JButton newGame = new TrannyButton("NEW GAME", yt);
+		newGame.setSize(w, h/4);
 		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
