@@ -18,25 +18,15 @@ public class ServerHandlerThread extends Thread
 	private BufferedReader in;
 	private PrintWriter out;
 
-	public ServerHandlerThread(Socket c, int i, Listener ls)
+	public ServerHandlerThread(Socket c, int i, Listener ls) throws IOException
 	{
 		super();
 		client = c;
 		id = i;
 		l = ls;
-		running = false;
-		in = null;
-		out = null;
-		try
-		{
-			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			out = new PrintWriter(client.getOutputStream(), true);
-			running = true;
-		}
-		catch (IOException e)
-		{
-			System.out.println("Error: Input and output streams not defined");
-		}
+		in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		out = new PrintWriter(client.getOutputStream(), true);
+		running = true;
 	}
 
 	public Socket getClient()
@@ -44,16 +34,10 @@ public class ServerHandlerThread extends Thread
 		return client;
 	}
 
-	public void kill()
+	public void kill() throws IOException
 	{
-		try
-		{
-			client.close();
-		}
-		catch (Exception e)
-		{
-
-		}
+		running = false;
+		client.close();
 	}
 
 	public void run()
@@ -63,27 +47,26 @@ public class ServerHandlerThread extends Thread
 			String msg;
 			while (running)
 			{
-				out.write("lol");
-				out.flush();
+				out.println("lol");
 				msg = in.readLine();
 				if (msg != null)
 				{
 					System.out.println("Client: " + msg);
-				}
-				if (msg.equals("bbb"))
-				{
-					out.write("gtfo");
-					out.flush();
-					running = false;
+					switch (msg.toLowerCase().trim())
+					{
+						case "bye":
+							out.println("bye");
+							running = false;
+							break;
+					}
 				}
 			}
-
 		}
 		catch (IOException e)
 		{
-			System.out.println("Error: Couldn't communication with client");
+			System.out.println("Error: couldn't connect to client");
 		}
-		finally
+		if (!client.isClosed())
 		{
 			l.removeClient(id);
 		}

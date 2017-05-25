@@ -49,9 +49,9 @@ public class TestClient
 		}
 	}
 
-	public boolean isConnected()
+	public boolean isClosed()
 	{
-		return client.isConnected();
+		return client.isClosed();
 	}
 
 	public String getLocalHost()
@@ -78,40 +78,51 @@ public class TestClient
 
 	public void send(String msg)
 	{
-		out.write(msg);
-		out.flush();
+		out.println(msg);
 	}
 
-	public void receive()
+	public String receive()
 	{
+		String msg = null;
 		try
 		{
-			String msg = in.readLine();
-			if (msg != null)
-			{
-				System.out.println("Server: " + msg);
-				if (msg.equals("lol"))
-				{
-					send("bye");
-				}
-			}
+			msg = in.readLine();
 		}
 		catch (IOException e)
 		{
 			System.out.println("Error: Couldn't communicate with server");
 		}
+		return msg;
 	}
 
 	public static void main(String[] args)
 	{
-		TestClient c = new TestClient("10.86.10.115");
-		String host = c.getLocalHost();
-		int port = c.getLocalPort();
-		System.out.println(host + ":" + port);
-		while (c.isConnected())
+		TestClient c = new TestClient("localhost");
+		boolean running = true;
+		String msg;
+		System.out.println("Connected");
+		while (running)
 		{
-			c.receive();
+			msg = c.receive();
+			if (msg != null)
+			{
+				System.out.println("Server: " + msg);
+				switch (msg.toLowerCase().trim())
+				{
+					case "lol":
+						c.send("bye");
+						break;
+					case "bye":
+						running = false;
+						c.close();
+						break;
+					default:
+						break;
+				}
+			}
+			GameUtils.sleep(100);
 		}
+		System.out.println("Disconnected");
 	}
 
 }

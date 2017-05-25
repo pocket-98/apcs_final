@@ -39,10 +39,23 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		System.out.println();
 		clientThreads = new ServerHandlerThread[MAX_CLIENTS];
 		clientsConnected = new boolean[MAX_CLIENTS];
-		listen();
 	}
 
-	public void listen()
+	public void handle(Socket client, int id)
+	{
+		try
+		{
+			clientThreads[id] = new ServerHandlerThread(client, id, this);
+			clientsConnected[id] = true;
+			clientThreads[id].start();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error: Handler thread not started");
+		}
+	}
+
+	public void start()
 	{
 		listening = true;
 		serverThread = new Thread()
@@ -65,9 +78,14 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 								break;
 							}
 						}
+						sleep(1000);
 					}
 				}
 				catch (IOException e)
+				{
+
+				}
+				catch (InterruptedException e)
 				{
 
 				}
@@ -82,22 +100,17 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		try
 		{
 			Socket client = clientThreads[id].getClient();
-			String clientIP = client.getInetAddress().getHostAddress();
+			String host = client.getInetAddress().getHostAddress();
+			int port = client.getPort();
+			String con =  " (" + client.isConnected() + ")";
 			clientThreads[id].kill();
 			clientsConnected[id] = false;
-			System.out.println("Connection closed: " + clientIP);
+			System.out.println("Connection closed: " + host + ":" + port + con);
 		}
 		catch(Exception e)
 		{
 			System.out.println("Error: client can't be disconnected");
 		}
-	}
-
-	public void handle(Socket client, int id)
-	{
-		clientThreads[id] = new ServerHandlerThread(client, id, this);
-		clientsConnected[id] = true;
-		clientThreads[id].start();
 	}
 
 	public void kill()
@@ -129,6 +142,7 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		try
 		{
 			Server server = new Server();
+			server.start();
 			Scanner s = new Scanner(System.in);
 			s.nextLine();
 			server.kill();
@@ -137,17 +151,6 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		{
 
 		}
-	}
-
-	private static class ServerThread extends Thread
-	{
-		private Server server;
-		public ServerThread(Server s)
-		{
-			super();
-			server = s;
-		}
-		
 	}
 
 }
