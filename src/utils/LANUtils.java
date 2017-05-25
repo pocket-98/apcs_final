@@ -32,6 +32,13 @@ public class LANUtils
 		}
 	}
 
+	public static String getHostPort(Socket s)
+	{
+		String h = s.getInetAddress().getHostAddress().toString();
+		int port = s.getPort();
+		return h + ":" + port;
+	}
+
 	public static String getIPs()
 	{
 		try

@@ -64,28 +64,24 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 			{
 				try
 				{
+					Socket client;
+					String hostPort;
 					while (listening)
 					{
-						Socket client = accept();
+						client = accept();
 						for (int i = 0; i < MAX_CLIENTS; i++)
 						{
 							if (!clientsConnected[i])
 							{
-								String host = client.getInetAddress().getHostAddress();
-								int port = client.getPort();
-								System.out.println("Connection established: " + host + ":" + port);
+								hostPort = LANUtils.getHostPort(client);
+								System.out.println("Connection established: " + hostPort);
 								handle(client, i);
 								break;
 							}
 						}
-						sleep(1000);
 					}
 				}
 				catch (IOException e)
-				{
-
-				}
-				catch (InterruptedException e)
 				{
 
 				}
@@ -100,12 +96,10 @@ public class Server extends ServerSocket implements ServerHandlerThread.Listener
 		try
 		{
 			Socket client = clientThreads[id].getClient();
-			String host = client.getInetAddress().getHostAddress();
-			int port = client.getPort();
-			String con =  " (" + client.isConnected() + ")";
+			String hostPort = LANUtils.getHostPort(client);
 			clientThreads[id].kill();
 			clientsConnected[id] = false;
-			System.out.println("Connection closed: " + host + ":" + port + con);
+			System.out.println("Connection closed: " + hostPort );
 		}
 		catch(Exception e)
 		{

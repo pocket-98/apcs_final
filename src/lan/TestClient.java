@@ -49,19 +49,9 @@ public class TestClient
 		}
 	}
 
-	public boolean isClosed()
+	public Socket getClient()
 	{
-		return client.isClosed();
-	}
-
-	public String getLocalHost()
-	{
-		return client.getLocalAddress().getHostAddress();
-	}
-
-	public int getLocalPort()
-	{
-		return client.getLocalPort();
+		return client;
 	}
 
 	public void close()
@@ -99,14 +89,14 @@ public class TestClient
 	{
 		TestClient c = new TestClient("localhost");
 		boolean running = true;
+		String hostPort = LANUtils.getHostPort(c.getClient());
 		String msg;
-		System.out.println("Connected");
 		while (running)
 		{
 			msg = c.receive();
 			if (msg != null)
 			{
-				System.out.println("Server: " + msg);
+				System.out.println(hostPort + " >> " + msg);
 				switch (msg.toLowerCase().trim())
 				{
 					case "lol":
@@ -120,9 +110,7 @@ public class TestClient
 						break;
 				}
 			}
-			GameUtils.sleep(100);
 		}
-		System.out.println("Disconnected");
 	}
 
 }
