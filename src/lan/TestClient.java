@@ -99,7 +99,7 @@ public class TestClient
 				System.out.println(hostPort + " >> " + msg);
 				switch (msg.toLowerCase().trim())
 				{
-					case "lol":
+					case "lolllll":
 						c.send("bye");
 						break;
 					case "bye":

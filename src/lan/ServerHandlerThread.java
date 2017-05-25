@@ -49,7 +49,7 @@ public class ServerHandlerThread extends Thread
 			String msg;
 			while (running)
 			{
-				out.println("lol");
+				out.println("lolllll");
 				msg = in.readLine();
 				if (msg != null)
 				{
