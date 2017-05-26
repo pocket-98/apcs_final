@@ -5,12 +5,13 @@ import javax.swing.UIManager;
 import java.awt.Toolkit;
 import window.ClosableWindow;
 import window.ResizableComponent;
+import ui.MenuPanel;
 
 public class Main extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
 {
 	// Frame Constants
-	private String title = "Ad Blocker The Game";
-	private String subtitle = "Main Menu";
+	private String title = "Ad Blocker";
+	private String subtitle = "The Game";
 	private int width;
 	private int height;
 
@@ -21,7 +22,6 @@ public class Main extends JFrame implements ClosableWindow.Listener, ResizableCo
 	{
 		super();
 		getContentPane().setLayout(null); //cardlayout
-		setSize(width, height);
 		setTitle(title);
 		resized();
 
@@ -45,7 +45,6 @@ public class Main extends JFrame implements ClosableWindow.Listener, ResizableCo
 	{
 		width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		menuPanel.setSize(width, height);
 		setSize(width, height);
 	}
 

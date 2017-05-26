@@ -17,12 +17,14 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
+import input.SimpleMouseListener;
 import ui.TrannyButton;
 
 
@@ -63,12 +65,12 @@ public class MenuPanel extends JPanel
 	{
 		int h = height/2-5;
 		int w = 91*h/64;
-		Font techno = FileUtils.getFont(Font.BOLD, 30);
+		Font technoTitle = FileUtils.getFont(Font.BOLD, 48);
+		Font technoSubtitle = FileUtils.getFont(Font.BOLD, 36);
 		Color white = Color.WHITE;
 
 		titlePanel = new JPanel(null);
 		titlePanel.setBounds((width - w) / 2, 15, w, h);
-		//titlePanel.setBackground(new Color(0, 0, 0, 0));
 		titlePanel.setOpaque(false);
 
 		// Title Label
@@ -76,14 +78,14 @@ public class MenuPanel extends JPanel
 		titleLabel.setBounds(0, 30, w, 30);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setForeground(white);
-		titleLabel.setFont(techno);
+		titleLabel.setFont(technoTitle);
 
 		// Subtitle Label
 		JLabel subtitleLabel = new JLabel(subtitle);
-		subtitleLabel.setBounds(0, 80, w, 30);
+		subtitleLabel.setBounds(0, h-60, w, 30);
 		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		subtitleLabel.setForeground(white);
-		subtitleLabel.setFont(techno);
+		subtitleLabel.setFont(technoSubtitle);
 
 		// Youtube Image
 		JLabel youtubeLabel = new JLabel();
@@ -102,7 +104,9 @@ public class MenuPanel extends JPanel
 		int h = height/3;
 		int w = 3*h/2;
 
-		Font arial = new Font("Arial", Font.BOLD, 30);
+		Font techno = FileUtils.getFont(Font.PLAIN, 30);
+		Color white = Color.WHITE;
+		Color light = new Color(200, 200, 200);
 
 		buttonPanel = new JPanel(new GridLayout(4, 1));
 		buttonPanel.setBounds((width-w)/2, 5*height/9, w, h);
@@ -111,8 +115,16 @@ public class MenuPanel extends JPanel
 		// New Game Button
 		//ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
 		JButton newGame = new TrannyButton("NEW GAME");
-		newGame.setFont(arial);
+		newGame.setFont(techno);
+		newGame.setForeground(light);
 		newGame.setSize(w, h/4);
+		newGame.addMouseListener(new SimpleMouseListener()
+		{
+			public void mouseEntered(MouseEvent e)
+			{newGame.setForeground(white);}
+			public void mouseExited(MouseEvent e)
+			{newGame.setForeground(light);}
+		});
 		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -123,7 +135,8 @@ public class MenuPanel extends JPanel
 
 		// Continue Game Button
 		JButton cont = new TrannyButton("CONTINUE");
-		cont.setFont(arial);
+		cont.setFont(techno);
+		cont.setForeground(light);
 		cont.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -134,7 +147,8 @@ public class MenuPanel extends JPanel
 
 		// Help Button
 		JButton help = new TrannyButton("HELP");
-		help.setFont(arial);
+		help.setFont(techno);
+		help.setForeground(light);
 		help.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -145,7 +159,8 @@ public class MenuPanel extends JPanel
 
 		// Exit Button
 		JButton exit = new TrannyButton("EXIT");
-		exit.setFont(arial);
+		exit.setFont(techno);
+		exit.setForeground(light);
 		exit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -190,7 +205,7 @@ public class MenuPanel extends JPanel
 	public static void warningMsgBox(String message)
 	{
 		String warning = "An unexpected error has occured. Not all resources were loaded.";
-        JOptionPane.showMessageDialog(null, warning, message, JOptionPane.ERROR_MESSAGE);
-    }
+		JOptionPane.showMessageDialog(null, warning, message, JOptionPane.ERROR_MESSAGE);
+	}
 
 }
