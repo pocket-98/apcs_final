@@ -1,7 +1,8 @@
-// Main Menu for Game
+// Main Menu Panel for Game
+
+package ui;
 
 import javax.swing.SwingConstants;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -18,8 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 
-import window.ClosableWindow;
-import window.ResizableComponent;
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
@@ -27,46 +26,36 @@ import utils.GameUtils;
 import ui.TrannyButton;
 
 
-public class Menu extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
+public class MenuPanel extends JPanel
 {
 	// Frame Constants
-	private String title = "Ad Blocker The Game";
-	private String subtitle = "Main Menu";
+	private String title;
+	private String subtitle;
 	private int width;
 	private int height;
 
 	// GUI Items
 	private JPanel titlePanel;
-	private JPanel menuPanel;
+	private JPanel buttonPanel;
 	private JLabel background;
 
 	// Sound Items
 	private AudioClip music;
 
-	public Menu()
+	public MenuPanel(String t, String s, int w, int h)
 	{
-		super();
-		getContentPane().setLayout(null);
-		setSize(width, height);
-		setTitle(title);
-		resized();
+		super(null);
+		title = t;
+		subtitle = s;
+		width = w;
+		height = h;
+		setBounds(0, 0, width, height);
 
-		ClosableWindow cw = new ClosableWindow(this);
-		addWindowListener(cw);
-
-		ResizableComponent rs = new ResizableComponent(this);
-		addComponentListener(rs);
-		
-		System.out.println("Opening Window");
 		add(makeTitlePanel());
-		add(makeMenuPanel());
+		add(makeButtonPanel());
 		add(makeBackground());
 
 		playBackgroundMusic();
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH); 
-		setUndecorated(true);
 		setVisible(true);
 	}
 
@@ -79,7 +68,8 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 		titlePanel = new JPanel(null);
 		titlePanel.setBounds((width - w) / 2, 15, w, h);
-		titlePanel.setBackground(new Color(0, 0, 0, 0));
+		//titlePanel.setBackground(new Color(0, 0, 0, 0));
+		titlePanel.setOpaque(false);
 
 		// Title Label
 		JLabel titleLabel = new JLabel(title);
@@ -107,18 +97,21 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		return titlePanel;
 	}
 
-	private JPanel makeMenuPanel()
+	private JPanel makeButtonPanel()
 	{
 		int h = height/3;
 		int w = 3*h/2;
-		
-		menuPanel = new JPanel(new GridLayout(4, 1));
-		menuPanel.setBounds((width-w)/2, 5*height/9, w, h);
-		menuPanel.setOpaque(false);
-		
+
+		Font arial = new Font("Arial", Font.BOLD, 30);
+
+		buttonPanel = new JPanel(new GridLayout(4, 1));
+		buttonPanel.setBounds((width-w)/2, 5*height/9, w, h);
+		buttonPanel.setOpaque(false);
+
 		// New Game Button
 		//ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
 		JButton newGame = new TrannyButton("NEW GAME");
+		newGame.setFont(arial);
 		newGame.setSize(w, h/4);
 		newGame.addActionListener(new ActionListener()
 		{
@@ -130,6 +123,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 		// Continue Game Button
 		JButton cont = new TrannyButton("CONTINUE");
+		cont.setFont(arial);
 		cont.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -140,6 +134,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 
 		// Help Button
 		JButton help = new TrannyButton("HELP");
+		help.setFont(arial);
 		help.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -149,7 +144,8 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		});
 
 		// Exit Button
-		JButton exit = new TrannyButton("EXIT");		
+		JButton exit = new TrannyButton("EXIT");
+		exit.setFont(arial);
 		exit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -159,16 +155,16 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 			}
 		});
 
-		menuPanel.add(newGame);
-		menuPanel.add(cont);
-		menuPanel.add(help);
-		menuPanel.add(exit);
+		buttonPanel.add(newGame);
+		buttonPanel.add(cont);
+		buttonPanel.add(help);
+		buttonPanel.add(exit);
 
-		menuPanel.setVisible(true);
-		return menuPanel;
+		buttonPanel.setVisible(true);
+		return buttonPanel;
 	}
 
-	private JLabel makeBackground() 
+	private JLabel makeBackground()
 	{
 		int level = 1;
 		background = new JLabel();
@@ -184,28 +180,17 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 		System.out.println("Playing Background Music");
 	}
 
+	public void setSize(int w, int h)
+	{
+		super.setSize(w, h);
+		width = w;
+		height = h;
+	}
+
 	public static void warningMsgBox(String message)
 	{
 		String warning = "An unexpected error has occured. Not all resources were loaded.";
         JOptionPane.showMessageDialog(null, warning, message, JOptionPane.ERROR_MESSAGE);
     }
-
-	public void resized()
-	{
-		width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		setSize(width, height);
-	}
-
-	public void closed()
-	{
-		System.out.println("Closing");
-		System.exit(0);
-	}
-
-	public static void main(String[] args)
-	{
-		Menu menu = new Menu();
-	}
 
 }
