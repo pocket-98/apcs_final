@@ -8,10 +8,9 @@ bin/*
 !bin/res
 
 # JCreator Project Files
-apcs_final.jcp
-apcs_final.jcu
-apcs_final.jcw
-src_apcs_final.txt
+*.jcp
+*.jcu
+*.jcw
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
