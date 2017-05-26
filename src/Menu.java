@@ -20,6 +20,7 @@ import java.awt.GridLayout;
 
 import window.ClosableWindow;
 import window.ResizableComponent;
+import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
@@ -73,7 +74,7 @@ public class Menu extends JFrame implements ClosableWindow.Listener, ResizableCo
 	{
 		int h = height/2-5;
 		int w = 91*h/64;
-		Font techno = GameUtils.getFont(Font.BOLD, 30);
+		Font techno = FileUtils.getFont(Font.BOLD, 30);
 		Color white = Color.WHITE;
 
 		titlePanel = new JPanel(null);

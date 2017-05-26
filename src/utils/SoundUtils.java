@@ -4,6 +4,7 @@ package utils;
 
 import javafx.scene.media.AudioClip;
 import java.io.File;
+import utils.FileUtils;
 
 public class SoundUtils
 {
@@ -14,9 +15,7 @@ public class SoundUtils
 
 		try
 		{
-			File f = new File(path);
-			String uri = f.toURI().toString();
-			ac = new AudioClip(uri);
+			ac = new AudioClip(FileUtils.getResource(path).toString());
 		}
 		catch (Exception e)
 		{

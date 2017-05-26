@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import utils.FileUtils;
 
 public class ImageUtils
 {
@@ -24,7 +25,7 @@ public class ImageUtils
 
 		try
 		{
-			raw = ImageIO.read(new File(path));
+			raw = ImageIO.read(FileUtils.getResourceStream(path));
 			scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
 			finalImageGraphics = finalImage.getGraphics();
 			finalImageGraphics.drawImage(scaled, 0, 0, null);
@@ -48,7 +49,7 @@ public class ImageUtils
 
 		try
 		{
-			raw = ImageIO.read(new File(path));
+			raw = ImageIO.read(FileUtils.getResourceStream(path));
 			scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
 			finalImage = new ImageIcon(scaled);
 		}

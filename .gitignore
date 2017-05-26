@@ -1,7 +1,13 @@
 *.class
 
 # Compiled Class Path
-bin/
+!bin
+bin/*
+
+# Include resources folder
+!bin/res
+
+
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
