@@ -112,9 +112,9 @@ public class MenuPanel extends JPanel
 		newGame.setForeground(light);
 		newGame.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) {newGame.setForeground(white);}
-			public void mouseExited(MouseEvent e) {newGame.setForeground(light);}
-			public void mouseClicked(MouseEvent e) {newGame();}
+			public void mouseEntered(MouseEvent e) { newGame.setForeground(white); }
+			public void mouseExited(MouseEvent e) { newGame.setForeground(light); }
+			public void mouseClicked(MouseEvent e) { newGame(); }
 		});
 
 		// Continue Game Button
@@ -123,9 +123,9 @@ public class MenuPanel extends JPanel
 		cont.setForeground(light);
 		cont.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) {cont.setForeground(white);}
-			public void mouseExited(MouseEvent e) {cont.setForeground(light);}
-			public void mouseClicked(MouseEvent e) {contGame();}
+			public void mouseEntered(MouseEvent e) { cont.setForeground(white); }
+			public void mouseExited(MouseEvent e) { cont.setForeground(light); }
+			public void mouseClicked(MouseEvent e) { contGame(); }
 		});
 
 		// Help Button
@@ -134,9 +134,9 @@ public class MenuPanel extends JPanel
 		help.setForeground(light);
 		help.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) {help.setForeground(white);}
-			public void mouseExited(MouseEvent e) {help.setForeground(light);}
-			public void mouseClicked(MouseEvent e) {showHelp();}
+			public void mouseEntered(MouseEvent e) { help.setForeground(white); }
+			public void mouseExited(MouseEvent e) { help.setForeground(light); }
+			public void mouseClicked(MouseEvent e) { showHelp(); }
 		});
 
 
@@ -146,9 +146,9 @@ public class MenuPanel extends JPanel
 		exit.setForeground(light);
 		exit.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) {exit.setForeground(white);}
-			public void mouseExited(MouseEvent e) {exit.setForeground(light);}
-			public void mouseClicked(MouseEvent e) {frame.closed();}
+			public void mouseEntered(MouseEvent e) { exit.setForeground(white); }
+			public void mouseExited(MouseEvent e) { exit.setForeground(light); }
+			public void mouseClicked(MouseEvent e) { frame.closed(); }
 		});
 
 

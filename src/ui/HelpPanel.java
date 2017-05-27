@@ -9,8 +9,7 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 
 import input.SimpleMouseListener;
@@ -82,16 +81,17 @@ public class HelpPanel extends JPanel
 	{
 		int w = width/4;
 		int h = height/6;
+		Color white = Color.WHITE;
+		Color light = new Color(200, 200, 200);
 		backButton = new TransparentButton("Back");
 		backButton.setBounds((width-w)/2, 3*height/4, w, h);
 		backButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
-		backButton.setForeground(Color.WHITE);
-		backButton.addActionListener(new ActionListener()
+		backButton.setForeground(light);
+		backButton.addMouseListener(new SimpleMouseListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				frame.menu();
-			}
+			public void mouseEntered(MouseEvent e) { backButton.setForeground(white); }
+			public void mouseExited(MouseEvent e) { backButton.setForeground(light); }
+			public void mouseClicked(MouseEvent e) { frame.menu(); }
 		});
 		return backButton;
 	}
