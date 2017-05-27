@@ -24,6 +24,7 @@ import ui.AdBlockerFrame;
 
 public class MenuPanel extends JPanel
 {
+
 	// Panel Constants
 	private String title;
 	private String subtitle;

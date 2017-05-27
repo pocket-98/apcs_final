@@ -58,6 +58,16 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		}
 	}
 
+	public void menu()
+	{
+		//show menu in card layout
+	}
+
+	public void game()
+	{
+		//play game in card layout
+	}
+
 	public void newGame()
 	{
 		System.out.println("Starting New Game");
