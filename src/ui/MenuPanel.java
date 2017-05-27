@@ -154,7 +154,7 @@ public class MenuPanel extends JPanel
 		});
 
 		buttonPanel.add(newGame);
-		buttonPanel.add(cont);
+		//buttonPanel.add(cont);
 		buttonPanel.add(help);
 		buttonPanel.add(exit);
 
