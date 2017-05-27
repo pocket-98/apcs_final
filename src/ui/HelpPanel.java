@@ -32,7 +32,6 @@ public class HelpPanel extends JPanel
 
 	// GUI Items
 	private JLabel titleLabel;
-	private JLabel subtitleLabel;
 	private JLabel helpLabel;
 	private JButton backButton;
 	private JLabel background;
@@ -48,7 +47,6 @@ public class HelpPanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		add(makeTitleLabel());
-		add(makeSubtitleLabel());
 		add(makeHelpLabel());
 		add(makeBackButton());
 		add(makeBackground());
@@ -66,27 +64,18 @@ public class HelpPanel extends JPanel
 		return titleLabel;
 	}
 
-	private JLabel makeSubtitleLabel()
-	{
-		subtitleLabel = new JLabel("Help");
-		subtitleLabel.setBounds(0, 80, width, 60);
-		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		subtitleLabel.setForeground(Color.WHITE);
-		subtitleLabel.setFont(FileUtils.getFont(Font.BOLD, 40));
-		return subtitleLabel;
-	}
-
 	private JLabel makeHelpLabel()
 	{
 		int w = 3*width/4;
 		int h = 2*height/3;
 		String html = FileUtils.getResourceContent("res/menu/help.html");
-		subtitleLabel = new JLabel(html);
-		subtitleLabel.setBounds((width-w)/2, 150, w, h);
-		subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		subtitleLabel.setForeground(Color.WHITE);
-		subtitleLabel.setFont(FileUtils.getFont(Font.BOLD, 20));
-		return subtitleLabel;
+		Font f = new Font("Arial", Font.PLAIN, 18);
+		helpLabel = new JLabel(html);
+		helpLabel.setBounds((width-w)/2, 100, w, h);
+		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		helpLabel.setForeground(Color.WHITE);
+		helpLabel.setFont(f);
+		return helpLabel;
 	}
 
 	private JButton makeBackButton()
