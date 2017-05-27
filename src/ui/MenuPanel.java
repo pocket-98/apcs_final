@@ -12,8 +12,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 
+import input.SimpleMouseListener;
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
@@ -108,6 +110,11 @@ public class MenuPanel extends JPanel
 		JButton newGame = new TransparentButton("NEW GAME");
 		newGame.setFont(techno);
 		newGame.setForeground(light);
+		newGame.addMouseListener(new SimpleMouseListener()
+		{
+			public void mouseEntered(MouseEvent e) {newGame.setForeground(white);}
+			public void mouseExited(MouseEvent e) {newGame.setForeground(light);}
+		});
 		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
