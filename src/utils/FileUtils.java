@@ -56,7 +56,7 @@ public class FileUtils
 				initFont();
 			}
 
-			techno = new Font("techno", style, size);
+			techno = new Font("FORCED SQUARE", style, size);
 		}
 		catch (Exception e)
 		{
