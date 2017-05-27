@@ -14,6 +14,7 @@ import game.SaveFile;
 import utils.SoundUtils;
 import ui.MenuPanel;
 import ui.HelpPanel;
+import ui.GamePanel;
 
 public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
 {
@@ -28,6 +29,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	private CardLayout cardLayout;
 	private MenuPanel menuPanel;
 	private HelpPanel helpPanel;
+	private GamePanel gamePanel;
 
 	// Sound Items
 	private AudioClip music;
@@ -51,8 +53,10 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		System.out.println("Opening Window");
 		menuPanel = new MenuPanel(title, subtitle, width, height, this);
 		helpPanel = new HelpPanel(title, subtitle, width, height, this);
+		gamePanel = new GamePanel(width, height, this);
 		add(menuPanel, "menuPanel");
 		add(helpPanel, "helpPanel");
+		add(gamePanel, "gamePanel");
 
 		playBackgroundMusic();
 
@@ -84,7 +88,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		stopBackgroundMusic();
 		System.out.println("Starting Game");
-		//start game in card layout
+		cardLayout.show(getContentPane(), "gamePanel");
 	}
 
 	public void createGame()

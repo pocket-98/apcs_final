@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
-import java.awt.GridLayout;
 
 import input.SimpleMouseListener;
 import utils.FileUtils;
@@ -55,7 +54,7 @@ public class HelpPanel extends JPanel
 
 	private JLabel makeTitleLabel()
 	{
-		titleLabel = new JLabel(title);
+		titleLabel = new JLabel(title + ": " + subtitle);
 		titleLabel.setBounds(0, 30, width, 60);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		titleLabel.setForeground(Color.WHITE);
