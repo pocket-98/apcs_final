@@ -3,38 +3,34 @@
 package ui;
 
 import javax.swing.SwingConstants;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
-import javax.swing.Icon;
 import javafx.scene.media.AudioClip;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
-import input.SimpleMouseListener;
 import ui.TrannyButton;
-
+import ui.AdBlockerFrame;
 
 public class MenuPanel extends JPanel
 {
-	// Frame Constants
+	// Panel Constants
 	private String title;
 	private String subtitle;
 	private int width;
 	private int height;
+	private AdBlockerFrame frame;
 
 	// GUI Items
 	private JPanel titlePanel;
@@ -44,13 +40,14 @@ public class MenuPanel extends JPanel
 	// Sound Items
 	private AudioClip music;
 
-	public MenuPanel(String t, String s, int w, int h)
+	public MenuPanel(String t, String s, int w, int h, AdBlockerFrame f)
 	{
 		super(null);
 		title = t;
 		subtitle = s;
 		width = w;
 		height = h;
+		frame = f;
 		setBounds(0, 0, width, height);
 
 		add(makeTitlePanel());
@@ -113,23 +110,15 @@ public class MenuPanel extends JPanel
 		buttonPanel.setOpaque(false);
 
 		// New Game Button
-		//ImageIcon yt = ImageUtils.getImageIcon("res/menu/youtube.png", w, h/4);
 		JButton newGame = new TrannyButton("NEW GAME");
 		newGame.setFont(techno);
 		newGame.setForeground(light);
 		newGame.setSize(w, h/4);
-		newGame.addMouseListener(new SimpleMouseListener()
-		{
-			public void mouseEntered(MouseEvent e)
-			{newGame.setForeground(white);}
-			public void mouseExited(MouseEvent e)
-			{newGame.setForeground(light);}
-		});
 		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("NEW GAME CLICKED");
+				frame.newGame();
 			}
 		});
 
@@ -141,7 +130,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("CONTINUE CLICKED");
+				frame.contGame();
 			}
 		});
 
@@ -153,7 +142,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("HELP CLICKED");
+				frame.help();
 			}
 		});
 
@@ -165,8 +154,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("EXIT CLICKED");
-				System.exit(0);
+				frame.exit();
 			}
 		});
 
@@ -192,7 +180,7 @@ public class MenuPanel extends JPanel
 	{
 		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
 		music.play();
-		System.out.println("Playing Background Music");
+		//System.out.println("Playing Background Music");
 	}
 
 	public void setSize(int w, int h)
@@ -200,12 +188,6 @@ public class MenuPanel extends JPanel
 		super.setSize(w, h);
 		width = w;
 		height = h;
-	}
-
-	public static void warningMsgBox(String message)
-	{
-		String warning = "An unexpected error has occured. Not all resources were loaded.";
-		JOptionPane.showMessageDialog(null, warning, message, JOptionPane.ERROR_MESSAGE);
 	}
 
 }
