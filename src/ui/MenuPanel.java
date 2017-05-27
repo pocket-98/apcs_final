@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javafx.scene.media.AudioClip;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -37,9 +36,6 @@ public class MenuPanel extends JPanel
 	private JPanel buttonPanel;
 	private JLabel background;
 
-	// Sound Items
-	private AudioClip music;
-
 	public MenuPanel(String t, String s, int w, int h, AdBlockerFrame f)
 	{
 		super(null);
@@ -54,7 +50,6 @@ public class MenuPanel extends JPanel
 		add(makeButtonPanel());
 		add(makeBackground());
 
-		playBackgroundMusic();
 		setVisible(true);
 	}
 
@@ -63,7 +58,7 @@ public class MenuPanel extends JPanel
 		int h = height/2-5;
 		int w = 91*h/64;
 		Font technoTitle = FileUtils.getFont(Font.BOLD, 48);
-		Font technoSubtitle = FileUtils.getFont(Font.BOLD, 36);
+		Font technoSubtitle = FileUtils.getFont(Font.BOLD, 40);
 		Color white = Color.WHITE;
 
 		titlePanel = new JPanel(null);
@@ -118,7 +113,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame.newGame();
+				newGame();
 			}
 		});
 
@@ -130,7 +125,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame.contGame();
+				contGame();
 			}
 		});
 
@@ -142,7 +137,7 @@ public class MenuPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame.help();
+				showHelp();
 			}
 		});
 
@@ -167,6 +162,21 @@ public class MenuPanel extends JPanel
 		return buttonPanel;
 	}
 
+	public void newGame()
+	{
+		frame.createGame();
+	}
+
+	public void contGame()
+	{
+		frame.pickGame();
+	}
+
+	public void showHelp()
+	{
+		frame.showHelp();
+	}
+
 	private JLabel makeBackground()
 	{
 		int level = 1;
@@ -174,13 +184,6 @@ public class MenuPanel extends JPanel
 		background.setBounds(0, 0, width, height);
 		background.setIcon(GameUtils.getLevelBackgroundIcon(level, width, height));
 		return background;
-	}
-
-	private void playBackgroundMusic()
-	{
-		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
-		music.play();
-		//System.out.println("Playing Background Music");
 	}
 
 	public void setSize(int w, int h)

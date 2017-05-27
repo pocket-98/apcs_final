@@ -4,11 +4,14 @@ package ui;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javafx.scene.media.AudioClip;
 import java.awt.Toolkit;
-
 import window.ClosableWindow;
 import window.ResizableComponent;
+import game.SaveFile;
+import utils.SoundUtils;
 import ui.MenuPanel;
+import ui.HelpPanel;
 
 public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
 {
@@ -21,6 +24,10 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 
 	// GUI Items
 	private MenuPanel menuPanel;
+	private HelpPanel helpPanel;
+
+	// Sound Items
+	private AudioClip music;
 
 	public AdBlockerFrame()
 	{
@@ -38,7 +45,11 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 
 		System.out.println("Opening Window");
 		menuPanel = new MenuPanel(title, subtitle, width, height, this);
-		add(menuPanel);
+		helpPanel = new HelpPanel(title, subtitle, width, height, this);
+		//add(menuPanel);
+		add(helpPanel);
+
+		playBackgroundMusic();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
@@ -60,27 +71,46 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 
 	public void menu()
 	{
+		System.out.println("Opening Main Menu");
 		//show menu in card layout
 	}
 
-	public void game()
+	public void startGame(SaveFile f)
 	{
-		//play game in card layout
+		stopBackgroundMusic();
+		System.out.println("Starting Game");
+		//start game in card layout
 	}
 
-	public void newGame()
+	public void createGame()
 	{
-		System.out.println("Starting New Game");
+		System.out.println("Creating New Game");
+		//create game in card layout
 	}
 
-	public void contGame()
+	public void pickGame()
 	{
-		System.out.println("Continuing Game");
+		System.out.println("Choosing Save File");
+		//continue game in card layout
 	}
 
-	public void help()
+	public void showHelp()
 	{
 		System.out.println("Showing Help");
+		//show help in card layout
+	}
+
+	private void playBackgroundMusic()
+	{
+		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
+		music.play();
+		//System.out.println("Playing Background Music");
+	}
+
+	private void stopBackgroundMusic()
+	{
+		music.stop();
+		//System.out.println("Stopping Background Music");
 	}
 
 	public void resized()
@@ -94,6 +124,11 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		System.out.println("Closing Window");
 		System.exit(0);
+	}
+
+	public static void main(String[] args)
+	{
+		AdBlockerFrame f = new AdBlockerFrame();
 	}
 
 }

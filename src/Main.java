@@ -6,6 +6,6 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		AdBlockerFrame m = new AdBlockerFrame();
+		AdBlockerFrame f = new AdBlockerFrame();
 	}
 }
