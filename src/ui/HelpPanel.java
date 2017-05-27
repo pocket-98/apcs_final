@@ -15,10 +15,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 
+import input.SimpleMouseListener;
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.GameUtils;
 import ui.AdBlockerFrame;
+import ui.TransparentButton;
 
 public class HelpPanel extends JPanel
 {
@@ -33,6 +35,7 @@ public class HelpPanel extends JPanel
 	// GUI Items
 	private JLabel titleLabel;
 	private JLabel subtitleLabel;
+	private JButton backButton;
 	private JLabel background;
 
 	public HelpPanel(String t, String s, int w, int h, AdBlockerFrame f)
@@ -47,6 +50,7 @@ public class HelpPanel extends JPanel
 
 		add(makeTitleLabel());
 		add(makeSubtitleLabel());
+		add(makeBackButton());
 		add(makeBackground());
 
 		setVisible(true);
@@ -70,6 +74,24 @@ public class HelpPanel extends JPanel
 		subtitleLabel.setForeground(Color.WHITE);
 		subtitleLabel.setFont(FileUtils.getFont(Font.BOLD, 40));
 		return subtitleLabel;
+	}
+
+	private JButton makeBackButton()
+	{
+		int w = width/4;
+		int h = height/6;
+		backButton = new TransparentButton("Back");
+		backButton.setBounds((width-w)/2, 3*height/4, w, h);
+		backButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
+		backButton.setForeground(Color.WHITE);
+		backButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame.menu();
+			}
+		});
+		return backButton;
 	}
 
 	private JLabel makeBackground()

@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javafx.scene.media.AudioClip;
 import java.awt.Toolkit;
+import java.awt.CardLayout;
+
 import window.ClosableWindow;
 import window.ResizableComponent;
 import game.SaveFile;
@@ -17,12 +19,13 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 {
 
 	// Frame Constants
-	private String title = "Ad Blocker";
+	private  String title = "Ad Blocker";
 	private String subtitle = "The Game";
 	private int width;
 	private int height;
 
 	// GUI Items
+	private CardLayout cardLayout;
 	private MenuPanel menuPanel;
 	private HelpPanel helpPanel;
 
@@ -33,9 +36,11 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		super();
 		setSystemLookAndFeel();
-		getContentPane().setLayout(null); //cardlayout
 		setTitle(title);
 		resized();
+		
+		cardLayout = new CardLayout();
+		getContentPane().setLayout(cardLayout);
 
 		ClosableWindow cw = new ClosableWindow(this);
 		addWindowListener(cw);
@@ -46,8 +51,8 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		System.out.println("Opening Window");
 		menuPanel = new MenuPanel(title, subtitle, width, height, this);
 		helpPanel = new HelpPanel(title, subtitle, width, height, this);
-		add(menuPanel);
-		//add(helpPanel);
+		add(menuPanel, "menuPanel");
+		add(helpPanel, "helpPanel");
 
 		playBackgroundMusic();
 
@@ -72,7 +77,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	public void menu()
 	{
 		System.out.println("Opening Main Menu");
-		//show menu in card layout
+		cardLayout.show(getContentPane(), "menuPanel");
 	}
 
 	public void startGame(SaveFile f)
@@ -97,12 +102,13 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	public void showHelp()
 	{
 		System.out.println("Showing Help");
-		//show help in card layout
+		cardLayout.show(getContentPane(), "helpPanel");
 	}
 
 	private void playBackgroundMusic()
 	{
 		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
+		music.setCycleCount(AudioClip.INDEFINITE);
 		music.play();
 		//System.out.println("Playing Background Music");
 	}

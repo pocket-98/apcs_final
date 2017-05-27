@@ -108,7 +108,6 @@ public class MenuPanel extends JPanel
 		JButton newGame = new TransparentButton("NEW GAME");
 		newGame.setFont(techno);
 		newGame.setForeground(light);
-		newGame.setSize(w, h/4);
 		newGame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
