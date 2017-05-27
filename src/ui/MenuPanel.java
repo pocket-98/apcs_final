@@ -114,50 +114,43 @@ public class MenuPanel extends JPanel
 		{
 			public void mouseEntered(MouseEvent e) {newGame.setForeground(white);}
 			public void mouseExited(MouseEvent e) {newGame.setForeground(light);}
-		});
-		newGame.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				newGame();
-			}
+			public void mouseClicked(MouseEvent e) {newGame();}
 		});
 
 		// Continue Game Button
 		JButton cont = new TransparentButton("CONTINUE");
 		cont.setFont(techno);
 		cont.setForeground(light);
-		cont.addActionListener(new ActionListener()
+		cont.addMouseListener(new SimpleMouseListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				contGame();
-			}
+			public void mouseEntered(MouseEvent e) {cont.setForeground(white);}
+			public void mouseExited(MouseEvent e) {cont.setForeground(light);}
+			public void mouseClicked(MouseEvent e) {contGame();}
 		});
 
 		// Help Button
 		JButton help = new TransparentButton("HELP");
 		help.setFont(techno);
 		help.setForeground(light);
-		help.addActionListener(new ActionListener()
+		help.addMouseListener(new SimpleMouseListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				showHelp();
-			}
+			public void mouseEntered(MouseEvent e) {help.setForeground(white);}
+			public void mouseExited(MouseEvent e) {help.setForeground(light);}
+			public void mouseClicked(MouseEvent e) {showHelp();}
 		});
+
 
 		// Exit Button
 		JButton exit = new TransparentButton("EXIT");
 		exit.setFont(techno);
 		exit.setForeground(light);
-		exit.addActionListener(new ActionListener()
+		exit.addMouseListener(new SimpleMouseListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				frame.closed();
-			}
+			public void mouseEntered(MouseEvent e) {exit.setForeground(white);}
+			public void mouseExited(MouseEvent e) {exit.setForeground(light);}
+			public void mouseClicked(MouseEvent e) {frame.closed();}
 		});
+
 
 		buttonPanel.add(newGame);
 		//buttonPanel.add(cont);
