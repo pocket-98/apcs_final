@@ -26,7 +26,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		super();
 		setSystemLookAndFeel();
-		//setDefaultLookAndFeel();
 		getContentPane().setLayout(null); //cardlayout
 		setTitle(title);
 		resized();
@@ -47,7 +46,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		setVisible(true);
 	}
 
-	public void setSystemLookAndFeel()
+	private void setSystemLookAndFeel()
 	{
 		try
 		{
@@ -57,17 +56,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		{
 			System.out.println("Warning: Couldn't change theme, reverting to default");
 		}
-	}
-	public void setDefaultLookAndFeel()
-	{
-		try
-		{
-			//UIManager.setLookAndFeel(UIManager.getDefaultLookAndFeel());
-		}
-		catch (Exception e)
-		{
-			System.out.println("Warning: Couldn't change theme, reverting to default");
-		}	
 	}
 
 	public void newGame()
@@ -83,11 +71,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	public void help()
 	{
 		System.out.println("Showing Help");
-	}
-
-	public void exit()
-	{
-		closed();
 	}
 
 	public void resized()

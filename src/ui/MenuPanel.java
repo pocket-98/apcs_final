@@ -3,7 +3,6 @@
 package ui;
 
 import javax.swing.SwingConstants;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,7 +19,7 @@ import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
-import ui.TrannyButton;
+import ui.TransparentButton;
 import ui.AdBlockerFrame;
 
 public class MenuPanel extends JPanel
@@ -110,7 +109,7 @@ public class MenuPanel extends JPanel
 		buttonPanel.setOpaque(false);
 
 		// New Game Button
-		JButton newGame = new TrannyButton("NEW GAME");
+		JButton newGame = new TransparentButton("NEW GAME");
 		newGame.setFont(techno);
 		newGame.setForeground(light);
 		newGame.setSize(w, h/4);
@@ -123,7 +122,7 @@ public class MenuPanel extends JPanel
 		});
 
 		// Continue Game Button
-		JButton cont = new TrannyButton("CONTINUE");
+		JButton cont = new TransparentButton("CONTINUE");
 		cont.setFont(techno);
 		cont.setForeground(light);
 		cont.addActionListener(new ActionListener()
@@ -135,7 +134,7 @@ public class MenuPanel extends JPanel
 		});
 
 		// Help Button
-		JButton help = new TrannyButton("HELP");
+		JButton help = new TransparentButton("HELP");
 		help.setFont(techno);
 		help.setForeground(light);
 		help.addActionListener(new ActionListener()
@@ -147,14 +146,14 @@ public class MenuPanel extends JPanel
 		});
 
 		// Exit Button
-		JButton exit = new TrannyButton("EXIT");
+		JButton exit = new TransparentButton("EXIT");
 		exit.setFont(techno);
 		exit.setForeground(light);
 		exit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				frame.exit();
+				frame.closed();
 			}
 		});
 

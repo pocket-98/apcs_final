@@ -6,22 +6,22 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 
-public class TrannyButton extends JButton
+public class TransparentButton extends JButton
 {
 
-	public TrannyButton(String text)
+	public TransparentButton(String text)
 	{
 		super(text);
-		setTranny();
+		setTransparent();
 	}
 
-	public TrannyButton(String text, ImageIcon icon)
+	public TransparentButton(String text, ImageIcon icon)
 	{
 		super(text, icon);
-		setTranny();
+		setTransparent();
 	}
 
-	public void setTranny()
+	public void setTransparent()
 	{
 		this.setBorderPainted(false);
 		this.setFocusPainted(false);
