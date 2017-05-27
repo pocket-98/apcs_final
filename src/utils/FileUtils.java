@@ -4,6 +4,8 @@ package utils;
 
 import java.net.URL;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -22,6 +24,30 @@ public class FileUtils
 	public static InputStream getResourceStream(String path)
 	{
 		return FileUtils.class.getClassLoader().getResourceAsStream(path);
+	}
+
+	public static String getResourceContent(String path)
+	{
+		String s = "";
+		String line = "";
+		try
+		{
+			InputStreamReader in = new InputStreamReader(getResourceStream(path));
+			BufferedReader reader = new BufferedReader(in);
+			line = reader.readLine();
+			while (line != null)
+			{
+				s += line;
+				line = reader.readLine();
+			}
+			reader.close();
+			in.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error: Couldn't get resource content");
+		}
+		return s;
 	}
 
 	public static Font initFont()
