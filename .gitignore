@@ -7,6 +7,9 @@ bin/*
 # Include resources folder
 !bin/res
 
+# Include compiled jar
+!bin/adblocker.jar
+
 # JCreator Project Files
 *.jcp
 *.jcu
@@ -16,7 +19,7 @@ bin/*
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 

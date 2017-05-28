@@ -18,6 +18,7 @@ import input.Keyboard;
 import input.Key;
 import utils.SoundUtils;
 import utils.GameUtils;
+import game.GameConstants;
 import game.SaveFile;
 import game.LevelResources;
 import game.GameElement;
@@ -72,7 +73,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		score = new GameScore(save);
 		score.setSize(width, height/12);
 		score.setFont(new Font("Arial", Font.BOLD, height/24));
-		score.setForeground(Color.BLACK);
+		score.setForeground(GameConstants.SCORE_COLOR);
 		score.setHorizontalAlignment(SwingConstants.CENTER);
 
 		// Background
