@@ -60,13 +60,12 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		height = h;
 		frame = f;
 
-
 		mouse = new Mouse(this);
 		keyboard = new Keyboard(this);
-		addMouseListener(mouse);
-		addMouseMotionListener(mouse);
-		addMouseWheelListener(mouse);
-		addKeyListener(keyboard);
+		f.addMouseListener(mouse);
+		f.addMouseMotionListener(mouse);
+		f.addMouseWheelListener(mouse);
+		f.addKeyListener(keyboard);
 
 		playBackgroundMusic();
 
@@ -135,7 +134,11 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void keyPressed(Key k)
 	{
-
+		if (k.equals(Key.KEY_ESCAPE))
+		{
+			//frame.closed();
+			System.exit(0);
+		}
 	}
 
 	public void keyReleased(Key k)
