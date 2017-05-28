@@ -14,31 +14,44 @@ public class SaveFile
 {
 
 	private File file;
-	private String name;
+	private String path;
 	private int level;
+	private int score;
 
 	public SaveFile()
 	{
-		file = new File("save1.txt");
-		name = "Default";
-		level = 1;
-		save();
-	}
-
-	public SaveFile(String path)
-	{
+		path = "save.txt";
 		file = new File(path);
-		name = "Default";
 		level = 1;
-		load();
+		score = 0;
 		save();
 	}
 
-	public SaveFile(String n, int l)
+	public SaveFile(int l)
 	{
-		file = new File("save1.txt");
-		name = n;
+		path = "save.txt";
+		file = new File(path);
 		level = l;
+		score = 0;
+		save();
+	}
+
+	public SaveFile(int l, int s)
+	{
+		path = "save.txt";
+		file = new File(path);
+		level = l;
+		score = s;
+		save();
+	}
+
+	public SaveFile(String p)
+	{
+		path = p;
+		file = new File(path);
+		level = 1;
+		score = 0;
+		load();
 		save();
 	}
 
@@ -48,9 +61,8 @@ public class SaveFile
 		{
 			FileReader fileIn = new FileReader(file);
 			BufferedReader reader = new BufferedReader(fileIn);
-			System.out.println(reader.readLine());
-			System.out.println(reader.readLine());
-			System.out.println(reader.readLine());
+			level = Integer.parseInt(reader.readLine());
+			score = Integer.parseInt(reader.readLine());
 			reader.close();
 			fileIn.close();
 		}
@@ -70,9 +82,9 @@ public class SaveFile
 		{
 			FileWriter fileOut = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileOut);
-			writer.write("test");
+			writer.write(String.valueOf(level));
 			writer.newLine();
-			writer.write("test2");
+			writer.write(String.valueOf(score));
 			writer.newLine();
 			writer.flush();
 			writer.close();
@@ -89,9 +101,13 @@ public class SaveFile
 
 	}
 
-	public void setName(String n)
+	public String toString()
 	{
-		name = n;
+		String s = "";
+		s += "path:  " + path + "\n";
+		s += "level: " + level + "\n";
+		s += "score: " + score;
+		return s;
 	}
 
 	public void setLevel(int l)
@@ -99,14 +115,34 @@ public class SaveFile
 		level = l;
 	}
 
-	public String getName()
+	public void setScore(int s)
 	{
-		return name;
+		score = s;
+	}
+
+	public void changeLevel(int dl)
+	{
+		level += dl;
+	}
+
+	public void changeScore(int ds)
+	{
+		score += ds;
+	}
+
+	public String getPath()
+	{
+		return path;
 	}
 
 	public int getLevel()
 	{
 		return level;
+	}
+
+	public int getScore()
+	{
+		return score;
 	}
 
 }

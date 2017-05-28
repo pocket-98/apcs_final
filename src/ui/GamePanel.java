@@ -24,14 +24,15 @@ import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
 import game.LevelResources;
+import game.SaveFile;
 import ui.AdBlockerFrame;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
 
 	// Panel Constants
+	private SaveFile save;
 	private LevelResources res;
-	private int level;
 	private int width;
 	private int height;
 	//private AdBlockerFrame frame;
@@ -50,15 +51,15 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private AudioClip music;
 
 	//public GamePanel(int w, int h, AdBlockerFrame f)
-	public GamePanel(int l, int w, int h, JFrame f)
+	public GamePanel(SaveFile s, int w, int h, JFrame f)
 	{
 		super(null);
-		level = l;
+		save = s;
+		res = new LevelResources(s.getLevel());
 		width = w;
 		height = h;
 		frame = f;
 
-		res = new LevelResources(level);
 
 		mouse = new Mouse(this);
 		keyboard = new Keyboard(this);
@@ -169,12 +170,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public static void main(String[] args)
 	{
+		int level = 1;
+		int score = 0;
 		int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		int l = 1;
 		JFrame f = new JFrame();
 		f.getContentPane().setLayout(null);
-		f.add(new GamePanel(l, w, h, f));
+		f.add(new GamePanel(new SaveFile(level, score), w, h, f));
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		f.setUndecorated(true);

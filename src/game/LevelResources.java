@@ -42,7 +42,7 @@ public class LevelResources
 		s += "name:    " + name + "\n";
 		s += "music:   " + music + "\n";
 		s += "ads:     " + Arrays.toString(ads) + "\n";
-		s += "screens: " + Arrays.toString(screens) + "\n";
+		s += "screens: " + Arrays.toString(screens);
 		return s;
 	}
 
