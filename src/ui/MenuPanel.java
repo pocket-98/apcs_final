@@ -20,6 +20,7 @@ import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
+import game.GameConstants;
 import ui.TransparentButton;
 import ui.AdBlockerFrame;
 
@@ -61,7 +62,7 @@ public class MenuPanel extends JPanel
 		int w = 91*h/64;
 		Font technoTitle = FileUtils.getFont(Font.BOLD, 48);
 		Font technoSubtitle = FileUtils.getFont(Font.BOLD, 40);
-		Color white = Color.WHITE;
+		Color white = GameConstants.TEXT_COLOR;
 
 		titlePanel = new JPanel(null);
 		titlePanel.setBounds((width - w) / 2, 15, w, h);
@@ -99,8 +100,8 @@ public class MenuPanel extends JPanel
 		int w = 3*h/2;
 
 		Font techno = FileUtils.getFont(Font.PLAIN, 30);
-		Color white = Color.WHITE;
-		Color light = new Color(200, 200, 200);
+		Color nohover = GameConstants.BUTTON_COLOR;
+		Color hover = GameConstants.BUTTON_HOVER_COLOR;
 
 		buttonPanel = new JPanel(new GridLayout(4, 1));
 		buttonPanel.setBounds((width-w)/2, 5*height/9, w, h);
@@ -109,33 +110,33 @@ public class MenuPanel extends JPanel
 		// New Game Button
 		JButton newGame = new TransparentButton("NEW GAME");
 		newGame.setFont(techno);
-		newGame.setForeground(light);
+		newGame.setForeground(nohover);
 		newGame.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) { newGame.setForeground(white); }
-			public void mouseExited(MouseEvent e) { newGame.setForeground(light); }
+			public void mouseEntered(MouseEvent e) { newGame.setForeground(hover); }
+			public void mouseExited(MouseEvent e) { newGame.setForeground(nohover); }
 			public void mouseClicked(MouseEvent e) { newGame(); }
 		});
 
 		// Continue Game Button
 		JButton cont = new TransparentButton("CONTINUE");
 		cont.setFont(techno);
-		cont.setForeground(light);
+		cont.setForeground(nohover);
 		cont.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) { cont.setForeground(white); }
-			public void mouseExited(MouseEvent e) { cont.setForeground(light); }
+			public void mouseEntered(MouseEvent e) { cont.setForeground(hover); }
+			public void mouseExited(MouseEvent e) { cont.setForeground(nohover); }
 			public void mouseClicked(MouseEvent e) { contGame(); }
 		});
 
 		// Help Button
 		JButton help = new TransparentButton("HELP");
 		help.setFont(techno);
-		help.setForeground(light);
+		help.setForeground(nohover);
 		help.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) { help.setForeground(white); }
-			public void mouseExited(MouseEvent e) { help.setForeground(light); }
+			public void mouseEntered(MouseEvent e) { help.setForeground(hover); }
+			public void mouseExited(MouseEvent e) { help.setForeground(nohover); }
 			public void mouseClicked(MouseEvent e) { showHelp(); }
 		});
 
@@ -143,11 +144,11 @@ public class MenuPanel extends JPanel
 		// Exit Button
 		JButton exit = new TransparentButton("EXIT");
 		exit.setFont(techno);
-		exit.setForeground(light);
+		exit.setForeground(nohover);
 		exit.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) { exit.setForeground(white); }
-			public void mouseExited(MouseEvent e) { exit.setForeground(light); }
+			public void mouseEntered(MouseEvent e) { exit.setForeground(hover); }
+			public void mouseExited(MouseEvent e) { exit.setForeground(nohover); }
 			public void mouseClicked(MouseEvent e) { frame.closed(); }
 		});
 
@@ -182,13 +183,6 @@ public class MenuPanel extends JPanel
 		background.setBounds(0, 0, width, height);
 		background.setIcon(ImageUtils.getImageIcon("res/menu/background.png", width, height));
 		return background;
-	}
-
-	public void setSize(int w, int h)
-	{
-		super.setSize(w, h);
-		width = w;
-		height = h;
 	}
 
 }

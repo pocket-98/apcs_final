@@ -16,19 +16,24 @@ public class ImageUtils
 
 	public static BufferedImage getImage(String path, int width, int height)
 	{
+		return getImage(path, width, height, BufferedImage.TYPE_INT_ARGB);
+	}
+
+	public static BufferedImage getImage(String path, int width, int height, int type)
+	{
 		Image scaled;
 		BufferedImage raw;
 		BufferedImage finalImage;
 		Graphics finalImageGraphics;
 		
-		finalImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		finalImage = new BufferedImage(width, height, type);
 
 		try
 		{
 			raw = ImageIO.read(FileUtils.getResourceStream(path));
-			scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
+			//scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_DEFAULT);
 			finalImageGraphics = finalImage.getGraphics();
-			finalImageGraphics.drawImage(scaled, 0, 0, null);
+			finalImageGraphics.drawImage(raw, 0, 0, width, height, null);
 			finalImageGraphics.dispose();
 		}
 		catch(IOException e)
@@ -50,7 +55,7 @@ public class ImageUtils
 		try
 		{
 			raw = ImageIO.read(FileUtils.getResourceStream(path));
-			scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
+			scaled = raw.getScaledInstance(width, height, BufferedImage.SCALE_DEFAULT);
 			finalImage = new ImageIcon(scaled);
 		}
 		catch(IOException e)

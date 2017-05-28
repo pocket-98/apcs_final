@@ -15,6 +15,7 @@ import input.SimpleMouseListener;
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.GameUtils;
+import game.GameConstants;
 import ui.AdBlockerFrame;
 import ui.TransparentButton;
 
@@ -57,7 +58,7 @@ public class HelpPanel extends JPanel
 		titleLabel = new JLabel(title + ": " + subtitle);
 		titleLabel.setBounds(0, 30, width, 60);
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titleLabel.setForeground(Color.WHITE);
+		titleLabel.setForeground(GameConstants.TEXT_COLOR);
 		titleLabel.setFont(FileUtils.getFont(Font.BOLD, 48));
 		return titleLabel;
 	}
@@ -71,7 +72,7 @@ public class HelpPanel extends JPanel
 		helpLabel = new JLabel(html);
 		helpLabel.setBounds((width-w)/2, 100, w, h);
 		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		helpLabel.setForeground(Color.WHITE);
+		helpLabel.setForeground(GameConstants.TEXT_COLOR);
 		helpLabel.setFont(f);
 		return helpLabel;
 	}
@@ -80,16 +81,16 @@ public class HelpPanel extends JPanel
 	{
 		int w = width/4;
 		int h = height/6;
-		Color white = Color.WHITE;
-		Color light = new Color(200, 200, 200);
+		Color nohover = GameConstants.BUTTON_COLOR;
+		Color hover = GameConstants.BUTTON_HOVER_COLOR;
 		backButton = new TransparentButton("Back");
 		backButton.setBounds((width-w)/2, 3*height/4, w, h);
 		backButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
-		backButton.setForeground(light);
+		backButton.setForeground(nohover);
 		backButton.addMouseListener(new SimpleMouseListener()
 		{
-			public void mouseEntered(MouseEvent e) { backButton.setForeground(white); }
-			public void mouseExited(MouseEvent e) { backButton.setForeground(light); }
+			public void mouseEntered(MouseEvent e) { backButton.setForeground(hover); }
+			public void mouseExited(MouseEvent e) { backButton.setForeground(nohover); }
 			public void mouseClicked(MouseEvent e) { frame.menu(); }
 		});
 		return backButton;
@@ -101,13 +102,6 @@ public class HelpPanel extends JPanel
 		background.setBounds(0, 0, width, height);
 		background.setIcon(ImageUtils.getImageIcon("res/menu/background.png", width, height));
 		return background;
-	}
-
-	public void setSize(int w, int h)
-	{
-		super.setSize(w, h);
-		width = w;
-		height = h;
 	}
 
 }

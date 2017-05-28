@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import game.GameConstants;
 
 public class FileUtils
 {
@@ -53,7 +54,7 @@ public class FileUtils
 	public static Font initFont()
 	{
 		Font techno = null;
-		String path = "res/font/techno.ttf";
+		String path = "res/font/forcedsquare.ttf";
 		try
 		{
 			techno = Font.createFont(Font.TRUETYPE_FONT, FileUtils.getResourceStream(path));
@@ -82,7 +83,7 @@ public class FileUtils
 				initFont();
 			}
 
-			techno = new Font("FORCED SQUARE", style, size);
+			techno = new Font(GameConstants.TEXT_FONT_NAME, style, size);
 		}
 		catch (Exception e)
 		{

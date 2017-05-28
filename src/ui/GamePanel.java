@@ -5,22 +5,25 @@ package ui;
 import javax.swing.SwingConstants;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
 
 import input.Mouse;
+import input.Keyboard;
+import input.Key;
 import utils.FileUtils;
 import utils.ImageUtils;
 import utils.GameUtils;
 import ui.AdBlockerFrame;
 
-public class GamePanel extends JPanel
+public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
 
 	// Panel Constants
@@ -29,8 +32,14 @@ public class GamePanel extends JPanel
 	//private AdBlockerFrame frame;
 	private JFrame frame;
 
+	// Input Devices
+	private Mouse mouse;
+	private Keyboard keyboard;
+
 	// GUI Items
-	private Graphics g;
+	private BufferedImage buffer;
+	private BufferedImage player;
+	private BufferedImage background;
 
 	//public GamePanel(int w, int h, AdBlockerFrame f)
 	public GamePanel(int w, int h, JFrame f)
@@ -39,9 +48,21 @@ public class GamePanel extends JPanel
 		width = w;
 		height = h;
 		frame = f;
+
+		mouse = new Mouse(this);
+		keyboard = new Keyboard(this);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+		addMouseWheelListener(mouse);
+		addKeyListener(keyboard);
+
 		setBounds(0, 0, width, height);
 		setVisible(true);
 	}
+
+	/**************************************************
+	 *                  Paint Methods                 *
+	 **************************************************/
 
 	public void paint(Graphics g)
 	{
@@ -54,12 +75,68 @@ public class GamePanel extends JPanel
 		g.fillRect(30, 30, 50, 50);
 	}
 
-	public void setSize(int w, int h)
+	/**************************************************
+	 *              Mouse/Keyboard Methods            *
+	 **************************************************/
+
+	public void mousePressed(int x, int y, int button)
 	{
-		super.setSize(w, h);
-		width = w;
-		height = h;
+		
 	}
+
+	public void mouseReleased(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseClicked(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseMoved(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseDragged(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseEntered(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseExited(int x, int y, int button)
+	{
+		
+	}
+
+	public void mouseWheeled(int dist)
+	{
+		
+	}
+
+	public void keyPressed(Key k)
+	{
+
+	}
+
+	public void keyReleased(Key k)
+	{
+
+	}
+
+	public void keyTyped(Key k)
+	{
+
+	}
+
+	/**************************************************
+	 *                   Main Method                  *
+	 **************************************************/
 
 	public static void main(String[] args)
 	{

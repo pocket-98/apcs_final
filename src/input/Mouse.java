@@ -63,12 +63,18 @@ public class Mouse extends MouseAdapter
 
 	public void mouseEntered(MouseEvent e)
 	{
-		l.mouseEntered();
+		int x = e.getX();
+		int y = e.getY();
+		int button = e.getButton();
+		l.mouseEntered(x, y, button);
 	}
 
 	public void mouseExited(MouseEvent e)
 	{
-		l.mouseExited();
+		int x = e.getX();
+		int y = e.getY();
+		int button = e.getButton();
+		l.mouseExited(x, y, button);
 	}
 
 	public void mouseWheelMoved(MouseWheelEvent e)
@@ -84,8 +90,8 @@ public class Mouse extends MouseAdapter
 		public void mouseDragged(int x, int y, int button);
 		public void mousePressed(int x, int y, int button);
 		public void mouseReleased(int x, int y, int button);
-		public void mouseEntered();
-		public void mouseExited();
+		public void mouseEntered(int x, int y, int button);
+		public void mouseExited(int x, int y, int button);
 		public void mouseWheeled(int dist);
 	}
 
