@@ -19,6 +19,7 @@ public class LevelResources
 	private int level;
 	private String path;
 	private String name;
+	private String bg;
 	private String music;
 	private String[] ads;
 	private String[] screens;
@@ -28,9 +29,10 @@ public class LevelResources
 		level = l;
 		path = GameUtils.getLevelPath(level);
 		String[] info = FileUtils.getResourceContent(path + "info.txt").split("\n\n");
-		String[] nameAndMusic = info[0].split("\n");
-		name = nameAndMusic[0];
-		music = nameAndMusic[1];
+		String[] nameBgMusic = info[0].split("\n");
+		name = nameBgMusic[0];
+		bg = nameBgMusic[1];
+		music = nameBgMusic[2];
 		ads = info[1].split("\n");
 		screens = info[2].split("\n");
 	}
@@ -40,6 +42,7 @@ public class LevelResources
 		String s = "";
 		s += "path:    " + path + "\n";
 		s += "name:    " + name + "\n";
+		s += "bg:      " + bg + "\n";
 		s += "music:   " + music + "\n";
 		s += "ads:     " + Arrays.toString(ads) + "\n";
 		s += "screens: " + Arrays.toString(screens);
@@ -59,6 +62,11 @@ public class LevelResources
 	public String name()
 	{
 		return name;
+	}
+
+	public String bg()
+	{
+		return bg;
 	}
 
 	public String music()

@@ -23,8 +23,11 @@ import utils.FileUtils;
 import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
-import game.LevelResources;
 import game.SaveFile;
+import game.LevelResources;
+import game.GameElement;
+import game.gameelement.GameBackground;
+import game.gameelement.GameScore;
 import ui.AdBlockerFrame;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
@@ -44,8 +47,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	// GUI Items
 	private BufferedImage buffer;
-	private BufferedImage player;
-	private BufferedImage background;
+	private GameScore score;
+	private GameBackground bg;
 
 	// Sound Items
 	private AudioClip music;
@@ -67,6 +70,19 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		f.addMouseWheelListener(mouse);
 		f.addKeyListener(keyboard);
 
+		// Virtual Graphics Buffer
+		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
+		// Score
+		score = new GameScore(save);
+		score.setSize(width, height/12);
+		score.setFont(new Font("Arial", Font.BOLD, height/24));
+		score.setForeground(Color.BLACK);
+		score.setHorizontalAlignment(SwingConstants.CENTER);
+
+		// Background
+		bg = new GameBackground(res.path()+res.bg(), width, height);
+
 		playBackgroundMusic();
 
 		setBounds(0, 0, width, height);
@@ -80,12 +96,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void paint(Graphics g)
 	{
 		super.paint(g);
+		Graphics vg = buffer.getGraphics();
 
-		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, width, height);
+		bg.paint(vg);
+		score.paint(vg);
 
-		g.setColor(Color.BLACK);
-		g.fillRect(30, 30, 50, 50);
+		vg.dispose();
+		g.drawImage(buffer, 0, 0, null);
 	}
 
 	/**************************************************
@@ -109,7 +126,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void mouseMoved(int x, int y, int button)
 	{
-		
+		save.changeScore(50);
+		repaint();
 	}
 
 	public void mouseDragged(int x, int y, int button)

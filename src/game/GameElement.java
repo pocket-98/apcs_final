@@ -34,6 +34,36 @@ public class GameElement
 		image = ImageUtils.getImage(path, width, height, type);
 	}
 
+	public GameElement(BufferedImage im, int w, int h, boolean t)
+	{
+		path = null;
+		width = w;
+		height = h;
+		transparent = t;
+		x = 0;
+		y = 0;
+		offsetX = 0;
+		offsetY = 0;
+
+		int type = getType();
+		image = ImageUtils.scaleImage(im, width, height, type);		
+	}
+
+	public GameElement(int w, int h, boolean t)
+	{
+		path = null;
+		width = w;
+		height = h;
+		transparent = t;
+		x = 0;
+		y = 0;
+		offsetX = 0;
+		offsetY = 0;
+
+		int type = getType();
+		image = new BufferedImage(width, height, type);
+	}
+
 	private int getType()
 	{
 		int type = BufferedImage.TYPE_INT_RGB;
@@ -99,7 +129,14 @@ public class GameElement
 		width = w;
 		height = h;
 		int type = getType();
-		image = ImageUtils.getImage(path, width, height, type);
+		if (path == null)
+		{
+			image = ImageUtils.scaleImage(image, width, height, type);
+		}
+		else
+		{
+			image = ImageUtils.getImage(path, width, height, type);
+		}
 	}
 
 	public Graphics getGraphics()

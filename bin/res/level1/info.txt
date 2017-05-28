@@ -1,4 +1,5 @@
 Tunak Tunak Tun
+white.png
 tunak.mp3
 
 ad1.png

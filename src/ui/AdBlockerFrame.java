@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import window.ClosableWindow;
 import window.ResizableComponent;
 import game.SaveFile;
+import game.LevelResources;
 import utils.SoundUtils;
 import ui.MenuPanel;
 import ui.HelpPanel;
@@ -85,7 +86,9 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	public void startGame(SaveFile save)
 	{
 		stopBackgroundMusic();
-		System.out.println("Starting Game");
+		int level = save.getLevel();
+		String levelTitle = (new LevelResources(level)).name();
+		System.out.println("Starting Level " + level + ": " + levelTitle);
 		gamePanel = new GamePanel(save, width, height, this);
 		add(gamePanel, "gamePanel");
 		cardLayout.show(getContentPane(), "gamePanel");

@@ -14,7 +14,6 @@ import java.awt.event.MouseEvent;
 import input.SimpleMouseListener;
 import utils.FileUtils;
 import utils.ImageUtils;
-import utils.GameUtils;
 import game.GameConstants;
 import ui.AdBlockerFrame;
 import ui.TransparentButton;
