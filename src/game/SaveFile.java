@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import game.GameConstants;
 
 public class SaveFile
 {
@@ -31,7 +32,7 @@ public class SaveFile
 	{
 		path = "save.txt";
 		file = new File(path);
-		level = l;
+		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
 		score = 0;
 		save();
 	}
@@ -40,7 +41,7 @@ public class SaveFile
 	{
 		path = "save.txt";
 		file = new File(path);
-		level = l;
+		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
 		score = s;
 		save();
 	}
@@ -112,7 +113,7 @@ public class SaveFile
 
 	public void setLevel(int l)
 	{
-		level = l;
+		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
 	}
 
 	public void setScore(int s)
@@ -123,6 +124,8 @@ public class SaveFile
 	public void changeLevel(int dl)
 	{
 		level += dl;
+		level = (level <= GameConstants.NUM_LEVELS ? level : 1);
+
 	}
 
 	public void changeScore(int ds)

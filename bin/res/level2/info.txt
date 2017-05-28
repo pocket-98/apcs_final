@@ -1,6 +1,6 @@
-Tunak Tunak Tun
-background.png
-tunak.mp3
+Pokemon Go
+pokeball.png
+pokemon.mp3
 
 ad1.png
 ad2.png

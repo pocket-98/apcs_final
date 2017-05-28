@@ -214,7 +214,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public static void main(String[] args)
 	{
-		int level = 1;
+		int level = 2;
 		int score = 0;
 		AdBlockerFrame f = new AdBlockerFrame();
 		f.getContentPane().removeAll();

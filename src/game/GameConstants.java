@@ -7,6 +7,8 @@ import java.awt.Color;
 public class GameConstants
 {
 
+	public static final int NUM_LEVELS = 3;
+
 	public static final Color TEXT_COLOR = Color.WHITE;
 	public static final Color BUTTON_COLOR = Color.WHITE;
 	public static final Color BUTTON_HOVER_COLOR = Color.RED;
