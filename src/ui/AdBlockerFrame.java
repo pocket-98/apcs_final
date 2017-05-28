@@ -53,7 +53,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		System.out.println("Opening Window");
 		menuPanel = new MenuPanel(title, subtitle, width, height, this);
 		helpPanel = new HelpPanel(title, subtitle, width, height, this);
-		gamePanel = new GamePanel(width, height, this);
+		gamePanel = new GamePanel(1, width, height, this);
 		add(menuPanel, "menuPanel");
 		add(helpPanel, "helpPanel");
 		add(gamePanel, "gamePanel");
@@ -114,13 +114,11 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
 		music.setCycleCount(AudioClip.INDEFINITE);
 		music.play();
-		//System.out.println("Playing Background Music");
 	}
 
 	private void stopBackgroundMusic()
 	{
 		music.stop();
-		//System.out.println("Stopping Background Music");
 	}
 
 	public void resized()

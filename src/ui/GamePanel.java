@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javafx.scene.media.AudioClip;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -20,13 +21,17 @@ import input.Keyboard;
 import input.Key;
 import utils.FileUtils;
 import utils.ImageUtils;
+import utils.SoundUtils;
 import utils.GameUtils;
+import game.LevelResources;
 import ui.AdBlockerFrame;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
 
 	// Panel Constants
+	private LevelResources res;
+	private int level;
 	private int width;
 	private int height;
 	//private AdBlockerFrame frame;
@@ -41,13 +46,19 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private BufferedImage player;
 	private BufferedImage background;
 
+	// Sound Items
+	private AudioClip music;
+
 	//public GamePanel(int w, int h, AdBlockerFrame f)
-	public GamePanel(int w, int h, JFrame f)
+	public GamePanel(int l, int w, int h, JFrame f)
 	{
 		super(null);
+		level = l;
 		width = w;
 		height = h;
 		frame = f;
+
+		res = new LevelResources(level);
 
 		mouse = new Mouse(this);
 		keyboard = new Keyboard(this);
@@ -55,6 +66,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		addMouseMotionListener(mouse);
 		addMouseWheelListener(mouse);
 		addKeyListener(keyboard);
+
+		playBackgroundMusic();
 
 		setBounds(0, 0, width, height);
 		setVisible(true);
@@ -135,6 +148,22 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	}
 
 	/**************************************************
+	 *                 Helper Methods                 *
+	 **************************************************/
+
+	private void playBackgroundMusic()
+	{
+		music = SoundUtils.getAudioClip(res.path() + res.music());
+		music.setCycleCount(AudioClip.INDEFINITE);
+		music.play();
+	}
+
+	private void stopBackgroundMusic()
+	{
+		music.stop();
+	}
+
+	/**************************************************
 	 *                   Main Method                  *
 	 **************************************************/
 
@@ -142,9 +171,10 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{
 		int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		int l = 1;
 		JFrame f = new JFrame();
 		f.getContentPane().setLayout(null);
-		f.add(new GamePanel(w, h, f));
+		f.add(new GamePanel(l, w, h, f));
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		f.setUndecorated(true);

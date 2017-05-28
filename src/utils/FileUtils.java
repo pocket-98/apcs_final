@@ -38,7 +38,7 @@ public class FileUtils
 			line = reader.readLine();
 			while (line != null)
 			{
-				s += line;
+				s += line + "\n";
 				line = reader.readLine();
 			}
 			reader.close();
