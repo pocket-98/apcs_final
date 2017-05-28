@@ -92,6 +92,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		gamePanel = new GamePanel(save, width, height, this);
 		add(gamePanel, "gamePanel");
 		cardLayout.show(getContentPane(), "gamePanel");
+		gamePanel.requestFocusInWindow();
 	}
 
 	public void createGame()

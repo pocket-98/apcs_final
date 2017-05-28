@@ -12,6 +12,7 @@ import javafx.scene.media.AudioClip;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
@@ -63,12 +64,14 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		height = h;
 		frame = f;
 
+
 		mouse = new Mouse(this);
 		keyboard = new Keyboard(this);
-		f.addMouseListener(mouse);
-		f.addMouseMotionListener(mouse);
-		f.addMouseWheelListener(mouse);
-		f.addKeyListener(keyboard);
+
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+		addMouseWheelListener(mouse);
+		addKeyListener(keyboard);
 
 		// Virtual Graphics Buffer
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -86,6 +89,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		playBackgroundMusic();
 
 		setBounds(0, 0, width, height);
+		setFocusable(true);
 		setVisible(true);
 	}
 
@@ -94,7 +98,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	 **************************************************/
 
 	public void paint(Graphics g)
-	{
+	{		
 		super.paint(g);
 		Graphics vg = buffer.getGraphics();
 
@@ -152,11 +156,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void keyPressed(Key k)
 	{
+		save.changeScore(-200);
 		if (k.equals(Key.KEY_ESCAPE))
 		{
 			//frame.closed();
 			System.exit(0);
 		}
+		repaint();
 	}
 
 	public void keyReleased(Key k)
