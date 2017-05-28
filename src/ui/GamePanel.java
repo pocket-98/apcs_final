@@ -3,25 +3,19 @@
 package ui;
 
 import javax.swing.SwingConstants;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javafx.scene.media.AudioClip;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Container;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
 
 import input.Mouse;
 import input.Keyboard;
 import input.Key;
-import utils.FileUtils;
-import utils.ImageUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
 import game.SaveFile;
@@ -39,8 +33,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private LevelResources res;
 	private int width;
 	private int height;
-	//private AdBlockerFrame frame;
-	private JFrame frame;
+	private AdBlockerFrame frame;
 
 	// Input Devices
 	private Mouse mouse;
@@ -54,8 +47,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	// Sound Items
 	private AudioClip music;
 
-	//public GamePanel(int w, int h, AdBlockerFrame f)
-	public GamePanel(SaveFile s, int w, int h, JFrame f)
+	public GamePanel(SaveFile s, int w, int h, AdBlockerFrame f)
 	{
 		super(null);
 		save = s;
@@ -159,8 +151,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		save.changeScore(-200);
 		if (k.equals(Key.KEY_ESCAPE))
 		{
-			//frame.closed();
-			System.exit(0);
+			frame.closed();
 		}
 		repaint();
 	}
@@ -199,15 +190,9 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{
 		int level = 1;
 		int score = 0;
-		int w = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-		int h = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		JFrame f = new JFrame();
-		f.getContentPane().setLayout(null);
-		f.add(new GamePanel(new SaveFile(level, score), w, h, f));
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setExtendedState(f.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-		f.setUndecorated(true);
-		f.setVisible(true);
+		AdBlockerFrame f = new AdBlockerFrame();
+		f.getContentPane().removeAll();
+		f.startGame(new SaveFile(level, score));
 	}
 
 }
