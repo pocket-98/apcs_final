@@ -19,8 +19,6 @@ import utils.FileUtils;
 import utils.ImageUtils;
 import utils.GameUtils;
 import ui.AdBlockerFrame;
-import ui.TransparentButton;
-
 
 public class GamePanel extends JPanel
 {

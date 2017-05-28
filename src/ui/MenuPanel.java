@@ -178,10 +178,9 @@ public class MenuPanel extends JPanel
 
 	private JLabel makeBackground()
 	{
-		int level = 1;
 		background = new JLabel();
 		background.setBounds(0, 0, width, height);
-		background.setIcon(GameUtils.getLevelBackgroundIcon(level, width, height));
+		background.setIcon(ImageUtils.getImageIcon("res/menu/background.png", width, height));
 		return background;
 	}
 
