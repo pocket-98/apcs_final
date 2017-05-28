@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import input.Mouse;
 import input.Keyboard;
 import input.Key;
+import utils.FileUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
 import game.GameConstants;
@@ -23,7 +24,9 @@ import game.SaveFile;
 import game.LevelResources;
 import game.GameElement;
 import game.gameelement.GameBackground;
+import game.gameelement.GameLevel;
 import game.gameelement.GameScore;
+import game.gameelement.GameEnemyIndicator;
 import ui.AdBlockerFrame;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
@@ -42,7 +45,9 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	// GUI Items
 	private BufferedImage buffer;
+	private GameLevel level;
 	private GameScore score;
+	private GameEnemyIndicator enemyIndicator;
 	private GameBackground bg;
 
 	// Sound Items
@@ -57,7 +62,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		height = h;
 		frame = f;
 
-
 		mouse = new Mouse(this);
 		keyboard = new Keyboard(this);
 
@@ -69,12 +73,29 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		// Virtual Graphics Buffer
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
+		// Level
+		level = new GameLevel(res.level(), res.name());
+		level.setBounds(50, height/60, width, height/12);
+		level.setFont(FileUtils.getFont(Font.PLAIN, height/24));
+		level.setForeground(GameConstants.LEVEL_COLOR);
+		level.setHorizontalAlignment(SwingConstants.LEFT);
+		add(level);
+
 		// Score
 		score = new GameScore(save);
-		score.setSize(width, height/12);
-		score.setFont(new Font("Arial", Font.BOLD, height/24));
+		score.setBounds(0, 0, width, height/12);
+		score.setFont(FileUtils.getFont(Font.BOLD, height/18));
 		score.setForeground(GameConstants.SCORE_COLOR);
 		score.setHorizontalAlignment(SwingConstants.CENTER);
+		add(score);
+
+		// Enemy Indicator
+		enemyIndicator = new GameEnemyIndicator(10);
+		enemyIndicator.setBounds(0, 0, width-50, height/12);
+		enemyIndicator.setFont(FileUtils.getFont(Font.BOLD, height/24));
+		enemyIndicator.setForeground(GameConstants.ENEMY_INDICATOR_COLOR);
+		enemyIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(enemyIndicator);
 
 		// Background
 		bg = new GameBackground(res.path()+res.bg(), width, height);
@@ -90,17 +111,17 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	 *                  Paint Methods                 *
 	 **************************************************/
 
-	public void paint(Graphics g)
+	public void paintComponent(Graphics g)
 	{		
-		super.paint(g);
 		Graphics vg = buffer.getGraphics();
 
 		bg.paint(vg);
-		score.paint(vg);
+		// paint level and score
+		super.paintChildren(vg);
 
 		vg.dispose();
 		g.drawImage(buffer, 0, 0, null);
-	}
+	};
 
 	/**************************************************
 	 *              Mouse/Keyboard Methods            *
@@ -153,6 +174,10 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		if (k.equals(Key.KEY_ESCAPE))
 		{
 			frame.closed();
+		}
+		else if (k.equals(Key.KEY_SPACE))
+		{
+			enemyIndicator.changeNumEnemies(-1);
 		}
 		repaint();
 	}

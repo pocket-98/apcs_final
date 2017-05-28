@@ -11,7 +11,9 @@ public class GameConstants
 	public static final Color BUTTON_COLOR = Color.WHITE;
 	public static final Color BUTTON_HOVER_COLOR = Color.RED;
 
+	public static final Color LEVEL_COLOR = Color.BLACK;
 	public static final Color SCORE_COLOR = Color.BLACK;
+	public static final Color ENEMY_INDICATOR_COLOR = Color.BLACK;
 
 	public static final String TEXT_FONT_NAME = "Forced Square";
 
