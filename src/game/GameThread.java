@@ -4,8 +4,11 @@ package game;
 
 public abstract class GameThread extends Thread
 {
+
+	private final int FPS_NUM_FRAMES = 10;
+
 	private double maxfps;
-	private double fps;
+	private double[] fps;
 	private boolean running;
 
 	public abstract void paint();
@@ -14,6 +17,9 @@ public abstract class GameThread extends Thread
 	{
 		super();
 		maxfps = max;
+		fps = new double[FPS_NUM_FRAMES];
+		running = false;
+
 	}
 
 	private int deltaTime(long preTime)
@@ -31,16 +37,25 @@ public abstract class GameThread extends Thread
 		{
 			while (running)
 			{
-				preTime = System.currentTimeMillis();
-				paint();
-				
-				waitTime = maxfpsTime - deltaTime(preTime);
-				if (waitTime > 0)
+				for (int i = 0; i < FPS_NUM_FRAMES; i++)
 				{
-					sleep(waitTime);
-				}
+					preTime = System.currentTimeMillis();
+					paint();
+					
+					waitTime = maxfpsTime - deltaTime(preTime);
+					if (waitTime > 0)
+					{
+						sleep(waitTime);
+					}
 
-				fps = 1000.0 / deltaTime(preTime);
+					fps[i] = 1000.0 / deltaTime(preTime);
+
+					//System.out.println(fps());
+					if (!running)
+					{
+						break;
+					}
+				}
 			}
 		}
 		catch (InterruptedException e)
@@ -51,7 +66,17 @@ public abstract class GameThread extends Thread
 
 	public double fps()
 	{
-		return fps;
+		double mean = 0.0;
+		int count = 0;
+		for (double f : fps)
+		{
+			if (f > 0.0)
+			{
+				mean += f;
+				count++;
+			}
+		}
+		return mean/count;
 	}
 
 	public void pause()
