@@ -1,11 +1,7 @@
 Pokemon Go
 pokeball.png
 pokemon.mp3
-aline.png
+player.png
 
-ad1.png
-ad2.png
-
-im1.png
-im2.png
-im3.png
+turbannlargement.png
+belly.png

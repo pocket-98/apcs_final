@@ -23,7 +23,6 @@ public class LevelResources
 	private String music;
 	private String player;
 	private String[] ads;
-	private String[] screens;
 
 	public LevelResources(int l)
 	{
@@ -36,18 +35,17 @@ public class LevelResources
 		music = nameBgMusicPlayer[2];
 		player = nameBgMusicPlayer[3];
 		ads = info[1].split("\n");
-		screens = info[2].split("\n");
 	}
 
 	public String toString()
 	{
 		String s = "";
-		s += "path:    " + path + "\n";
-		s += "name:    " + name + "\n";
-		s += "bg:      " + bg + "\n";
-		s += "music:   " + music + "\n";
-		s += "ads:     " + Arrays.toString(ads) + "\n";
-		s += "screens: " + Arrays.toString(screens);
+		s += "path:   " + path + "\n";
+		s += "name:   " + name + "\n";
+		s += "bg:     " + bg + "\n";
+		s += "music:  " + music + "\n";
+		s += "player: " + player + "\n";
+		s += "ads:    " + Arrays.toString(ads) + "\n";
 		return s;
 	}
 
@@ -76,14 +74,14 @@ public class LevelResources
 		return music;
 	}
 
+	public String player()
+	{
+		return player;
+	}
+
 	public String[] ads()
 	{
 		return ads;
-	}
-
-	public String[] screens()
-	{
-		return screens;
 	}
 
 }
