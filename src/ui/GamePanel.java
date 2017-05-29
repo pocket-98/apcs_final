@@ -19,6 +19,8 @@ import input.Key;
 import utils.FileUtils;
 import utils.SoundUtils;
 import utils.GameUtils;
+import ui.AdBlockerFrame;
+
 import game.GameConstants;
 import game.SaveFile;
 import game.LevelResources;
@@ -27,7 +29,6 @@ import game.gameelement.GameBackground;
 import game.gameelement.GameLevel;
 import game.gameelement.GameScore;
 import game.gameelement.GameEnemyIndicator;
-import ui.AdBlockerFrame;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
