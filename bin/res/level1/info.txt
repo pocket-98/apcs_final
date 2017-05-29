@@ -1,10 +1,7 @@
 Tunak Tunak Tun
-white.png
+background.png
 tunak.mp3
+player.png
 
-ad1.png
-ad2.png
-
-im1.png
-im2.png
-im3.png
+turbannlargement.png
+belly.png
