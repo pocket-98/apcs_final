@@ -71,41 +71,53 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		addMouseWheelListener(mouse);
 		addKeyListener(keyboard);
 
-		// Virtual Graphics Buffer
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-		// Level
-		level = new GameLevel(res.level(), res.name());
-		level.setBounds(50, height/60, width, height/12);
-		level.setFont(FileUtils.getFont(Font.PLAIN, height/24));
-		level.setForeground(GameConstants.LEVEL_COLOR);
-		level.setHorizontalAlignment(SwingConstants.LEFT);
-		add(level);
-
-		// Score
-		score = new GameScore(save);
-		score.setBounds(0, 0, width, height/12);
-		score.setFont(FileUtils.getFont(Font.BOLD, height/18));
-		score.setForeground(GameConstants.SCORE_COLOR);
-		score.setHorizontalAlignment(SwingConstants.CENTER);
-		add(score);
-
-		// Enemy Indicator
-		enemyIndicator = new GameEnemyIndicator(10);
-		enemyIndicator.setBounds(0, 0, width-50, height/12);
-		enemyIndicator.setFont(FileUtils.getFont(Font.BOLD, height/24));
-		enemyIndicator.setForeground(GameConstants.ENEMY_INDICATOR_COLOR);
-		enemyIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(enemyIndicator);
-
-		// Background
-		bg = new GameBackground(res.path()+res.bg(), width, height);
+		makeLevel();
+		makeScore();
+		makeEnemyIndicator();
+		makeBackground();
 
 		playBackgroundMusic();
 
 		setBounds(0, 0, width, height);
 		setFocusable(true);
 		setVisible(true);
+	}
+
+	public void makeLevel()
+	{
+		level = new GameLevel(res.level(), res.name());
+		level.setBounds(50, height/60, width, height/12);
+		level.setFont(FileUtils.getFont(Font.PLAIN, height/24));
+		level.setForeground(GameConstants.LEVEL_COLOR);
+		level.setHorizontalAlignment(SwingConstants.LEFT);
+		add(level);
+	}
+
+	public void makeScore()
+	{
+		score = new GameScore(save);
+		score.setBounds(0, 0, width, height/12);
+		score.setFont(FileUtils.getFont(Font.BOLD, height/18));
+		score.setForeground(GameConstants.SCORE_COLOR);
+		score.setHorizontalAlignment(SwingConstants.CENTER);
+		add(score);
+	}
+
+	public void makeEnemyIndicator()
+	{
+		enemyIndicator = new GameEnemyIndicator(10);
+		enemyIndicator.setBounds(0, 0, width-50, height/12);
+		enemyIndicator.setFont(FileUtils.getFont(Font.BOLD, height/24));
+		enemyIndicator.setForeground(GameConstants.ENEMY_INDICATOR_COLOR);
+		enemyIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
+		add(enemyIndicator);
+	}
+
+	public void makeBackground()
+	{
+		bg = new GameBackground(res.path()+res.bg(), width, height);
 	}
 
 	/**************************************************
@@ -116,8 +128,12 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{		
 		Graphics vg = buffer.getGraphics();
 
+		// paint background
 		bg.paint(vg);
-		// paint level and score
+
+		// paint central
+
+		// paint level, score, and enemies
 		super.paintChildren(vg);
 
 		vg.dispose();
