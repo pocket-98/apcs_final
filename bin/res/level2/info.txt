@@ -1,7 +1,7 @@
 Pokemon Go
-pokeball.png
+background.png
 pokemon.mp3
 player.png
 
-turbannlargement.png
-belly.png
+balls.png
+pokejunk.png
