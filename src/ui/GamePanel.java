@@ -45,8 +45,12 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private Mouse mouse;
 	private Keyboard keyboard;
 
-	// GUI Items
+	// Virtual Graphics Buffers
 	private BufferedImage buffer;
+	private Graphics vg;
+	private Thread gameThread;
+
+	// Game Elements
 	private GameLevel level;
 	private GameScore score;
 	private GameEnemyIndicator enemyIndicator;
@@ -74,6 +78,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		addKeyListener(keyboard);
 
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		vg = buffer.getGraphics();
 
 		makeLevel();
 		makeScore();
@@ -82,6 +87,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		makeBackground();
 
 		playBackgroundMusic();
+
+		initializeGameThread();
 
 		setBounds(0, 0, width, height);
 		setFocusable(true);
@@ -133,21 +140,26 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		bg = new GameBackground(res.path()+res.bg(), width, height);
 	}
 
+	public void initializeGameThread()
+	{
+		gameThread = new Thread()
+		{
+
+		};
+	}
+
 	/**************************************************
 	 *                  Paint Methods                 *
 	 **************************************************/
 
 	public void paintComponent(Graphics g)
 	{		
-		Graphics vg = buffer.getGraphics();
-
 		bg.paint(vg);
 		player.paint(vg);
 
 		// paint level, score, and enemies
 		super.paintChildren(vg);
 
-		vg.dispose();
 		g.drawImage(buffer, 0, 0, null);
 	};
 
@@ -201,7 +213,10 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		save.changeScore(-200);
 		if (k.equals(Key.KEY_ESCAPE))
 		{
-			frame.closed();
+			if (gameThread.isRunning())
+			gameThread.stop();
+			stopBackgroundMusic();
+			//frame.closed();
 		}
 		else if (k.equals(Key.KEY_UP))
 		{
