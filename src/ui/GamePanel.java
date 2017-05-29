@@ -25,10 +25,11 @@ import game.GameConstants;
 import game.SaveFile;
 import game.LevelResources;
 import game.GameElement;
-import game.gameelement.GameBackground;
 import game.gameelement.GameLevel;
 import game.gameelement.GameScore;
 import game.gameelement.GameEnemyIndicator;
+import game.gameelement.Player;
+import game.gameelement.GameBackground;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private GameLevel level;
 	private GameScore score;
 	private GameEnemyIndicator enemyIndicator;
+	private Player player;
 	private GameBackground bg;
 
 	// Sound Items
@@ -76,6 +78,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		makeLevel();
 		makeScore();
 		makeEnemyIndicator();
+		makePlayer();
 		makeBackground();
 
 		playBackgroundMusic();
@@ -115,6 +118,16 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		add(enemyIndicator);
 	}
 
+	public void makePlayer()
+	{
+		player = new Player(res.path()+res.player(), width/16, height/9);
+		player.setMinX(width/3);
+		player.setMaxX(29*width/48);
+		player.setMinY(height/8);
+		player.setMaxY(15*height/18);
+		player.setSpeed(10);
+	}
+
 	public void makeBackground()
 	{
 		bg = new GameBackground(res.path()+res.bg(), width, height);
@@ -128,10 +141,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{		
 		Graphics vg = buffer.getGraphics();
 
-		// paint background
 		bg.paint(vg);
-
-		// paint central
+		player.paint(vg);
 
 		// paint level, score, and enemies
 		super.paintChildren(vg);
@@ -191,6 +202,14 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		if (k.equals(Key.KEY_ESCAPE))
 		{
 			frame.closed();
+		}
+		else if (k.equals(Key.KEY_UP))
+		{
+			player.moveUp();
+		}
+		else if (k.equals(Key.KEY_DOWN))
+		{
+			player.moveDown();
 		}
 		else if (k.equals(Key.KEY_SPACE))
 		{
