@@ -22,8 +22,8 @@ public class Player extends GameElement
 		maxX = 0;
 		minY = 0;
 		maxY = 0;
-		acceleration = 0.3;
-		friction = 0.95;
+		acceleration = 0.8;
+		friction = 0.1;
 	}
 
 	private void validatePosition()
@@ -72,9 +72,9 @@ public class Player extends GameElement
 
 	public void move()
 	{
-		y += velocity;
+		velocity -= Math.copySign(friction*velocity, velocity);
+		y = (int) Math.round(y + velocity);
 		validatePosition();
-		velocity *= friction;
 	}
 
 	public void jumpLeft()

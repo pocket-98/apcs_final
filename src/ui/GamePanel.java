@@ -150,8 +150,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		player.setMaxX(29*width/48);
 		player.setMinY(height/8);
 		player.setMaxY(15*height/18);
-		player.setAcceleration(0.5);
-		player.setFriction(0.95);
+		player.setAcceleration(1.0);
+		player.setFriction(0.1);
 	}
 
 	public void makeBackground()
