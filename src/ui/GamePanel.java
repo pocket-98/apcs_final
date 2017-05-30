@@ -113,15 +113,16 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		player.setMaxX(29*width/48);
 		player.setMinY(height/8);
 		player.setMaxY(15*height/18);
-		player.setAcceleration(1.0);
+		player.setAcceleration(60.0/GameConstants.MAX_FPS);
 		player.setFriction(0.1);
 	}
 
 	public void makeEnemyBank()
 	{
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, player.getMaxY()-player.getMinY());
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, player.getHeight()+player.getMaxY()-player.getMinY());
 		enemyBank.setY(player.getMinY());
-		enemyBank.setEnemySize(player.getWidth()*2, player.getHeight()*2);
+		enemyBank.setEnemyVelocity(60.0/GameConstants.MAX_FPS, 400.0/GameConstants.MAX_FPS);
+
 	}
 
 	public void makeLevel()
@@ -202,6 +203,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	 *               Paint/Logic Methods              *
 	 **************************************************/
 
+	public void move()
+	{
+		checkArrowKeys();
+		enemyBank.move();
+		player.move();
+	}
+
 	public void paint(Graphics g)
 	{
 		if (gameThread.isRunning())
@@ -214,8 +222,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void paintGameElements()
 	{
 		bg.paint(vg);
-		player.paint(vg);
 		enemyBank.paint(vg);
+		player.paint(vg);
 		super.paintChildren(vg);
 	}
 
@@ -234,12 +242,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		playBackgroundMusic();
 		pauseMenu.setVisible(false);
 		startGameThread();
-	}
-
-	public void move()
-	{
-		checkArrowKeys();
-		player.move();
 	}
 
 	public void endGame(boolean showMenu)
@@ -324,6 +326,11 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 			if (keyboard.isPressed(Key.KEY_RIGHT))
 			{
 				player.jumpRight();
+			}
+
+			if (keyboard.isPressed(Key.KEY_SPACE))
+			{
+				enemyBank.spawn();
 			}
 		}
 	}
