@@ -2,24 +2,24 @@
 
 package game.gameelement;
 
-import javax.swing.JLabel;
 import java.awt.Graphics;
 import game.SaveFile;
-import game.GameElement;
+import game.gameelement.GameText;
 
-public class GameScore extends JLabel
+public class GameScore extends GameText
 {
 
 	private SaveFile save;
 
 	public GameScore(SaveFile s)
 	{
+		super();
 		save = s;
 	}
 	
-	public void paintComponent(Graphics g)
+	public void paint(Graphics g)
 	{
 		setText("SCORE: " + save.getScore());
-		super.paintComponent(g);
+		super.paint(g);
 	}
 }

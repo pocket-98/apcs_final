@@ -2,10 +2,10 @@
 
 package game.gameelement;
 
-import javax.swing.JLabel;
-import game.GameElement;
+import java.awt.Graphics;
+import game.gameelement.GameText;
 
-public class GameLevel extends JLabel
+public class GameLevel extends GameText
 {
 
 	private int level;

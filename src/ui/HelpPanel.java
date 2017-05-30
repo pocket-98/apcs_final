@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import java.awt.event.MouseEvent;
 
 import input.SimpleMouseListener;
@@ -90,7 +91,7 @@ public class HelpPanel extends JPanel
 		{
 			public void mouseEntered(MouseEvent e) { backButton.setForeground(hover); }
 			public void mouseExited(MouseEvent e) { backButton.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { frame.menu(); }
+			public void mouseClicked(MouseEvent e) { frame.showMenu(); }
 		});
 		return backButton;
 	}

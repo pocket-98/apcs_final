@@ -5,6 +5,7 @@ package ui;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javafx.scene.media.AudioClip;
+import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 
@@ -77,10 +78,16 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		}
 	}
 
-	public void menu()
+	public void showMenu()
 	{
 		System.out.println("Opening Main Menu");
 		cardLayout.show(getContentPane(), "menuPanel");
+	}
+
+	public void showHelp()
+	{
+		System.out.println("Showing Help");
+		cardLayout.show(getContentPane(), "helpPanel");
 	}
 
 	public void startGame(SaveFile save)
@@ -107,12 +114,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		//continue game in card layout
 	}
 
-	public void showHelp()
-	{
-		System.out.println("Showing Help");
-		cardLayout.show(getContentPane(), "helpPanel");
-	}
-
 	private void playBackgroundMusic()
 	{
 		music = SoundUtils.getAudioClip("res/menu/bread.mp3");
@@ -129,7 +130,8 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		setSize(width, height);
+		//setSize(width, height);
+		// FUCK YOU STUPID FULL SCREEN JFRAME RECURSIVE SETSIZE -> RESIZED -> SETSIZE
 	}
 
 	public void closed()

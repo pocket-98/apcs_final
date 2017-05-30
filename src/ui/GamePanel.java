@@ -9,6 +9,7 @@ import javafx.scene.media.AudioClip;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
@@ -25,9 +26,11 @@ import game.GameConstants;
 import game.SaveFile;
 import game.LevelResources;
 import game.GameElement;
+import game.GameThread;
 import game.gameelement.GameLevel;
 import game.gameelement.GameScore;
 import game.gameelement.GameEnemyIndicator;
+import game.gameelement.GameFPSCounter;
 import game.gameelement.Player;
 import game.gameelement.GameBackground;
 
@@ -48,12 +51,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	// Virtual Graphics Buffers
 	private BufferedImage buffer;
 	private Graphics vg;
-	private Thread gameThread;
+	private GameThread gameThread;
 
 	// Game Elements
 	private GameLevel level;
 	private GameScore score;
 	private GameEnemyIndicator enemyIndicator;
+	private GameFPSCounter fpsCounter;
 	private Player player;
 	private GameBackground bg;
 
@@ -83,22 +87,23 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		makeLevel();
 		makeScore();
 		makeEnemyIndicator();
+		makeFPSCounter();
 		makePlayer();
 		makeBackground();
 
 		playBackgroundMusic();
 
-		initializeGameThread();
-
 		setBounds(0, 0, width, height);
 		setFocusable(true);
 		setVisible(true);
+
+		startGameThread();
 	}
 
 	public void makeLevel()
 	{
 		level = new GameLevel(res.level(), res.name());
-		level.setBounds(50, height/60, width, height/12);
+		level.setBounds(50, height/60, width/3, height/12);
 		level.setFont(FileUtils.getFont(Font.PLAIN, height/24));
 		level.setForeground(GameConstants.LEVEL_COLOR);
 		level.setHorizontalAlignment(SwingConstants.LEFT);
@@ -108,7 +113,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void makeScore()
 	{
 		score = new GameScore(save);
-		score.setBounds(0, 0, width, height/12);
+		score.setBounds(width/3, 0, width/3, height/12);
 		score.setFont(FileUtils.getFont(Font.BOLD, height/18));
 		score.setForeground(GameConstants.SCORE_COLOR);
 		score.setHorizontalAlignment(SwingConstants.CENTER);
@@ -118,11 +123,21 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void makeEnemyIndicator()
 	{
 		enemyIndicator = new GameEnemyIndicator(10);
-		enemyIndicator.setBounds(0, 0, width-50, height/12);
+		enemyIndicator.setBounds(2*width/3, 0, width/3-50, height/12);
 		enemyIndicator.setFont(FileUtils.getFont(Font.BOLD, height/24));
 		enemyIndicator.setForeground(GameConstants.ENEMY_INDICATOR_COLOR);
 		enemyIndicator.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(enemyIndicator);
+	}
+
+	public void makeFPSCounter()
+	{
+		fpsCounter = new GameFPSCounter(null);
+		fpsCounter.setBounds(50, 7*height/8, width/3, height/8);
+		fpsCounter.setFont(FileUtils.getFont(Font.BOLD, height/24));
+		fpsCounter.setForeground(GameConstants.FPS_COLOR);
+		fpsCounter.setHorizontalAlignment(SwingConstants.LEFT);
+		add(fpsCounter);
 	}
 
 	public void makePlayer()
@@ -140,28 +155,61 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		bg = new GameBackground(res.path()+res.bg(), width, height);
 	}
 
-	public void initializeGameThread()
+	public void startGameThread()
 	{
-		gameThread = new Thread()
+		gameThread = new GameThread(GameConstants.MAX_FPS)
 		{
-
+			public void paint()
+			{
+				move();
+				repaint();
+			}
 		};
+		fpsCounter.setGameThread(gameThread);
+		gameThread.start();
 	}
 
 	/**************************************************
-	 *                  Paint Methods                 *
+	 *                Paint/Move Methods              *
 	 **************************************************/
 
-	public void paintComponent(Graphics g)
-	{		
+	public void paint(Graphics g)
+	{
+		if (gameThread.isRunning())
+		{
+			paintGameElements();
+		}
+		g.drawImage(buffer, 0, 0, null);
+	}
+
+	public void paintGameElements()
+	{
 		bg.paint(vg);
 		player.paint(vg);
-
-		// paint level, score, and enemies
 		super.paintChildren(vg);
+	}
 
-		g.drawImage(buffer, 0, 0, null);
-	};
+	public void paintPaused()
+	{
+		gameThread.resetFPS();
+		paintGameElements();
+		Font f = FileUtils.getFont(Font.BOLD, height/3);
+		FontMetrics m = vg.getFontMetrics(f);
+		String text = "PAUSED";
+		int x = (width - m.stringWidth(text)) / 2;
+		int y = (height - m.getHeight()) / 2 + m.getAscent();
+		vg.setColor(GameConstants.PAUSE_BG_COLOR);
+		vg.fillRect(0, height/3, width, height/3);
+		vg.setFont(f);
+		vg.setColor(GameConstants.PAUSE_FG_COLOR);
+		vg.drawString(text, x, y);
+		repaint();
+	}
+
+	public void move()
+	{
+		//set new positions
+	}
 
 	/**************************************************
 	 *              Mouse/Keyboard Methods            *
@@ -184,8 +232,10 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void mouseMoved(int x, int y, int button)
 	{
-		save.changeScore(50);
-		repaint();
+		if (gameThread.isRunning())
+		{
+			save.changeScore(50);
+		}
 	}
 
 	public void mouseDragged(int x, int y, int button)
@@ -210,27 +260,38 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void keyPressed(Key k)
 	{
-		save.changeScore(-200);
 		if (k.equals(Key.KEY_ESCAPE))
 		{
 			if (gameThread.isRunning())
-			gameThread.stop();
-			stopBackgroundMusic();
-			//frame.closed();
+			{
+				gameThread.kill();
+				stopBackgroundMusic();
+				paintPaused();
+				//frame.closed();
+			}
+			else
+			{
+				startGameThread();
+				playBackgroundMusic();
+			}
 		}
-		else if (k.equals(Key.KEY_UP))
+
+		if (gameThread.isRunning())
 		{
-			player.moveUp();
+			save.changeScore(-200);
+			if (k.equals(Key.KEY_UP))
+			{
+				player.moveUp();
+			}
+			else if (k.equals(Key.KEY_DOWN))
+			{
+				player.moveDown();
+			}
+			else if (k.equals(Key.KEY_SPACE))
+			{
+				enemyIndicator.changeNumEnemies(-1);
+			}
 		}
-		else if (k.equals(Key.KEY_DOWN))
-		{
-			player.moveDown();
-		}
-		else if (k.equals(Key.KEY_SPACE))
-		{
-			enemyIndicator.changeNumEnemies(-1);
-		}
-		repaint();
 	}
 
 	public void keyReleased(Key k)

@@ -19,7 +19,6 @@ public abstract class GameThread extends Thread
 		maxfps = max;
 		fps = new double[FPS_NUM_FRAMES];
 		running = false;
-
 	}
 
 	private int deltaTime(long preTime)
@@ -57,6 +56,7 @@ public abstract class GameThread extends Thread
 					}
 				}
 			}
+			running = false;
 		}
 		catch (InterruptedException e)
 		{
@@ -76,10 +76,30 @@ public abstract class GameThread extends Thread
 				count++;
 			}
 		}
-		return mean/count;
+		if (count > 0)
+		{
+			return mean / count;
+		}
+		else
+		{
+			return 0.0;
+		}
 	}
 
-	public void pause()
+	public void resetFPS()
+	{
+		for (int i = 0; i < FPS_NUM_FRAMES; i++)
+		{
+			fps[i] = 0.0;
+		}
+	}
+
+	public boolean isRunning()
+	{
+		return running;
+	}
+
+	public void kill()
 	{
 		running = false;
 	}
