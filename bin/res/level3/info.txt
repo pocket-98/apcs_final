@@ -1,10 +1,7 @@
 Allahu Trapbar
-bomb.png
+background.png
 allahu.mp3
+robe.png
 
-ad1.png
-ad2.png
-
-im1.png
-im2.png
-im3.png
+robe.png
+freebomb.png

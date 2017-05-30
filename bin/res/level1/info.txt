@@ -5,3 +5,4 @@ player.png
 
 turbannlargement.png
 belly.png
+techsupport.png

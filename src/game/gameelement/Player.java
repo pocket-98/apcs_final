@@ -11,7 +11,8 @@ public class Player extends GameElement
 	private int maxX;
 	private int minY;
 	private int maxY;
-	private int speed;
+	private double velocity;
+	private double acceleration;
 
 	public Player(String path, int width, int height)
 	{
@@ -20,7 +21,7 @@ public class Player extends GameElement
 		maxX = 0;
 		minY = 0;
 		maxY = 0;
-		speed = 5;
+		acceleration = 0.3;
 	}
 
 	private void validatePosition()
@@ -28,11 +29,13 @@ public class Player extends GameElement
 		if (y > maxY)
 		{
 			y = maxY;
+			velocity = 0;
 		}
 
 		if (y < minY)
 		{
 			y = minY;
+			velocity = 0;
 		}
 
 		if (Math.abs(x-minX) < Math.abs(x-maxX))
@@ -45,21 +48,45 @@ public class Player extends GameElement
 		}
 	}
 
-	public void moveUp()
+	public void increaseVelocity()
 	{
-		y -= speed;
+		if (velocity > 0)
+		{
+			velocity -= acceleration; //turn around extra fast
+		}
+		
+		velocity -= acceleration;
+	}
+
+	public void decreaseVelocity()
+	{
+		if (velocity < 0)
+		{
+			velocity += acceleration; //turn around extra fast
+		}
+		
+		velocity += acceleration;
+	}
+
+	public void move()
+	{
+		y += velocity;
 		validatePosition();
 	}
 
-	public void moveDown()
+	public void jumpLeft()
 	{
-		y += speed;
-		validatePosition();
+		x = minX;
 	}
 
-	public void setSpeed(int s)
+	public void jumpRight()
 	{
-		speed = s;
+		x = maxX;
+	}
+
+	public void setAcceleration(double a)
+	{
+		acceleration = a;
 	}
 
 	public void setMinX(int x)
@@ -86,9 +113,9 @@ public class Player extends GameElement
 		validatePosition();
 	}
 
-	public int getSpeed()
+	public double getAcceleration()
 	{
-		return speed;
+		return acceleration;
 	}
 
 	public int getMinX()

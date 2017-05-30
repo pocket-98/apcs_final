@@ -33,6 +33,7 @@ import game.gameelement.GameEnemyIndicator;
 import game.gameelement.GameFPSCounter;
 import game.gameelement.Player;
 import game.gameelement.GameBackground;
+import game.gameelement.PauseMenu;
 
 public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
 {
@@ -60,6 +61,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private GameFPSCounter fpsCounter;
 	private Player player;
 	private GameBackground bg;
+	private PauseMenu pauseMenu;
 
 	// Sound Items
 	private AudioClip music;
@@ -90,6 +92,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		makeFPSCounter();
 		makePlayer();
 		makeBackground();
+		makePauseMenu();
 
 		playBackgroundMusic();
 
@@ -147,12 +150,26 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		player.setMaxX(29*width/48);
 		player.setMinY(height/8);
 		player.setMaxY(15*height/18);
-		player.setSpeed(10);
+		player.setAcceleration(0.3);
 	}
 
 	public void makeBackground()
 	{
 		bg = new GameBackground(res.path()+res.bg(), width, height);
+	}
+
+	public void makePauseMenu()
+	{
+		pauseMenu = new PauseMenu(width, height/2)
+		{
+			public void backButtonPressed()
+			{
+				endGame(true);
+			}
+		};
+		pauseMenu.setLocation(0, height/6);
+		pauseMenu.setLabelFont(FileUtils.getFont(Font.BOLD, height/3));
+		add(pauseMenu);
 	}
 
 	public void startGameThread()
@@ -161,6 +178,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		{
 			public void paint()
 			{
+				checkCheatCodes();
 				move();
 				repaint();
 			}
@@ -170,7 +188,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	}
 
 	/**************************************************
-	 *                Paint/Move Methods              *
+	 *               Paint/Logic Methods              *
 	 **************************************************/
 
 	public void paint(Graphics g)
@@ -189,27 +207,39 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		super.paintChildren(vg);
 	}
 
-	public void paintPaused()
+	public void pauseGame()
 	{
+		stopBackgroundMusic();
 		gameThread.resetFPS();
+		gameThread.kill();
+		pauseMenu.setVisible(true);
 		paintGameElements();
-		Font f = FileUtils.getFont(Font.BOLD, height/3);
-		FontMetrics m = vg.getFontMetrics(f);
-		String text = "PAUSED";
-		int x = (width - m.stringWidth(text)) / 2;
-		int y = (height - m.getHeight()) / 2 + m.getAscent();
-		vg.setColor(GameConstants.PAUSE_BG_COLOR);
-		vg.fillRect(0, height/3, width, height/3);
-		vg.setFont(f);
-		vg.setColor(GameConstants.PAUSE_FG_COLOR);
-		vg.drawString(text, x, y);
 		repaint();
+	}
+
+	public void continueGame()
+	{
+		playBackgroundMusic();
+		pauseMenu.setVisible(false);
+		startGameThread();
 	}
 
 	public void move()
 	{
-		//set new positions
-		GameUtils.sleep(10);
+		checkArrowKeys();
+		player.move();
+	}
+
+	public void endGame(boolean showMenu)
+	{
+		stopBackgroundMusic();
+		gameThread.resetFPS();
+		gameThread.kill();
+		pauseMenu.setVisible(false);
+		if (showMenu)
+		{
+			frame.endGame();
+		}
 	}
 
 	/**************************************************
@@ -247,34 +277,46 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		{
 			if (gameThread.isRunning())
 			{
-				gameThread.kill();
-				stopBackgroundMusic();
-				paintPaused();
+				pauseGame();
 			}
 			else
 			{
-				startGameThread();
-				playBackgroundMusic();
+				continueGame();
 			}
 		}
+	}
 
+	public void keyReleased(Key k) {}
+
+	public void keyTyped(Key k) {}
+
+	public void checkArrowKeys()
+	{
 		if (gameThread.isRunning())
 		{
-			save.changeScore(-200);
-			if (k.equals(Key.KEY_UP))
+			if (keyboard.isPressed(Key.KEY_UP))
 			{
-				player.moveUp();
+				player.increaseVelocity();
 			}
-			else if (k.equals(Key.KEY_DOWN))
+
+			if (keyboard.isPressed(Key.KEY_DOWN))
 			{
-				player.moveDown();
+				player.decreaseVelocity();
 			}
-			else if (k.equals(Key.KEY_SPACE))
+
+			if (keyboard.isPressed(Key.KEY_LEFT))
 			{
-				enemyIndicator.changeNumEnemies(-1);
+				player.jumpLeft();
+			}
+
+			if (keyboard.isPressed(Key.KEY_RIGHT))
+			{
+				player.jumpRight();
 			}
 		}
-
+	}
+	public void checkCheatCodes()
+	{
 		// cheat codes (alt + shift + w,a,s,d)
 		if (keyboard.isPressed(Key.KEY_SHIFT) && keyboard.isPressed(Key.KEY_ALT))
 		{
@@ -287,6 +329,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 			{
 				save.changeLevel(-1);
 				System.out.println("Hacked Level: " + save.getLevel());
+				endGame(false);
+				frame.startGame(save);
 			}
 			if (keyboard.isPressed(Key.KEY_S))
 			{
@@ -297,13 +341,11 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 			{
 				save.changeLevel(1);
 				System.out.println("Hacked Level: " + save.getLevel());
+				endGame(false);
+				frame.startGame(save);
 			}
 		}
 	}
-
-	public void keyReleased(Key k) {}
-
-	public void keyTyped(Key k) {}
 
 	/**************************************************
 	 *                 Helper Methods                 *
@@ -330,7 +372,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		int level = 1;
 		int score = 0;
 		AdBlockerFrame f = new AdBlockerFrame();
-		f.getContentPane().removeAll();
 		f.startGame(new SaveFile(level, score));
 	}
 

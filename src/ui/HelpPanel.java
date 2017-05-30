@@ -65,7 +65,7 @@ public class HelpPanel extends JPanel
 
 	private JLabel makeHelpLabel()
 	{
-		int w = 3*width/4;
+		int w = width/2;
 		int h = 2*height/3;
 		String html = FileUtils.getResourceContent("res/menu/help.html");
 		Font f = new Font("Arial", Font.PLAIN, 18);

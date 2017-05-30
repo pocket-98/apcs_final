@@ -90,6 +90,12 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		cardLayout.show(getContentPane(), "helpPanel");
 	}
 
+	public void createGame()
+	{
+		System.out.println("Creating New Game");
+		startGame(new SaveFile());
+	}
+
 	public void startGame(SaveFile save)
 	{
 		stopBackgroundMusic();
@@ -102,10 +108,11 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		gamePanel.requestFocusInWindow();
 	}
 
-	public void createGame()
+	public void endGame()
 	{
-		System.out.println("Creating New Game");
-		startGame(new SaveFile());
+		getContentPane().remove(gamePanel);
+		showMenu();
+		playBackgroundMusic();
 	}
 
 	public void pickGame()

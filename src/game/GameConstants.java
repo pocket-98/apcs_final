@@ -8,7 +8,7 @@ public class GameConstants
 {
 
 	public static final int NUM_LEVELS = 3;
-	public static final double MAX_FPS = 40;
+	public static final double MAX_FPS = 60;
 
 	public static final Color TEXT_COLOR = Color.WHITE;
 	public static final Color BUTTON_COLOR = Color.WHITE;
