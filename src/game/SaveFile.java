@@ -32,8 +32,9 @@ public class SaveFile
 	{
 		path = "save.txt";
 		file = new File(path);
-		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
+		level = l;
 		score = 0;
+		checkLevel();
 		save();
 	}
 
@@ -41,8 +42,9 @@ public class SaveFile
 	{
 		path = "save.txt";
 		file = new File(path);
-		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
+		level = l;
 		score = s;
+		checkLevel();
 		save();
 	}
 
@@ -100,7 +102,20 @@ public class SaveFile
 		{
 			System.out.println("Error: Couldn't save game");
 		}
+	}
 
+	private void checkLevel()
+	{
+		if (level < 1)
+		{
+			level = 1;
+			System.out.println("Warning: Set level to 1");
+		}
+		if (level > GameConstants.NUM_LEVELS)
+		{
+			level = GameConstants.NUM_LEVELS;
+			System.out.println("Warning: Set level to " + GameConstants.NUM_LEVELS);
+		}
 	}
 
 	public String toString()
@@ -114,7 +129,8 @@ public class SaveFile
 
 	public void setLevel(int l)
 	{
-		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
+		level = l;
+		checkLevel();
 		save();
 	}
 
@@ -127,7 +143,7 @@ public class SaveFile
 	public void changeLevel(int dl)
 	{
 		level += dl;
-		level = (level <= GameConstants.NUM_LEVELS ? level : 1);
+		checkLevel();
 		save();
 	}
 

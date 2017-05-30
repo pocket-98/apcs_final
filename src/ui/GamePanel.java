@@ -216,15 +216,9 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	 *              Mouse/Keyboard Methods            *
 	 **************************************************/
 
-	public void mousePressed(int x, int y, int button)
-	{
-		
-	}
+	public void mousePressed(int x, int y, int button) {}
 
-	public void mouseReleased(int x, int y, int button)
-	{
-		
-	}
+	public void mouseReleased(int x, int y, int button) {}
 
 	public void mouseClicked(int x, int y, int button)
 	{
@@ -239,25 +233,13 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		}
 	}
 
-	public void mouseDragged(int x, int y, int button)
-	{
-		
-	}
+	public void mouseDragged(int x, int y, int button) {}
 
-	public void mouseEntered(int x, int y, int button)
-	{
-		
-	}
+	public void mouseEntered(int x, int y, int button) {}
 
-	public void mouseExited(int x, int y, int button)
-	{
-		
-	}
+	public void mouseExited(int x, int y, int button) {}
 
-	public void mouseWheeled(int dist)
-	{
-		
-	}
+	public void mouseWheeled(int dist) {}
 
 	public void keyPressed(Key k)
 	{
@@ -268,7 +250,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 				gameThread.kill();
 				stopBackgroundMusic();
 				paintPaused();
-				//frame.closed();
 			}
 			else
 			{
@@ -293,17 +274,36 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 				enemyIndicator.changeNumEnemies(-1);
 			}
 		}
+
+		// cheat codes (alt + shift + w,a,s,d)
+		if (keyboard.isPressed(Key.KEY_SHIFT) && keyboard.isPressed(Key.KEY_ALT))
+		{
+			if (keyboard.isPressed(Key.KEY_W))
+			{
+				save.changeScore(5000);
+				System.out.println("Hacked Score: " + save.getScore());
+			}
+			if (keyboard.isPressed(Key.KEY_A))
+			{
+				save.changeLevel(-1);
+				System.out.println("Hacked Level: " + save.getLevel());
+			}
+			if (keyboard.isPressed(Key.KEY_S))
+			{
+				save.changeScore(-5000);
+				System.out.println("Hacked Score: " + save.getScore());
+			}
+			if (keyboard.isPressed(Key.KEY_D))
+			{
+				save.changeLevel(1);
+				System.out.println("Hacked Level: " + save.getLevel());
+			}
+		}
 	}
 
-	public void keyReleased(Key k)
-	{
+	public void keyReleased(Key k) {}
 
-	}
-
-	public void keyTyped(Key k)
-	{
-
-	}
+	public void keyTyped(Key k) {}
 
 	/**************************************************
 	 *                 Helper Methods                 *
