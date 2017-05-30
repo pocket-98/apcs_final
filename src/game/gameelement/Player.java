@@ -13,6 +13,7 @@ public class Player extends GameElement
 	private int maxY;
 	private double velocity;
 	private double acceleration;
+	private double friction;
 
 	public Player(String path, int width, int height)
 	{
@@ -22,6 +23,7 @@ public class Player extends GameElement
 		minY = 0;
 		maxY = 0;
 		acceleration = 0.3;
+		friction = 0.95;
 	}
 
 	private void validatePosition()
@@ -72,6 +74,7 @@ public class Player extends GameElement
 	{
 		y += velocity;
 		validatePosition();
+		velocity *= friction;
 	}
 
 	public void jumpLeft()
@@ -87,6 +90,11 @@ public class Player extends GameElement
 	public void setAcceleration(double a)
 	{
 		acceleration = a;
+	}
+
+	public void setFriction(double f)
+	{
+		friction = f;
 	}
 
 	public void setMinX(int x)
@@ -116,6 +124,11 @@ public class Player extends GameElement
 	public double getAcceleration()
 	{
 		return acceleration;
+	}
+
+	public double getFriction()
+	{
+		return friction;
 	}
 
 	public int getMinX()

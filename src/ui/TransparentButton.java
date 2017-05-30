@@ -1,33 +1,33 @@
-// Transparent JButton
+// Transparent Button
 
 package ui;
 
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import input.SimpleMouseListener;
+import game.GameConstants;
 
-public class TransparentButton extends JButton
+public abstract class TransparentButton extends JLabel
 {
+
+	private final Color nohover = GameConstants.BUTTON_COLOR;
+	private final Color hover = GameConstants.BUTTON_HOVER_COLOR;
+
+	public abstract void onButtonClick();
 
 	public TransparentButton(String text)
 	{
 		super(text);
-		setTransparent();
-	}
-
-	public TransparentButton(String text, ImageIcon icon)
-	{
-		super(text, icon);
-		setTransparent();
-	}
-
-	public void setTransparent()
-	{
-		this.setBorderPainted(false);
-		this.setFocusPainted(false);
-		this.setContentAreaFilled(false);
-		//this.setOpaque(false);
-		//this.setForeground(Color.WHITE);
+		setForeground(nohover);
+		setHorizontalAlignment(SwingConstants.CENTER);
+		addMouseListener(new SimpleMouseListener()
+		{
+			public void mouseEntered(MouseEvent e) { setForeground(hover); }
+			public void mouseExited(MouseEvent e) { setForeground(nohover); }
+			public void mouseClicked(MouseEvent e) { onButtonClick(); }
+		});
 	}
 
 }

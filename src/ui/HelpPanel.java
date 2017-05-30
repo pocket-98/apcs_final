@@ -32,7 +32,7 @@ public class HelpPanel extends JPanel
 	// GUI Items
 	private JLabel titleLabel;
 	private JLabel helpLabel;
-	private JButton backButton;
+	private TransparentButton backButton;
 	private JLabel background;
 
 	public HelpPanel(String t, String s, int w, int h, AdBlockerFrame f)
@@ -77,22 +77,16 @@ public class HelpPanel extends JPanel
 		return helpLabel;
 	}
 
-	private JButton makeBackButton()
+	private TransparentButton makeBackButton()
 	{
 		int w = width/4;
 		int h = height/6;
-		Color nohover = GameConstants.BUTTON_COLOR;
-		Color hover = GameConstants.BUTTON_HOVER_COLOR;
-		backButton = new TransparentButton("Back");
+		backButton = new TransparentButton("BACK")
+		{
+			public void onButtonClick() { frame.showMenu(); }
+		};
 		backButton.setBounds((width-w)/2, 3*height/4, w, h);
 		backButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
-		backButton.setForeground(nohover);
-		backButton.addMouseListener(new SimpleMouseListener()
-		{
-			public void mouseEntered(MouseEvent e) { backButton.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { backButton.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { frame.showMenu(); }
-		});
 		return backButton;
 	}
 

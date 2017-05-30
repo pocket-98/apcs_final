@@ -4,7 +4,6 @@ package ui;
 
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
@@ -104,50 +103,33 @@ public class MenuPanel extends JPanel
 		buttonPanel.setOpaque(false);
 
 		// New Game Button
-		JButton newGame = new TransparentButton("NEW GAME");
-		newGame.setFont(techno);
-		newGame.setForeground(nohover);
-		newGame.addMouseListener(new SimpleMouseListener()
+		TransparentButton newGame = new TransparentButton("NEW GAME")
 		{
-			public void mouseEntered(MouseEvent e) { newGame.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { newGame.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { newGame(); }
-		});
+			public void onButtonClick() { newGame(); }
+		};
+		newGame.setFont(techno);
+	
 
 		// Continue Game Button
-		JButton cont = new TransparentButton("CONTINUE");
-		cont.setFont(techno);
-		cont.setForeground(nohover);
-		cont.addMouseListener(new SimpleMouseListener()
+		TransparentButton cont = new TransparentButton("CONTINUE")
 		{
-			public void mouseEntered(MouseEvent e) { cont.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { cont.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { contGame(); }
-		});
+			public void onButtonClick() { contGame(); }
+		};
+		cont.setFont(techno);
 
 		// Help Button
-		JButton help = new TransparentButton("HELP");
-		help.setFont(techno);
-		help.setForeground(nohover);
-		help.addMouseListener(new SimpleMouseListener()
+		TransparentButton help = new TransparentButton("HELP")
 		{
-			public void mouseEntered(MouseEvent e) { help.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { help.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { showHelp(); }
-		});
-
+			public void onButtonClick() { showHelp(); }
+		};
+		help.setFont(techno);
 
 		// Exit Button
-		JButton exit = new TransparentButton("EXIT");
-		exit.setFont(techno);
-		exit.setForeground(nohover);
-		exit.addMouseListener(new SimpleMouseListener()
+		TransparentButton exit = new TransparentButton("EXIT")
 		{
-			public void mouseEntered(MouseEvent e) { exit.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { exit.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { frame.closed(); }
-		});
-
+			public void onButtonClick() { frame.closed(); }
+		};
+		exit.setFont(techno);
 
 		buttonPanel.add(newGame);
 		//buttonPanel.add(cont);

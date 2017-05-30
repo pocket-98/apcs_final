@@ -5,7 +5,6 @@ package game.gameelement;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -19,7 +18,7 @@ public abstract class PauseMenu extends JPanel
 {
 
 	private JLabel pauseLabel;
-	private JButton backButton;
+	private TransparentButton backButton;
 
 	public abstract void backButtonPressed();
 
@@ -52,18 +51,14 @@ public abstract class PauseMenu extends JPanel
 
 	public void makeBackButton()
 	{
-		Color hover = GameConstants.BUTTON_HOVER_COLOR;
-		Color nohover = GameConstants.BUTTON_COLOR;
-		backButton = new TransparentButton("MAIN MENU");
-		backButton.setFont(FileUtils.getFont(Font.BOLD, 36));
-		backButton.setForeground(nohover);
-		backButton.setBounds(getWidth()/3, 2*getHeight()/3, getWidth()/3, getHeight()/6);
-		backButton.addMouseListener(new SimpleMouseListener()
+
+		backButton = new TransparentButton("MAIN MENU")
 		{
-			public void mouseEntered(MouseEvent e) { backButton.setForeground(hover); }
-			public void mouseExited(MouseEvent e) { backButton.setForeground(nohover); }
-			public void mouseClicked(MouseEvent e) { backButtonPressed(); }
-		});
+			public void onButtonClick() { backButtonPressed(); }
+		};
+		backButton.setFont(FileUtils.getFont(Font.BOLD, 36));
+		backButton.setBounds(getWidth()/3, 2*getHeight()/3, getWidth()/3, getHeight()/6);
+
 		add(backButton);
 	}
 
