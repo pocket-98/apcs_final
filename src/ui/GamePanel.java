@@ -27,11 +27,12 @@ import game.SaveFile;
 import game.LevelResources;
 import game.GameElement;
 import game.GameThread;
+import game.gameelement.Player;
+import game.gameelement.EnemyBank;
 import game.gameelement.GameLevel;
 import game.gameelement.GameScore;
 import game.gameelement.GameEnemyIndicator;
 import game.gameelement.GameFPSCounter;
-import game.gameelement.Player;
 import game.gameelement.GameBackground;
 import game.gameelement.PauseMenu;
 
@@ -55,11 +56,12 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	private GameThread gameThread;
 
 	// Game Elements
+	private Player player;
+	private EnemyBank enemyBank;
 	private GameLevel level;
 	private GameScore score;
 	private GameEnemyIndicator enemyIndicator;
 	private GameFPSCounter fpsCounter;
-	private Player player;
 	private GameBackground bg;
 	private PauseMenu pauseMenu;
 
@@ -86,11 +88,12 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		vg = buffer.getGraphics();
 
+		makePlayer();
+		makeEnemyBank();
 		makeLevel();
 		makeScore();
 		makeEnemyIndicator();
 		makeFPSCounter();
-		makePlayer();
 		makeBackground();
 		makePauseMenu();
 
@@ -101,6 +104,24 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		setVisible(true);
 
 		startGameThread();
+	}
+
+	public void makePlayer()
+	{
+		player = new Player(res.path()+res.player(), width/16, height/9);
+		player.setMinX(width/3);
+		player.setMaxX(29*width/48);
+		player.setMinY(height/8);
+		player.setMaxY(15*height/18);
+		player.setAcceleration(1.0);
+		player.setFriction(0.1);
+	}
+
+	public void makeEnemyBank()
+	{
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, player.getMaxY()-player.getMinY());
+		enemyBank.setY(player.getMinY());
+		enemyBank.setEnemySize(player.getWidth()*2, player.getHeight()*2);
 	}
 
 	public void makeLevel()
@@ -141,17 +162,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		fpsCounter.setForeground(GameConstants.FPS_COLOR);
 		fpsCounter.setHorizontalAlignment(SwingConstants.LEFT);
 		add(fpsCounter);
-	}
-
-	public void makePlayer()
-	{
-		player = new Player(res.path()+res.player(), width/16, height/9);
-		player.setMinX(width/3);
-		player.setMaxX(29*width/48);
-		player.setMinY(height/8);
-		player.setMaxY(15*height/18);
-		player.setAcceleration(1.0);
-		player.setFriction(0.1);
 	}
 
 	public void makeBackground()
@@ -205,6 +215,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{
 		bg.paint(vg);
 		player.paint(vg);
+		enemyBank.paint(vg);
 		super.paintChildren(vg);
 	}
 

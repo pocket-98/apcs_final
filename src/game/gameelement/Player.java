@@ -22,7 +22,7 @@ public class Player extends GameElement
 		maxX = 0;
 		minY = 0;
 		maxY = 0;
-		acceleration = 0.8;
+		acceleration = 1.0;
 		friction = 0.1;
 	}
 
@@ -72,7 +72,7 @@ public class Player extends GameElement
 
 	public void move()
 	{
-		velocity -= Math.copySign(friction*velocity, velocity);
+		velocity -= Math.copySign(friction*velocity, velocity); //apply friction
 		y = (int) Math.round(y + velocity);
 		validatePosition();
 	}

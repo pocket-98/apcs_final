@@ -74,6 +74,13 @@ public class GameElement
 		return type;
 	}
 
+	public void setBounds(int newX, int newY, int w, int h)
+	{
+		setX(newX);
+		setY(newY);
+		resize(w, h);
+	}
+
 	public void setX(int newX)
 	{
 		x = newX;
