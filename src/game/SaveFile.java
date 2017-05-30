@@ -66,6 +66,7 @@ public class SaveFile
 			score = Integer.parseInt(reader.readLine());
 			reader.close();
 			fileIn.close();
+			save();
 		}
 		catch (FileNotFoundException e)
 		{
@@ -114,23 +115,26 @@ public class SaveFile
 	public void setLevel(int l)
 	{
 		level = (l <= GameConstants.NUM_LEVELS ? l : 1);
+		save();
 	}
 
 	public void setScore(int s)
 	{
 		score = s;
+		save();
 	}
 
 	public void changeLevel(int dl)
 	{
 		level += dl;
 		level = (level <= GameConstants.NUM_LEVELS ? level : 1);
-
+		save();
 	}
 
 	public void changeScore(int ds)
 	{
 		score += ds;
+		save();
 	}
 
 	public String getPath()

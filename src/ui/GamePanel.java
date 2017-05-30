@@ -209,6 +209,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void move()
 	{
 		//set new positions
+		GameUtils.sleep(10);
 	}
 
 	/**************************************************
