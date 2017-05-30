@@ -19,7 +19,7 @@ public class EnemyBank extends GameElement
 	private final AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.CLEAR);
 	private final AlphaComposite normal = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
 
-	private final int numEnemies = 15;
+	private final int numEnemies = 150;
 
 	private String path;
 	private String[] ads;
@@ -121,7 +121,7 @@ public class EnemyBank extends GameElement
 		double velocity = minVelocity + (1-s)*(maxVelocity-minVelocity);
 		int ypos = rand(minY, maxY-size);
 		int xpos = -size;
-		if (rand(0,1) == 1) //start from right side instead
+		if (rand(0, 1) == 1) //start from right side instead
 		{
 			velocity *= -1;
 			xpos = width;
