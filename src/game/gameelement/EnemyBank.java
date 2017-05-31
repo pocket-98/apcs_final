@@ -19,7 +19,7 @@ public class EnemyBank extends GameElement
 	private final AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.CLEAR);
 	private final AlphaComposite normal = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
 
-
+	private Listener listener;
 	private int numEnemies;
 	private int enemiesRemaining;
 	private String path;
@@ -34,7 +34,7 @@ public class EnemyBank extends GameElement
 	private double minVelocity;
 	private double maxVelocity;
 
-	public EnemyBank(String p, String[] a, int width, int height, int n)
+	public EnemyBank(String p, String[] a, int width, int height, int n, Listener l)
 	{
 		super(width, height, true);
 		path = p;
@@ -42,6 +42,7 @@ public class EnemyBank extends GameElement
 		vg = (Graphics2D) image.getGraphics();
 		numEnemies = n;
 		enemiesRemaining = numEnemies;
+		listener = l;
 		enemies = new Enemy[numEnemies];
 		isAlive = new boolean[numEnemies];
 		for (int i = 0; i < numEnemies; i++)
@@ -114,6 +115,7 @@ public class EnemyBank extends GameElement
 					enemies[i] = null;
 					isAlive[i] = false;
 					enemiesRemaining--;
+					listener.enemyAttacked();
 				}
 			}
 
@@ -165,6 +167,12 @@ public class EnemyBank extends GameElement
 			}
 		}
 		super.paint(g);
+	}
+
+	public interface Listener
+	{
+		public void enemyBlocked();
+		public void enemyAttacked();
 	}
 
 }

@@ -34,7 +34,7 @@ import game.gameelement.GameFPSCounter;
 import game.gameelement.GameBackground;
 import game.gameelement.PauseMenu;
 
-public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener
+public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listener, EnemyBank.Listener
 {
 
 	// Panel Constants
@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void makeEnemyBank()
 	{
 		int playerRange = player.getHeight()+player.getMaxY()-player.getMinY();
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, 100);
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, 100, this);
 		enemyBank.setY(player.getMinY());
 		enemyBank.setEnemyVelocity(60.0/GameConstants.MAX_FPS, 400.0/GameConstants.MAX_FPS);
 
@@ -201,6 +201,17 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	/**************************************************
 	 *               Paint/Logic Methods              *
 	 **************************************************/
+
+	public void enemyBlocked()
+	{
+		save.changeScore(200);
+		SoundUtils.getAudioClip("res/lol/airhorn.mp3").play();
+	}
+
+	public void enemyAttacked()
+	{
+		SoundUtils.getAudioClip("res/lol/buzzer.mp3").play();
+	}
 
 	public void move()
 	{
