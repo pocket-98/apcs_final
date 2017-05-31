@@ -30,7 +30,7 @@ public class NewGamePanel extends JPanel
 	// GUI Items
 	private JLabel titleLabel;
 	private JLabel difficultyLabel;
-	private JComboBox difficultyChooser;
+	private JComboBox<String> difficultyChooser;
 	private TransparentButton backButton;
 	private TransparentButton startGameButton;
 	private JLabel background;
@@ -79,7 +79,7 @@ public class NewGamePanel extends JPanel
 	{
 		int w = width/4;
 		int h = height/10;
-		difficultyChooser = new JComboBox(GameConstants.DIFFICULTY_LABELS);
+		difficultyChooser = new JComboBox<String>(GameConstants.DIFFICULTY_LABELS);
 		difficultyChooser.setSelectedIndex(0);
 		difficultyChooser.setBounds(width/2, height/3, w, h);
 		difficultyChooser.setForeground(GameConstants.TEXT_COLOR);
