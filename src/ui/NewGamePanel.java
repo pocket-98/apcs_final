@@ -27,7 +27,7 @@ public class NewGamePanel extends JPanel
 	// GUI Items
 	private JLabel titleLabel;
 	private TransparentButton backButton;
-	private TransparentButton createGameButton;
+	private TransparentButton startGameButton;
 	private JLabel background;
 
 	public NewGamePanel(String t, String s, int w, int h, AdBlockerFrame f)
@@ -41,7 +41,7 @@ public class NewGamePanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		makeTitleLabel();
-		makeCreateGameButton();
+		makeStartGameButton();
 		makeBackButton();
 		makeBackground();
 
@@ -71,17 +71,17 @@ public class NewGamePanel extends JPanel
 		add(backButton);
 	}
 
-	private void makeCreateGameButton()
+	private void makeStartGameButton()
 	{
 		int w = width/4;
 		int h = height/6;
-		createGameButton = new TransparentButton("CREATE GAME")
+		startGameButton = new TransparentButton("START GAME")
 		{
 			public void onButtonClick() { startGame(); }
 		};
-		createGameButton.setBounds(2*(width-w)/3, 3*height/4, w, h);
-		createGameButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
-		add(createGameButton);
+		startGameButton.setBounds(2*(width-w)/3, 3*height/4, w, h);
+		startGameButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
+		add(startGameButton);
 	}
 
 	private void makeBackground()
