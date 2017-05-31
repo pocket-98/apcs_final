@@ -146,8 +146,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		width = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 		height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-		//setSize(width, height);
-		// FUCK YOU STUPID FULL SCREEN JFRAME RECURSIVE SETSIZE -> RESIZED -> SETSIZE
 	}
 
 	public void closed()

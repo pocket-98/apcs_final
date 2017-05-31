@@ -32,6 +32,22 @@ public class Enemy extends GameElement
 		return id;
 	}
 
+	public int[] getFront()
+	{
+		int[] front = new int[3];
+		if (velocity > 0)
+		{
+			front[0] = x + width;
+		}
+		else
+		{
+			front[0] = x;
+		}
+		front[1] = y;
+		front[2] = y+width;
+		return front;
+	}
+
 	public void move()
 	{
 		x += velocity;

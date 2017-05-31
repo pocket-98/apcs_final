@@ -94,19 +94,18 @@ public class EnemyBank extends GameElement
 
 	public void move()
 	{
-		int enemyX;
-		int enemySize;
+		int[] enemyFront;
 		for (int i = 0; i < numEnemies; i++)
 		{
 			if (enemies[i] != null && isAlive[i])
 			{
 				enemies[i].move();
-				enemyX = enemies[i].getX();
-				enemySize = enemies[i].getWidth();
-				if (enemyX < -enemySize || enemyX > width)
+				enemyFront = enemies[i].getFront();
+				if (Math.abs(enemyFront[0]-width/2) < width/32)
 				{
 					enemies[i] = null;
 					isAlive[i] = false;
+					//listener.centerDamaged();
 				}
 			}
 
