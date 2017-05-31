@@ -25,4 +25,18 @@ public class GameConstants
 	public static final String TEXT_FONT_NAME = "Forced Square";
 	public static final String SAVE_FILE = "save.txt";
 
+	public static final String[] DIFFICULTY_LABELS = {
+		"Easy",
+		"Medium",
+		"Hard",
+		"Insane"
+	};
+
+	public static final double[] DIFFICULTY_MULTIPLIERS = {
+		0.75,
+		1.0,
+		1.5,
+		2.5
+	};
+
 }

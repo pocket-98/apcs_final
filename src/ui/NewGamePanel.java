@@ -29,6 +29,7 @@ public class NewGamePanel extends JPanel
 
 	// GUI Items
 	private JLabel titleLabel;
+	private JLabel difficultyLabel;
 	private JComboBox difficultyChooser;
 	private TransparentButton backButton;
 	private TransparentButton startGameButton;
@@ -45,6 +46,7 @@ public class NewGamePanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		makeTitleLabel();
+		makeDifficultyLabel();
 		makeDifficultyChooser();
 		makeStartGameButton();
 		makeBackButton();
@@ -63,12 +65,25 @@ public class NewGamePanel extends JPanel
 		add(titleLabel);
 	}
 
+	private void makeDifficultyLabel()
+	{
+		difficultyLabel = new JLabel("Choose Difficulty: ");
+		difficultyLabel.setBounds(0, height/3, width/2, height/10);
+		difficultyLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		difficultyLabel.setForeground(GameConstants.TEXT_COLOR);
+		difficultyLabel.setFont(FileUtils.getFont(Font.BOLD, 40));
+		add(difficultyLabel);
+	}
+
 	private void makeDifficultyChooser()
 	{
-		String[] msg = {"Nooooooooooooooob", "Hurt Me Plenty", "Insane"};
-		difficultyChooser = new JComboBox(msg);
+		int w = width/4;
+		int h = height/10;
+		difficultyChooser = new JComboBox(GameConstants.DIFFICULTY_LABELS);
 		difficultyChooser.setSelectedIndex(0);
-		difficultyChooser.setBounds(0, 200, width, height-400);
+		difficultyChooser.setBounds(width/2, height/3, w, h);
+		difficultyChooser.setForeground(GameConstants.TEXT_COLOR);
+		difficultyChooser.setFont(FileUtils.getFont(Font.PLAIN, 36));
 		difficultyChooser.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -77,7 +92,6 @@ public class NewGamePanel extends JPanel
                		System.out.println(difficultyChooser.getItemAt(difficultyChooser.getSelectedIndex()));
 			}
 		});
-		difficultyChooser.setForeground(GameConstants.TEXT_COLOR);
 		add(difficultyChooser);	
 	}
 
