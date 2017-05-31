@@ -6,8 +6,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 import utils.FileUtils;
@@ -84,14 +82,6 @@ public class NewGamePanel extends JPanel
 		difficultyChooser.setBounds(width/2, height/3, w, h);
 		difficultyChooser.setForeground(GameConstants.TEXT_COLOR);
 		difficultyChooser.setFont(FileUtils.getFont(Font.PLAIN, 36));
-		difficultyChooser.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if (difficultyChooser.getSelectedIndex() != -1)                  
-               		System.out.println(difficultyChooser.getItemAt(difficultyChooser.getSelectedIndex()));
-			}
-		});
 		add(difficultyChooser);	
 	}
 
@@ -131,7 +121,7 @@ public class NewGamePanel extends JPanel
 
 	private void startGame()
 	{
-		String difficulty = "Easy";
+		String difficulty = difficultyChooser.getItemAt(difficultyChooser.getSelectedIndex());
 		System.out.println("Difficulty: " + difficulty);
 		frame.startGame(new SaveFile());
 	}
