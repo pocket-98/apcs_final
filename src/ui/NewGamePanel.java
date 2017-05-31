@@ -5,6 +5,7 @@ package ui;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+// import the thing to do stuff
 import java.awt.Font;
 
 import utils.FileUtils;
@@ -26,6 +27,7 @@ public class NewGamePanel extends JPanel
 
 	// GUI Items
 	private JLabel titleLabel;
+	//private Thingy thing;
 	private TransparentButton backButton;
 	private TransparentButton startGameButton;
 	private JLabel background;
@@ -41,6 +43,7 @@ public class NewGamePanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		makeTitleLabel();
+		makeThingy();
 		makeStartGameButton();
 		makeBackButton();
 		makeBackground();
@@ -56,6 +59,13 @@ public class NewGamePanel extends JPanel
 		titleLabel.setForeground(GameConstants.TEXT_COLOR);
 		titleLabel.setFont(FileUtils.getFont(Font.BOLD, 48));
 		add(titleLabel);
+	}
+
+	private void makeThingy()
+	{
+		//thingy = new Thingy();
+		//stuff
+		//add(thingy);
 	}
 
 	private void makeBackButton()
@@ -94,6 +104,8 @@ public class NewGamePanel extends JPanel
 
 	private void startGame()
 	{
+		String difficulty = "Easy";
+		System.out.println("Difficulty: " + difficulty);
 		frame.startGame(new SaveFile());
 	}
 
