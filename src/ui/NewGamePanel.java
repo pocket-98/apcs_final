@@ -5,6 +5,8 @@ package ui;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import java.awt.event.*;
 // import the thing to do stuff
 import java.awt.Font;
 
@@ -63,9 +65,19 @@ public class NewGamePanel extends JPanel
 
 	private void makeThingy()
 	{
-		//thingy = new Thingy();
-		//stuff
-		//add(thingy);
+		String[] msg = {"Nooooooooooooooob", "Hurt Me Plenty", "Insane"};
+		JComboBox combo = new JComboBox(msg);
+		combo.setSelectedIndex(0);
+		combo.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (combo.getSelectedIndex() != -1)                  
+               		System.out.println(combo.getItemAt(combo.getSelectedIndex()));
+			}
+		});
+		combo.setForeground(GameConstants.TEXT_COLOR);
+		add(combo);	
 	}
 
 	private void makeBackButton()
