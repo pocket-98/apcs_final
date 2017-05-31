@@ -121,9 +121,10 @@ public class NewGamePanel extends JPanel
 
 	private void startGame()
 	{
-		String difficulty = difficultyChooser.getItemAt(difficultyChooser.getSelectedIndex());
-		System.out.println("Difficulty: " + difficulty);
-		frame.startGame(new SaveFile());
+		int item = difficultyChooser.getSelectedIndex();
+		String difficulty = GameConstants.DIFFICULTY_LABELS[item];
+		double multiplier = GameConstants.DIFFICULTY_MULTIPLIERS[item];
+		frame.startGame(new SaveFile(difficulty, multiplier, 1, 0));
 	}
 
 }

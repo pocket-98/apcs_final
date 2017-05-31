@@ -114,8 +114,9 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	{
 		stopBackgroundMusic();
 		int level = save.getLevel();
-		String levelTitle = (new LevelResources(level)).name();
-		System.out.println("Starting Level " + level + ": " + levelTitle);
+		String diff = save.getDifficulty();
+		String name = (new LevelResources(level)).name();
+		System.out.println("Starting Level " + level + " (" + diff + "): " + name);
 		gamePanel = new GamePanel(save, width, height, this);
 		add(gamePanel, "gamePanel");
 		cardLayout.show(getContentPane(), "gamePanel");

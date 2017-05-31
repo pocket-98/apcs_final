@@ -17,12 +17,16 @@ public class SaveFile
 	private final String PATH = GameConstants.SAVE_FILE;
 
 	private File file;
+	private String difficulty;
+	private double multiplier;
 	private int level;
 	private int score;
 
 	public SaveFile()
 	{
 		file = new File(PATH);
+		difficulty = GameConstants.DIFFICULTY_LABELS[0];
+		multiplier = GameConstants.DIFFICULTY_MULTIPLIERS[0];
 		level = 1;
 		score = 0;
 		save();
@@ -31,6 +35,8 @@ public class SaveFile
 	public SaveFile(int l)
 	{
 		file = new File(PATH);
+		difficulty = GameConstants.DIFFICULTY_LABELS[0];
+		multiplier = GameConstants.DIFFICULTY_MULTIPLIERS[0];
 		level = l;
 		score = 0;
 		checkLevel();
@@ -40,15 +46,31 @@ public class SaveFile
 	public SaveFile(int l, int s)
 	{
 		file = new File(PATH);
+		difficulty = GameConstants.DIFFICULTY_LABELS[0];
+		multiplier = GameConstants.DIFFICULTY_MULTIPLIERS[0];
+		level = l;
+		score = s;
+		checkLevel();
+		save();
+	}
+	
+	public SaveFile(String d, double m, int l, int s)
+	{
+		file = new File(PATH);
+		difficulty = d;
+		multiplier = m;
 		level = l;
 		score = s;
 		checkLevel();
 		save();
 	}
 
+
 	public SaveFile(boolean load)
 	{
 		file = new File(PATH);
+		difficulty = GameConstants.DIFFICULTY_LABELS[0];
+		multiplier = GameConstants.DIFFICULTY_MULTIPLIERS[0];
 		level = 1;
 		score = 0;
 		if (load)
@@ -64,6 +86,8 @@ public class SaveFile
 		{
 			FileReader fileIn = new FileReader(file);
 			BufferedReader reader = new BufferedReader(fileIn);
+			difficulty = reader.readLine().trim();
+			multiplier = Double.parseDouble(reader.readLine());
 			level = Integer.parseInt(reader.readLine());
 			score = Integer.parseInt(reader.readLine());
 			reader.close();
@@ -86,6 +110,10 @@ public class SaveFile
 		{
 			FileWriter fileOut = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileOut);
+			writer.write(difficulty);
+			writer.newLine();
+			writer.write(String.valueOf(multiplier));
+			writer.newLine();
 			writer.write(String.valueOf(level));
 			writer.newLine();
 			writer.write(String.valueOf(score));
@@ -127,6 +155,18 @@ public class SaveFile
 		return s;
 	}
 
+	public void setDifficulty(String d)
+	{
+		difficulty = d;
+		save();
+	}
+
+	public void setMultiplier(double m)
+	{
+		multiplier = m;
+		save();
+	}
+
 	public void setLevel(int l)
 	{
 		level = l;
@@ -156,6 +196,16 @@ public class SaveFile
 	public String getPath()
 	{
 		return PATH;
+	}
+
+	public String getDifficulty()
+	{
+		return difficulty;
+	}
+
+	public double getMultiplier()
+	{
+		return multiplier;
 	}
 
 	public int getLevel()

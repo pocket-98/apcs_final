@@ -231,8 +231,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void pauseGame()
 	{
-		//stopBackgroundMusic();
-		music.volumeProperty().setValue(0.3);
 		gameThread.resetFPS();
 		gameThread.kill();
 		pauseMenu.setVisible(true);
@@ -242,8 +240,6 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void continueGame()
 	{
-		//playBackgroundMusic();
-		music.volumeProperty().setValue(1.0);
 		pauseMenu.setVisible(false);
 		startGameThread();
 	}
