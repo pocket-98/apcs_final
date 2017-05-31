@@ -6,8 +6,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import java.awt.event.*;
-// import the thing to do stuff
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.Font;
 
 import utils.FileUtils;
@@ -29,7 +29,7 @@ public class NewGamePanel extends JPanel
 
 	// GUI Items
 	private JLabel titleLabel;
-	//private Thingy thing;
+	private JComboBox difficultyChooser;
 	private TransparentButton backButton;
 	private TransparentButton startGameButton;
 	private JLabel background;
@@ -45,7 +45,7 @@ public class NewGamePanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		makeTitleLabel();
-		makeThingy();
+		makeDifficultyChooser();
 		makeStartGameButton();
 		makeBackButton();
 		makeBackground();
@@ -63,21 +63,22 @@ public class NewGamePanel extends JPanel
 		add(titleLabel);
 	}
 
-	private void makeThingy()
+	private void makeDifficultyChooser()
 	{
 		String[] msg = {"Nooooooooooooooob", "Hurt Me Plenty", "Insane"};
-		JComboBox combo = new JComboBox(msg);
-		combo.setSelectedIndex(0);
-		combo.addActionListener(new ActionListener()
+		difficultyChooser = new JComboBox(msg);
+		difficultyChooser.setSelectedIndex(0);
+		difficultyChooser.setBounds(0, 200, width, height-400);
+		difficultyChooser.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (combo.getSelectedIndex() != -1)                  
-               		System.out.println(combo.getItemAt(combo.getSelectedIndex()));
+				if (difficultyChooser.getSelectedIndex() != -1)                  
+               		System.out.println(difficultyChooser.getItemAt(difficultyChooser.getSelectedIndex()));
 			}
 		});
-		combo.setForeground(GameConstants.TEXT_COLOR);
-		add(combo);	
+		difficultyChooser.setForeground(GameConstants.TEXT_COLOR);
+		add(difficultyChooser);	
 	}
 
 	private void makeBackButton()

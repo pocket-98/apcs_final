@@ -4,12 +4,10 @@ package ui;
 
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
 
-import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.event.MouseEvent;
@@ -227,9 +225,14 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		super.paintChildren(vg);
 	}
 
+	/**************************************************
+	 *                Game State Methods              *
+	 **************************************************/
+
 	public void pauseGame()
 	{
-		stopBackgroundMusic();
+		//stopBackgroundMusic();
+		music.volumeProperty().setValue(0.3);
 		gameThread.resetFPS();
 		gameThread.kill();
 		pauseMenu.setVisible(true);
@@ -239,7 +242,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void continueGame()
 	{
-		playBackgroundMusic();
+		//playBackgroundMusic();
+		music.volumeProperty().setValue(1.0);
 		pauseMenu.setVisible(false);
 		startGameThread();
 	}
