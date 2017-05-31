@@ -7,7 +7,7 @@ import java.awt.Color;
 public class GameConstants
 {
 
-	public static final int NUM_LEVELS = 3;
+	public static final int NUM_LEVELS = 4;
 	public static final double MAX_FPS = 60;
 
 	public static final Color TEXT_COLOR = Color.WHITE;

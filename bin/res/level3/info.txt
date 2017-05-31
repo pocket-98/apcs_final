@@ -1,7 +1,7 @@
 Allahu Trapbar
 background.png
 allahu.mp3
-robe.png
+player.png
 
 robe.png
 freebomb.png
