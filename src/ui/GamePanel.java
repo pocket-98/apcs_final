@@ -121,11 +121,10 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{
 		int playerRange = player.getHeight()+player.getMaxY()-player.getMinY();
 		int numEnemies = 30 + (int)(15*multiplier*save.getLevel());
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, numEnemies, this);
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, numEnemies, player, this);
 		enemyBank.setY(player.getMinY());
-		double minVel = multiplier * 60.0/GameConstants.MAX_FPS;
-		enemyBank.setEnemyVelocity(minVel, 8*minVel);
-
+		double minVel = multiplier * 30.0/GameConstants.MAX_FPS;
+		enemyBank.setEnemyVelocity(minVel, 6*minVel);
 	}
 
 	public void makeLevel()

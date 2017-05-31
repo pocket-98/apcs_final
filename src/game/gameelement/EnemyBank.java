@@ -3,6 +3,7 @@
 package game.gameelement;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.ArrayList;
 import game.gameelement.Enemy;
+import game.gameelement.Player;
 import game.GameElement;
 import utils.ImageUtils;
 
@@ -20,6 +22,7 @@ public class EnemyBank extends GameElement
 	private final AlphaComposite normal = AlphaComposite.getInstance(AlphaComposite.SRC_OVER);
 
 	private Listener listener;
+	private Player player;
 	private int numEnemies;
 	private int enemiesRemaining;
 	private String path;
@@ -34,7 +37,7 @@ public class EnemyBank extends GameElement
 	private double minVelocity;
 	private double maxVelocity;
 
-	public EnemyBank(String p, String[] a, int width, int height, int n, Listener l)
+	public EnemyBank(String p, String[] a, int width, int height, int n, Player pl, Listener l)
 	{
 		super(width, height, true);
 		path = p;
@@ -43,6 +46,7 @@ public class EnemyBank extends GameElement
 		numEnemies = n;
 		enemiesRemaining = numEnemies;
 		listener = l;
+		player = pl;
 		enemies = new Enemy[numEnemies];
 		isAlive = new boolean[numEnemies];
 		for (int i = 0; i < numEnemies; i++)
@@ -103,23 +107,48 @@ public class EnemyBank extends GameElement
 
 	public void move()
 	{
-		int[] enemyFront;
+		Rectangle enemyRekt;
+		Rectangle playerRekt;
+		boolean enemyLeft;
+		boolean playerLeft;
+		int enemyX1;
+		int enemyX2;
 		for (int i = 0; i < numEnemies; i++)
 		{
 			if (enemies[i] != null && isAlive[i])
 			{
-				enemies[i].move();
-				enemyFront = enemies[i].getFront();
-				if (Math.abs(enemyFront[0]-width/2) < width/32)
+				enemyRekt = enemies[i].getRekt();
+				playerRekt = player.getRekt();
+				enemyLeft = enemies[i].getLeft();
+				playerLeft = player.getLeft();
+				enemyX1 = enemies[i].getX();
+				enemyX2 = enemyX1 + enemies[i].getWidth();
+
+				if (playerRekt.intersects(enemyRekt))
 				{
-					enemies[i] = null;
-					isAlive[i] = false;
-					enemiesRemaining--;
-					listener.enemyAttacked();
+					killEnemy(i);
+					listener.enemyBlocked();
+					break;
 				}
+
+				if (enemyLeft && enemyX2 > width/2 || !enemyLeft && enemyX1 < width/2) //enemy touched middle
+				{
+					killEnemy(i);
+					listener.enemyAttacked();
+					break;
+				}
+
+				enemies[i].move();
 			}
 
 		}
+	}
+
+	private void killEnemy(int i)
+	{
+		enemies[i] = null;
+		isAlive[i] = false;
+		enemiesRemaining--;
 	}
 
 	public void spawn()

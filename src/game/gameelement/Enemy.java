@@ -2,6 +2,7 @@
 
 package game.gameelement;
 
+import java.awt.Rectangle;
 import game.GameElement;
 
 public class Enemy extends GameElement
@@ -32,20 +33,14 @@ public class Enemy extends GameElement
 		return id;
 	}
 
-	public int[] getFront()
+	public boolean getLeft()
 	{
-		int[] front = new int[3];
-		if (velocity > 0)
-		{
-			front[0] = x + width;
-		}
-		else
-		{
-			front[0] = x;
-		}
-		front[1] = y;
-		front[2] = y+width;
-		return front;
+		return velocity > 0;
+	}
+
+	public Rectangle getRekt()
+	{
+		return new Rectangle(x, y, width, height);
 	}
 
 	public void move()

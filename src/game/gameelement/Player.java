@@ -2,6 +2,7 @@
 
 package game.gameelement;
 
+import java.awt.Rectangle;
 import game.GameElement;
 
 public class Player extends GameElement
@@ -119,6 +120,16 @@ public class Player extends GameElement
 	{
 		maxY = y;
 		validatePosition();
+	}
+
+	public boolean getLeft()
+	{
+		return x == minX;
+	}
+
+	public Rectangle getRekt()
+	{
+		return new Rectangle(x, y, width, height);
 	}
 
 	public double getAcceleration()
