@@ -64,6 +64,12 @@ public class GameElement
 		image = new BufferedImage(width, height, type);
 	}
 
+	public void setImage(String p, int w, int h)
+	{
+		path = p;
+		resize(w, h);
+	}
+
 	private int getType()
 	{
 		int type = BufferedImage.TYPE_INT_RGB;

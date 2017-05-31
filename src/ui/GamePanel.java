@@ -117,7 +117,8 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void makeEnemyBank()
 	{
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, player.getHeight()+player.getMaxY()-player.getMinY());
+		int playerRange = player.getHeight()+player.getMaxY()-player.getMinY();
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange);
 		enemyBank.setY(player.getMinY());
 		enemyBank.setEnemyVelocity(60.0/GameConstants.MAX_FPS, 400.0/GameConstants.MAX_FPS);
 
@@ -273,7 +274,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	{
 		if (gameThread.isRunning())
 		{
-			save.changeScore(50);
+			save.changeScore(-50);
 		}
 	}
 
@@ -362,6 +363,11 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 				System.out.println("Hacked Level: " + save.getLevel());
 				endGame(false);
 				frame.startGame(save);
+			}
+			if (keyboard.isPressed(Key.KEY_B))
+			{
+				player.setImage("res/lol/barnwell.png", player.getWidth(), player.getHeight());
+				System.out.println("Hacked Player: " + "Barnwell");
 			}
 		}
 	}
