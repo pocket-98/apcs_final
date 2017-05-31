@@ -23,5 +23,6 @@ public class GameConstants
 	public static final Color FPS_COLOR = Color.BLACK;
 
 	public static final String TEXT_FONT_NAME = "Forced Square";
+	public static final String SAVE_FILE = "save.txt";
 
 }

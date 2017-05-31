@@ -14,15 +14,15 @@ import game.GameConstants;
 public class SaveFile
 {
 
+	private final String PATH = GameConstants.SAVE_FILE;
+
 	private File file;
-	private String path;
 	private int level;
 	private int score;
 
 	public SaveFile()
 	{
-		path = "save.txt";
-		file = new File(path);
+		file = new File(PATH);
 		level = 1;
 		score = 0;
 		save();
@@ -30,8 +30,7 @@ public class SaveFile
 
 	public SaveFile(int l)
 	{
-		path = "save.txt";
-		file = new File(path);
+		file = new File(PATH);
 		level = l;
 		score = 0;
 		checkLevel();
@@ -40,21 +39,22 @@ public class SaveFile
 
 	public SaveFile(int l, int s)
 	{
-		path = "save.txt";
-		file = new File(path);
+		file = new File(PATH);
 		level = l;
 		score = s;
 		checkLevel();
 		save();
 	}
 
-	public SaveFile(String p)
+	public SaveFile(boolean load)
 	{
-		path = p;
-		file = new File(path);
+		file = new File(PATH);
 		level = 1;
 		score = 0;
-		load();
+		if (load)
+		{
+			load();
+		}
 		save();
 	}
 
@@ -121,7 +121,7 @@ public class SaveFile
 	public String toString()
 	{
 		String s = "";
-		s += "path:  " + path + "\n";
+		s += "PATH:  " + PATH + "\n";
 		s += "level: " + level + "\n";
 		s += "score: " + score;
 		return s;
@@ -155,7 +155,7 @@ public class SaveFile
 
 	public String getPath()
 	{
-		return path;
+		return PATH;
 	}
 
 	public int getLevel()

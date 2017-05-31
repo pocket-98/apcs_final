@@ -5,17 +5,20 @@ package ui;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javafx.scene.media.AudioClip;
+import java.io.File;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.CardLayout;
 
 import window.ClosableWindow;
 import window.ResizableComponent;
+import utils.SoundUtils;
+import game.GameConstants;
 import game.SaveFile;
 import game.LevelResources;
-import utils.SoundUtils;
 import ui.MenuPanel;
 import ui.HelpPanel;
+import ui.NewGamePanel;
 import ui.GamePanel;
 
 public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, ResizableComponent.Listener
@@ -31,6 +34,7 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 	private CardLayout cardLayout;
 	private MenuPanel menuPanel;
 	private HelpPanel helpPanel;
+	private NewGamePanel newGamePanel;
 	private GamePanel gamePanel;
 
 	// Sound Items
@@ -55,8 +59,10 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		System.out.println("Opening Window");
 		menuPanel = new MenuPanel(title, subtitle, width, height, this);
 		helpPanel = new HelpPanel(title, subtitle, width, height, this);
+		newGamePanel = new NewGamePanel(title, subtitle, width, height, this);
 		add(menuPanel, "menuPanel");
 		add(helpPanel, "helpPanel");
+		add(newGamePanel, "newGamePanel");
 
 		playBackgroundMusic();
 
@@ -84,16 +90,24 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		cardLayout.show(getContentPane(), "menuPanel");
 	}
 
+	public void createGame()
+	{
+		System.out.println("Creating New Game");
+		cardLayout.show(getContentPane(), "newGamePanel");
+	}
+
+	public void continueGame()
+	{
+		System.out.println("Choosing Save File");
+		boolean saveExists = (new File(GameConstants.SAVE_FILE)).exists();
+		SaveFile save = new SaveFile(saveExists);
+		startGame(save);
+	}
+
 	public void showHelp()
 	{
 		System.out.println("Showing Help");
 		cardLayout.show(getContentPane(), "helpPanel");
-	}
-
-	public void createGame()
-	{
-		System.out.println("Creating New Game");
-		startGame(new SaveFile());
 	}
 
 	public void startGame(SaveFile save)
@@ -113,12 +127,6 @@ public class AdBlockerFrame extends JFrame implements ClosableWindow.Listener, R
 		getContentPane().remove(gamePanel);
 		showMenu();
 		playBackgroundMusic();
-	}
-
-	public void pickGame()
-	{
-		System.out.println("Choosing Save File");
-		//continue game in card layout
 	}
 
 	private void playBackgroundMusic()

@@ -1,4 +1,4 @@
-// Help Panel for Game
+// Create New Game Panel
 
 package ui;
 
@@ -10,10 +10,11 @@ import java.awt.Font;
 import utils.FileUtils;
 import utils.ImageUtils;
 import game.GameConstants;
+import game.SaveFile;
 import ui.AdBlockerFrame;
 import ui.TransparentButton;
 
-public class HelpPanel extends JPanel
+public class NewGamePanel extends JPanel
 {
 
 	// Panel Constants
@@ -25,11 +26,11 @@ public class HelpPanel extends JPanel
 
 	// GUI Items
 	private JLabel titleLabel;
-	private JLabel helpLabel;
 	private TransparentButton backButton;
+	private TransparentButton createGameButton;
 	private JLabel background;
 
-	public HelpPanel(String t, String s, int w, int h, AdBlockerFrame f)
+	public NewGamePanel(String t, String s, int w, int h, AdBlockerFrame f)
 	{
 		super(null);
 		title = t;
@@ -40,7 +41,7 @@ public class HelpPanel extends JPanel
 		setBounds(0, 0, width, height);
 
 		makeTitleLabel();
-		makeHelpLabel();
+		makeCreateGameButton();
 		makeBackButton();
 		makeBackground();
 
@@ -57,20 +58,6 @@ public class HelpPanel extends JPanel
 		add(titleLabel);
 	}
 
-	private void makeHelpLabel()
-	{
-		int w = width/2;
-		int h = 2*height/3;
-		String html = FileUtils.getResourceContent("res/menu/help.html");
-		Font f = new Font("Arial", Font.PLAIN, 18);
-		helpLabel = new JLabel(html);
-		helpLabel.setBounds((width-w)/2, 100, w, h);
-		helpLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		helpLabel.setForeground(GameConstants.TEXT_COLOR);
-		helpLabel.setFont(f);
-		add(helpLabel);
-	}
-
 	private void makeBackButton()
 	{
 		int w = width/4;
@@ -79,9 +66,22 @@ public class HelpPanel extends JPanel
 		{
 			public void onButtonClick() { frame.showMenu(); }
 		};
-		backButton.setBounds((width-w)/2, 3*height/4, w, h);
+		backButton.setBounds((width-w)/3, 3*height/4, w, h);
 		backButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
 		add(backButton);
+	}
+
+	private void makeCreateGameButton()
+	{
+		int w = width/4;
+		int h = height/6;
+		createGameButton = new TransparentButton("CREATE GAME")
+		{
+			public void onButtonClick() { startGame(); }
+		};
+		createGameButton.setBounds(2*(width-w)/3, 3*height/4, w, h);
+		createGameButton.setFont(FileUtils.getFont(Font.PLAIN, 30));
+		add(createGameButton);
 	}
 
 	private void makeBackground()
@@ -90,6 +90,11 @@ public class HelpPanel extends JPanel
 		background.setBounds(0, 0, width, height);
 		background.setIcon(ImageUtils.getImageIcon("res/menu/background.png", width, height));
 		add(background);
+	}
+
+	private void startGame()
+	{
+		frame.startGame(new SaveFile());
 	}
 
 }

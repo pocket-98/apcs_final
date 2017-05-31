@@ -5,14 +5,11 @@ package ui;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
 import java.awt.GridLayout;
 
-import input.SimpleMouseListener;
 import utils.FileUtils;
 import utils.ImageUtils;
 import game.GameConstants;
@@ -44,14 +41,14 @@ public class MenuPanel extends JPanel
 		frame = f;
 		setBounds(0, 0, width, height);
 
-		add(makeTitlePanel());
-		add(makeButtonPanel());
-		add(makeBackground());
+		makeTitlePanel();
+		makeButtonPanel();
+		makeBackground();
 
 		setVisible(true);
 	}
 
-	private JPanel makeTitlePanel()
+	private void makeTitlePanel()
 	{
 		int h = height/2-5;
 		int w = 91*h/64;
@@ -86,10 +83,10 @@ public class MenuPanel extends JPanel
 		titlePanel.add(titleLabel);
 		titlePanel.add(subtitleLabel);
 		titlePanel.add(youtubeLabel);
-		return titlePanel;
+		add(titlePanel);
 	}
 
-	private JPanel makeButtonPanel()
+	private void makeButtonPanel()
 	{
 		int h = height/3;
 		int w = 3*h/2;
@@ -105,7 +102,7 @@ public class MenuPanel extends JPanel
 		// New Game Button
 		TransparentButton newGame = new TransparentButton("NEW GAME")
 		{
-			public void onButtonClick() { newGame(); }
+			public void onButtonClick() { frame.createGame(); }
 		};
 		newGame.setFont(techno);
 	
@@ -113,14 +110,14 @@ public class MenuPanel extends JPanel
 		// Continue Game Button
 		TransparentButton cont = new TransparentButton("CONTINUE")
 		{
-			public void onButtonClick() { contGame(); }
+			public void onButtonClick() { frame.continueGame(); }
 		};
 		cont.setFont(techno);
 
 		// Help Button
 		TransparentButton help = new TransparentButton("HELP")
 		{
-			public void onButtonClick() { showHelp(); }
+			public void onButtonClick() { frame.showHelp(); }
 		};
 		help.setFont(techno);
 
@@ -132,35 +129,20 @@ public class MenuPanel extends JPanel
 		exit.setFont(techno);
 
 		buttonPanel.add(newGame);
-		//buttonPanel.add(cont);
+		buttonPanel.add(cont);
 		buttonPanel.add(help);
 		buttonPanel.add(exit);
 
 		buttonPanel.setVisible(true);
-		return buttonPanel;
+		add(buttonPanel);
 	}
 
-	public void newGame()
-	{
-		frame.createGame();
-	}
-
-	public void contGame()
-	{
-		frame.pickGame();
-	}
-
-	public void showHelp()
-	{
-		frame.showHelp();
-	}
-
-	private JLabel makeBackground()
+	private void makeBackground()
 	{
 		background = new JLabel();
 		background.setBounds(0, 0, width, height);
 		background.setIcon(ImageUtils.getImageIcon("res/menu/background.png", width, height));
-		return background;
+		add(background);
 	}
 
 }
