@@ -210,6 +210,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void enemyAttacked()
 	{
+		save.changeScore(-100);
 		SoundUtils.getAudioClip("res/lol/buzzer.mp3").play();
 	}
 
