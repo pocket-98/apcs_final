@@ -40,6 +40,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	// Panel Constants
 	private SaveFile save;
 	private LevelResources res;
+	double multiplier;
 	private int width;
 	private int height;
 	private AdBlockerFrame frame;
@@ -71,6 +72,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		super(null);
 		save = s;
 		res = new LevelResources(s.getLevel());
+		multiplier = save.getMultiplier();
 		width = w;
 		height = h;
 		frame = f;
@@ -111,16 +113,18 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 		player.setMaxX(29*width/48);
 		player.setMinY(height/8);
 		player.setMaxY(15*height/18);
-		player.setAcceleration(60.0/GameConstants.MAX_FPS);
+		player.setAcceleration(multiplier*60.0/GameConstants.MAX_FPS);
 		player.setFriction(0.1);
 	}
 
 	public void makeEnemyBank()
 	{
 		int playerRange = player.getHeight()+player.getMaxY()-player.getMinY();
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, 100, this);
+		int numEnemies = 30 + (int)(15*multiplier*save.getLevel());
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, numEnemies, this);
 		enemyBank.setY(player.getMinY());
-		enemyBank.setEnemyVelocity(60.0/GameConstants.MAX_FPS, 400.0/GameConstants.MAX_FPS);
+		double minVel = multiplier * 60.0/GameConstants.MAX_FPS;
+		enemyBank.setEnemyVelocity(minVel, 8*minVel);
 
 	}
 

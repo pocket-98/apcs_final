@@ -5,7 +5,7 @@ package game;
 public abstract class GameThread extends Thread
 {
 
-	private final int FPS_NUM_FRAMES = 10;
+	private final int FPS_NUM_FRAMES = 2;
 
 	private double maxfps;
 	private double[] fps;
