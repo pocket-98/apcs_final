@@ -4,31 +4,22 @@ package game.gameelement;
 
 import javax.swing.JLabel;
 import java.awt.Graphics;
+import game.gameelement.EnemyBank;
 import game.GameElement;
 
 public class GameEnemyIndicator extends JLabel
 {
 
-	private int numEnemies;
+	private EnemyBank bank;
 
-	public GameEnemyIndicator(int n)
+	public GameEnemyIndicator(EnemyBank b)
 	{
-		numEnemies = n;
-	}
-
-	public void changeNumEnemies(int dn)
-	{
-		numEnemies += dn;
-	}
-
-	public int getNumEnemies()
-	{
-		return numEnemies;
+		bank = b;
 	}
 
 	public void paintComponent(Graphics g)
 	{
-		setText("ENEMIES: " + numEnemies);
+		setText("ENEMIES: " + bank.getEnemiesRemaining());
 		super.paintComponent(g);
 	}
 

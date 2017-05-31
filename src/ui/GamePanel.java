@@ -118,7 +118,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 	public void makeEnemyBank()
 	{
 		int playerRange = player.getHeight()+player.getMaxY()-player.getMinY();
-		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange);
+		enemyBank = new EnemyBank(res.path(), res.ads(), width, playerRange, 100);
 		enemyBank.setY(player.getMinY());
 		enemyBank.setEnemyVelocity(60.0/GameConstants.MAX_FPS, 400.0/GameConstants.MAX_FPS);
 
@@ -146,7 +146,7 @@ public class GamePanel extends JPanel implements Mouse.Listener, Keyboard.Listen
 
 	public void makeEnemyIndicator()
 	{
-		enemyIndicator = new GameEnemyIndicator(10);
+		enemyIndicator = new GameEnemyIndicator(enemyBank);
 		enemyIndicator.setBounds(2*width/3, 0, width/3-50, height/12);
 		enemyIndicator.setFont(FileUtils.getFont(Font.BOLD, height/24));
 		enemyIndicator.setForeground(GameConstants.ENEMY_INDICATOR_COLOR);
