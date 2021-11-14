@@ -1,9 +1,0 @@
-Trollolololol
-background.png
-troll.mp3
-player.png
-
-troll-blue.png
-troll-green.png
-troll-red.png
-troll-yellow.png

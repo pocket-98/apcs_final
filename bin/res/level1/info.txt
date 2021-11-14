@@ -1,8 +1,0 @@
-Tunak Tunak Tun
-background.png
-tunak.mp3
-player.png
-
-turbannlargement.png
-belly.png
-techsupport.png

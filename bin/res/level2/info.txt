@@ -1,7 +1,0 @@
-Pokemon Go
-background.png
-pokemon.mp3
-player.png
-
-balls.png
-pokejunk.png
